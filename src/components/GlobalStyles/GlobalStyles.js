@@ -51,7 +51,7 @@ table {
 *:before,
 *:after {
   box-sizing: border-box;
-  line-height: 1.45;
+  line-height: 1.6;
   font-family: 'Roboto', 'Noto Sans TC', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: auto;

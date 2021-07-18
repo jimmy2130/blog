@@ -59,6 +59,7 @@ const PreviewTitle = styled.h1`
 `
 
 const PreviewDescription = styled.p`
+  text-align: justify;
   font-size: calc(16 / 16 * 1rem);
   color: ${COLORS.gray[700]};
   margin-bottom: 24px;

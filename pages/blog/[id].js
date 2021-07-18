@@ -96,7 +96,7 @@ const List = styled.li`
 
 
 const Pre = (props) => {
-  console.log(props.children.props.className.split('-')[1])  //language
+  // console.log(props.children.props.className.split('-')[1])  //language
   // console.log(props.children.props.children)  //code
   return <pre {...props} />
 }
@@ -150,7 +150,7 @@ const Title = styled.h1`
   font-size: calc(36 / 16 * 1rem);
   font-weight: 700;
   color: ${COLORS.gray[1000]};
-  margin-bottom: 32px;
+  margin-bottom: 72px;
 `
 
 export default Post
