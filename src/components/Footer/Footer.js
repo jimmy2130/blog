@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {COLORS, QUERIES} from '../../constants'
+import {QUERIES} from '../../constants'
 import MaxWidthWrapper from '../MaxWidthWrapper'
 
 const Footer = () => {
@@ -17,7 +17,7 @@ const Wrapper = styled.footer`
   padding-top: 64px;
   padding-bottom: 64px;
   margin-top: auto;
-  background: ${COLORS.gray[1000]};
+  background: var(--color-gray-1000);
 
   @media ${QUERIES.phoneAndDown} {
     padding-top: 40px;

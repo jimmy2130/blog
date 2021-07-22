@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import {COLORS, QUERIES} from '../../constants'
+import {QUERIES} from '../../constants'
 
 const Em = styled.em`
-  color: ${COLORS.primary};
+  color: var(--color-primary);
   padding-right: 6px;
 `
 

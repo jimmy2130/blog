@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import {Wrapper as SidenoteWrapper} from '../Sidenote'
-import {COLORS, QUERIES} from '../../constants'
+import {QUERIES} from '../../constants'
 
 const Paragraph = styled.p`
   text-align: justify;
   font-size: calc(19 / 16 * 1rem);
-  color: ${COLORS.gray[1000]};
+  color: var(--color-gray-1000);
   margin-bottom: 20px;
 
   ${SidenoteWrapper} & {

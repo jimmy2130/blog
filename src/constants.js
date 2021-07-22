@@ -17,6 +17,34 @@ export const COLORS = {
   primaryDark: 'hsl(170deg 97% 15%)',
   secondary: 'hsl(205deg 76% 39%)',
   overlay: 'hsl(0deg 0% 0% / 0.55)',
+  light: {
+    gray: {
+      100: 'hsl(210deg 36% 96%)',
+      200: 'hsl(212deg 33% 89%)',
+      300: 'hsl(210deg 31% 80%)',
+      400: 'hsl(211deg 27% 70%)',
+      500: 'hsl(209deg 23% 60%)',
+      600: 'hsl(210deg 22% 49%)',
+      700: 'hsl(209deg 28% 39%)',
+      800: 'hsl(209deg 34% 30%)',
+      900: 'hsl(211deg 39% 23%)',
+      1000: 'hsl(209deg 61% 16%)',
+    },
+  },
+  dark: {
+    gray: {
+      100: 'hsl(209deg 61% 16%)',
+      200: 'hsl(211deg 39% 23%)',
+      300: 'hsl(209deg 34% 30%)',
+      400: 'hsl(209deg 28% 39%)',
+      500: 'hsl(210deg 22% 49%)',
+      600: 'hsl(209deg 23% 60%)',
+      700: 'hsl(211deg 27% 70%)',
+      800: 'hsl(210deg 31% 80%)',
+      900: 'hsl(212deg 33% 89%)',
+      1000: 'hsl(210deg 36% 96%)',
+    },
+  }
 };
 
 const BREAKPOINTS = {

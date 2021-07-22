@@ -9,7 +9,7 @@ import Paragraph from '../../src/components/Paragraph'
 import Em from '../../src/components/Em'
 import Sidenote from '../../src/components/Sidenote'
 import CodeBox from '../../src/components/CodeBox'
-import { COLORS, QUERIES } from '../../src/constants'
+import { QUERIES } from '../../src/constants'
 
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id)
@@ -29,10 +29,10 @@ export async function getStaticPaths() {
 }
 
 const Code = styled.code`
-  background: ${COLORS.gray[200]};
+  background: var(--color-gray-200);
   padding: 2px;
   border-radius: 4px;
-  color: ${COLORS.gray[1000]};
+  color: var(--color-gray-1000);
 
   pre & {
     display: block;
@@ -41,8 +41,8 @@ const Code = styled.code`
     margin-right: -32px;
     margin-bottom: 20px;
     border-radius: 8px;
-    background: ${COLORS.gray[200]};
-    color: ${COLORS.gray[1000]};
+    background: var(--color-gray-200);
+    color: var(--color-gray-1000);
     font-size: calc(17 / 16 * 1rem);
     line-height: 1.5;
   }
@@ -69,7 +69,7 @@ const List = styled.li`
   display: flex;
   align-items: baseline;
   font-size: calc(19 / 16 * 1rem);
-  color: ${COLORS.gray[1000]};
+  color: var(--color-gray-1000);
   margin-bottom: 16px;
 
   ${OrderedList} & {
@@ -77,7 +77,7 @@ const List = styled.li`
     &:before {
       content: counter(counts) ".";
       margin-right: 8px;
-      color: ${COLORS.primary};
+      color: var(--color-primary);
       font-weight: 700;
     }
   }
@@ -87,7 +87,7 @@ const List = styled.li`
       content: "＊";
       margin-left: -3px;
       margin-right: 8px;
-      color: ${COLORS.primary};
+      color: var(--color-primary);
       font-weight: 700;
     }
   }
@@ -149,7 +149,7 @@ const Title = styled.h1`
   text-align: center;
   font-size: calc(36 / 16 * 1rem);
   font-weight: 700;
-  color: ${COLORS.gray[1000]};
+  color: var(--color-gray-1000);
   margin-bottom: 72px;
 `
 

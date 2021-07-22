@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styled from 'styled-components'
 import Layout from '../src/components/Layout'
 
-import { COLORS, QUERIES } from '../src/constants'
+import { QUERIES } from '../src/constants'
 
 function About() {
   return (
@@ -36,13 +36,13 @@ const Title = styled.h1`
   text-align: center;
   font-size: calc(36 / 16 * 1rem);
   font-weight: 700;
-  color: ${COLORS.gray[1000]};
+  color: var(--color-gray-1000);
   margin-bottom: 32px;
 `
 
 const Text = styled.p`
   font-size: calc(19 / 16 * 1rem);
-  color: ${COLORS.gray[1000]};
+  color: var(--color-gray-1000);
   margin-bottom: 20px;
 `
 

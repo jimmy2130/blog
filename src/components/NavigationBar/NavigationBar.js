@@ -2,21 +2,29 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import MaxWidthWrapper from '../MaxWidthWrapper'
 import NavLink from '../NavLink'
-import {COLORS, QUERIES} from '../../constants'
+import DarkModeToggle from '../DarkModeToggle'
+import {QUERIES} from '../../constants'
+
 
 const NavigationBar = ({fixed}) => {
   const router = useRouter()
-  return (
+  return (   
     <Wrapper>
-      <MaxWidthWrapper>       
-        <NavList>
-          <li>
-            <NavLink path="/">Home</NavLink>
-          </li>
-          <li>            
-            <NavLink path="/about">About</NavLink>
-          </li>
-        </NavList>        
+      <MaxWidthWrapper>
+        <NavBar>
+          <Spacer/>
+          <NavList>
+            <li>
+              <NavLink path="/">Home</NavLink>
+            </li>
+            <li>            
+              <NavLink path="/about">About</NavLink>
+            </li>
+          </NavList>
+          <DarkModeToggleWrapper>
+            <DarkModeToggle/>
+          </DarkModeToggleWrapper>
+        </NavBar>
       </MaxWidthWrapper>
     </Wrapper>
   )
@@ -33,8 +41,15 @@ const Wrapper = styled.nav`
   align-items: center;
   width: 100%;
   height: 105px;
-  background-color: ${COLORS.gray[100]};
+  background-color: var(--color-gray-100);
+`
 
+const NavBar = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+`
+
+const Spacer = styled.div`
 `
 
 const NavList = styled.ul`
@@ -43,6 +58,11 @@ const NavList = styled.ul`
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
+`
+
+const DarkModeToggleWrapper = styled.div`
+  justify-self: end;
+  align-self: center;
 `
 
 export default NavigationBar
