@@ -5,7 +5,7 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-markup';
-import {COLORS, QUERIES} from '../../constants'
+import { QUERIES } from '../../constants'
 
 // https://www.npmjs.com/package/react-simple-code-editor
 // https://codesandbox.io/s/react-simple-code-editor-wgvnk?file=/src/prism.css
@@ -42,7 +42,7 @@ const Wrapper = styled.div`
   margin-right: -32px;
   margin-bottom: 20px;
   border-radius: 8px;
-  background: ${COLORS.gray[200]};
+  background: var(--color-gray-200);
 
   @media ${QUERIES.phoneAndDown} {
     padding: 32px 16px;
@@ -57,7 +57,7 @@ const MyEditor = styled(Editor)`
   pre[class*="language-"] {
     color: var(--syntax-black);
     background: none;
-    text-shadow: 0 1px white;
+    // text-shadow: 0 1px white;
     font-family: monospace, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     font-size: 1em;
     text-align: left;

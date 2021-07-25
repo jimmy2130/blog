@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components'
-import { COLORS } from '../../constants'
 
 const GlobalStyles = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -56,28 +55,6 @@ table {
   font-family: 'Roboto', 'Noto Sans TC', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: auto;
-}
-
-html {
-  --color-white: ${COLORS.white};
-  --color-primary: ${COLORS.primary};
-  --color-primary-light: ${COLORS.primaryLight};
-  --color-primary-dark: ${COLORS.primaryDark};
-  --color-secondary: ${COLORS.secondary};
-  --color-overlay: ${COLORS.overlay};
-
-  --syntax-background-light-blue: hsl(213deg 92% 85%);
-  --syntax-background-light-gray: hsl(24deg 20% 95%);
-  --syntax-black: hsl(0deg 0% 0%);
-  --syntax-slategray: hsl(210deg 13% 50%);
-  --syntax-gray: hsl(0deg 0% 60%);
-  --syntax-tag: hsl(327deg 100% 30%);
-  --syntax-selector: hsl(80deg 100% 30%);
-  --syntax-operator: hsl(33deg 45% 42%);
-  --syntax-keyword: hsl(198deg 100% 33%);
-  --syntax-function: hsl(348deg 68% 58%);
-  --syntax-regex: hsl(39deg 100% 47%);
-
 }
 
 html {

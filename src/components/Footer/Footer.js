@@ -17,7 +17,7 @@ const Wrapper = styled.footer`
   padding-top: 64px;
   padding-bottom: 64px;
   margin-top: auto;
-  background: var(--color-gray-1000);
+  background: var(--color-footer-background);
 
   @media ${QUERIES.phoneAndDown} {
     padding-top: 40px;
