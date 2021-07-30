@@ -1,6 +1,7 @@
 export const COLORS = {
   light: {
     color: {
+      'background': 'hsl(210deg 36% 96%)',
       'gray-100': 'hsl(210deg 36% 96%)',
       'gray-200': 'hsl(212deg 33% 89%)',
       'gray-300': 'hsl(210deg 31% 80%)',
@@ -11,9 +12,8 @@ export const COLORS = {
       'gray-800': 'hsl(209deg 34% 30%)',
       'gray-900': 'hsl(211deg 39% 23%)',
       'gray-1000': 'hsl(209deg 61% 16%)',
-      'primary': 'hsl(166deg 72% 28%)',
-      'secondary': 'hsl(205deg 76% 39%)',
-      'footer-background': 'hsl(209deg 61% 16%)',
+      'primary': 'hsl(214deg 95% 36%)',
+      'secondary': 'hsl(274deg 87% 43%)',
     },
     syntax: {
       'background-light-blue': 'hsl(213deg 92% 85%)',
@@ -31,6 +31,7 @@ export const COLORS = {
   },
   dark: {
     color: {
+      'background': 'hsl(210deg 30% 8%)',
       'gray-100': 'hsl(209deg 61% 16%)',
       'gray-200': 'hsl(211deg 39% 23%)',
       'gray-300': 'hsl(209deg 34% 30%)',
@@ -41,9 +42,8 @@ export const COLORS = {
       'gray-800': 'hsl(210deg 31% 80%)',
       'gray-900': 'hsl(212deg 33% 89%)',
       'gray-1000': 'hsl(210deg 36% 96%)',
-      'primary': 'hsl(166deg 72% 28%)',
-      'secondary': 'hsl(205deg 76% 39%)',
-      'footer-background': 'hsl(209deg 61% 16%)',
+      'primary': 'hsl(44deg 92% 63%)',
+      'secondary': 'hsl(206deg 93% 73%)',
     },
     syntax: {
       'background-light-blue': 'hsl(213deg 92% 85%)',

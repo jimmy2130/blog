@@ -5,10 +5,27 @@ import {bundleMDX} from 'mdx-bundler'
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
-export function getAllPostIds() {
+function filterPost() {
   return fs.readdirSync(postsDirectory)
     .filter(str => !str.startsWith('.'))
-    .map(file => {
+    .filter(fileName => {
+      if(process.env.NODE_ENV !== 'production') {
+        return true
+      }
+
+      // Read markdown file as string
+      const fullPath = path.join(postsDirectory, `${fileName}/${fileName}.mdx`)
+      const fileContents = fs.readFileSync(fullPath, 'utf8')
+
+      // Use gray-matter to parse the post metadata section
+      const matterResult = matter(fileContents)
+
+      return matterResult.data.published
+    })
+}
+
+export function getAllPostIds() {
+  return filterPost().map(file => {
       return {
         params: {
           id: file,
@@ -95,7 +112,7 @@ const getAllComponents = (mdxSource) => {
 
 export function getSortedPostsData() {
   // Get file names under /posts
-  const fileNames = fs.readdirSync(postsDirectory).filter(f => !f.startsWith('.'))
+  const fileNames = filterPost()
   const allPostsData = fileNames.map(fileName => {
     // Read markdown file as string
     const fullPath = path.join(postsDirectory, `${fileName}/${fileName}.mdx`)

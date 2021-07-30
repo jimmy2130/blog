@@ -40,13 +40,20 @@ const Wrapper = styled.nav`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 105px;
-  background-color: var(--color-gray-100);
+  
+  background-color: inherit;
 `
 
 const NavBar = styled.div`
   display: grid;
   grid-template-columns: 1fr auto 1fr;
+  padding-top: 24px;
+  padding-bottom: 24px;
+
+  @media ${QUERIES.phoneAndDown} {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
 `
 
 const Spacer = styled.div`

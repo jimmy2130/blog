@@ -16,12 +16,14 @@ function Home({ allPostsData }) {
       {
         allPostsData.map(post => {
           return (
-            <Link href={`/blog/${post.id}`} key={post.id}>
-              <PreviewWrapper>
-                <PreviewTitle>{post.title}</PreviewTitle>
-                <PreviewDescription>{post.description}</PreviewDescription>
-                <PreviewAction>閱讀更多...</PreviewAction>
-              </PreviewWrapper>
+            <Link href={`/blog/${post.id}`} passHref id={post.id}>
+              <BlogLink>
+                <PreviewWrapper>
+                  <PreviewTitle>{post.title}</PreviewTitle>
+                  <PreviewDescription>{post.description}</PreviewDescription>
+                  <PreviewAction>閱讀更多...</PreviewAction>
+                </PreviewWrapper>
+              </BlogLink>
             </Link>
           )
         })
@@ -40,7 +42,14 @@ const Main = styled.main`
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: 512px;
+  // padding-bottom: 512px;
+`
+
+const BlogLink = styled.a`
+  text-decoration: none;
+  &:focus {
+    outline-offset: -8px;
+  }
 `
 
 const PreviewWrapper = styled.div`
