@@ -6,10 +6,11 @@ import {getMDXComponent} from 'mdx-bundler/client'
 import Layout from '../../src/components/Layout'
 import {MajorHeading, NormalHeading} from '../../src/components/Heading'
 import Paragraph from '../../src/components/Paragraph'
+import Link from '../../src/components/Link'
 import Em from '../../src/components/Em'
 import Sidenote from '../../src/components/Sidenote'
 import CodeBox from '../../src/components/CodeBox'
-import { COLORS, QUERIES } from '../../src/constants'
+import { QUERIES } from '../../src/constants'
 
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id)
@@ -29,10 +30,10 @@ export async function getStaticPaths() {
 }
 
 const Code = styled.code`
-  background: ${COLORS.gray[200]};
+  background: var(--color-gray-200);
   padding: 2px;
   border-radius: 4px;
-  color: ${COLORS.gray[1000]};
+  color: var(--color-gray-1000);
 
   pre & {
     display: block;
@@ -41,8 +42,8 @@ const Code = styled.code`
     margin-right: -32px;
     margin-bottom: 20px;
     border-radius: 8px;
-    background: ${COLORS.gray[200]};
-    color: ${COLORS.gray[1000]};
+    background: var(--color-gray-200);
+    color: var(--color-gray-1000);
     font-size: calc(17 / 16 * 1rem);
     line-height: 1.5;
   }
@@ -69,7 +70,7 @@ const List = styled.li`
   display: flex;
   align-items: baseline;
   font-size: calc(19 / 16 * 1rem);
-  color: ${COLORS.gray[1000]};
+  color: var(--color-gray-1000);
   margin-bottom: 16px;
 
   ${OrderedList} & {
@@ -77,7 +78,7 @@ const List = styled.li`
     &:before {
       content: counter(counts) ".";
       margin-right: 8px;
-      color: ${COLORS.primary};
+      color: var(--color-primary);
       font-weight: 700;
     }
   }
@@ -87,7 +88,7 @@ const List = styled.li`
       content: "＊";
       margin-left: -3px;
       margin-right: 8px;
-      color: ${COLORS.primary};
+      color: var(--color-primary);
       font-weight: 700;
     }
   }
@@ -96,7 +97,7 @@ const List = styled.li`
 
 
 const Pre = (props) => {
-  console.log(props.children.props.className.split('-')[1])  //language
+  // console.log(props.children.props.className.split('-')[1])  //language
   // console.log(props.children.props.children)  //code
   return <pre {...props} />
 }
@@ -113,6 +114,7 @@ const components = {
   ol: OrderedList,
   ul: UnorderedList,
   li: List,
+  a: Link,
   // replace the tags in .mdx file with my components
   // 這裡的樣式，css-tag是完全正確的，可以套用contextual style
   // 這裡放的是一般常見的tag，如果是一次性使用的component，在.mdx裡面用import
@@ -142,15 +144,15 @@ const PostWrapper = styled.main`
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  padding: 32px 0 256px;
+  padding: 32px 0;
 `
 
 const Title = styled.h1`
   text-align: center;
   font-size: calc(36 / 16 * 1rem);
   font-weight: 700;
-  color: ${COLORS.gray[1000]};
-  margin-bottom: 32px;
+  color: var(--color-gray-1000);
+  margin-bottom: 72px;
 `
 
 export default Post

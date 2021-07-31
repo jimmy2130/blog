@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import UnstyledButton from '../UnstyledButton'
-import { COLORS, QUERIES } from '../../constants';
+import { QUERIES } from '../../constants';
 
 const NavLink = ({children, path}) => {
   const router = useRouter()
@@ -9,7 +9,7 @@ const NavLink = ({children, path}) => {
     <NavLinkWrapper
       onClick={() => router.push(path)}
       style={{
-        '--color': router.asPath === path ? COLORS.primary : COLORS.gray[1000],
+        '--color': router.asPath === path ? 'var(--color-primary)' : 'var(--color-gray-1000)',
         '--textDecoration': router.asPath === path ? 'underline' : 'none',
         '--textUnderlineOffset': router.asPath === path ? '6px' : '0',
       }}
@@ -29,7 +29,7 @@ const NavLinkWrapper = styled(UnstyledButton)`
   &:hover {
     text-decoration: underline;
     text-underline-offset: 6px;
-    color: ${COLORS.primary};
+    color: var(--color-primary);
   }
 `;
 

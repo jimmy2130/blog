@@ -1,40 +1,42 @@
 import styled from 'styled-components'
-import {COLORS, QUERIES} from '../../constants'
+import {QUERIES} from '../../constants'
 import MaxWidthWrapper from '../MaxWidthWrapper'
 
 const Footer = () => {
   return (
-    <Wrapper>
-      <MaxWidthWrapper>
-        <Content/>
-      </MaxWidthWrapper>
+    <Wrapper>      
+      <Copyright>
+        <MaxWidthWrapper>
+          <Content>© 2021 Jimmy Chen. All Rights Reserved.</Content>
+        </MaxWidthWrapper>
+      </Copyright>      
     </Wrapper>
   )
 }
 
 const Wrapper = styled.footer`
-  height: 300px;
-  padding-top: 64px;
-  padding-bottom: 64px;
+  height: 240px;
+  background: inherit;
+  padding-top: 20px;
+  padding-bottom: 20px;
   margin-top: auto;
-  background: ${COLORS.gray[1000]};
 
   @media ${QUERIES.phoneAndDown} {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 `
 
-const Content = styled.div`
+const Copyright = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+`
 
-  @media ${QUERIES.phoneAndDown} {
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-  }
+const Content = styled.div`
+  text-align: center;
+  color: var(--color-gray-700);
 `
 
 export default Footer

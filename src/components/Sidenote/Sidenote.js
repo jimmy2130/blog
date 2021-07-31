@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {COLORS, QUERIES} from '../../constants'
+import {QUERIES} from '../../constants'
 
 const Sidenote = ({children}) => {
   return <Wrapper>{children}</Wrapper>;
@@ -10,8 +10,8 @@ export const Wrapper = styled.aside`
   margin-left: -32px;
   margin-right: -32px;
   margin-bottom: 20px;
-  background: ${COLORS.gray[200]};
-  border-left: 4px solid ${COLORS.primary};
+  background: var(--color-gray-200);
+  border-left: 4px solid var(--color-primary);
   border-radius: 4px 8px 8px 4px;
 
   @media ${QUERIES.phoneAndDown} {

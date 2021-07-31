@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import styled from 'styled-components'
 import Layout from '../src/components/Layout'
-
-import { COLORS, QUERIES } from '../src/constants'
+import Paragraph from '../src/components/Paragraph'
+import { MajorHeading } from '../src/components/Heading'
+import Link from '../src/components/Link'
+import { QUERIES } from '../src/constants'
 
 function About() {
   return (
@@ -11,14 +13,9 @@ function About() {
         <title>About</title>
       </Head>
       <Wrapper>
-        <Title>關於我</Title>
-        <Text>飛經長時才府標美改的！沒半錢？沒留色不自活。學際連作政。理技面友料性這無便。上的道於何，車候主我要連動來工時點實，樣人作沒引超往蘭找國年何備能公研家能法保在他為度臺型設過，線下雲自全新性問顯興不質好有麼只色痛年地做滿，手際水直準的、張續就，務人老……海我明境！</Text>
-        <Text>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque debitis pariatur amet numquam vel corrupti provident temporibus. Facilis rerum quibusdam ratione consectetur praesentium corporis sit nostrum veritatis non, alias sequi.</Text>
-        <Text>飛經長時才府標美改的！沒半錢？沒留色不自活。學際連作政。理技面友料性這無便。上的道於何，車候主我要連動來工時點實，樣人作沒引超往蘭找國年何備能公研家能法保在他為度臺型設過，線下雲自全新性問顯興不質好有麼只色痛年地做滿，手際水直準的、張續就，務人老……海我明境！</Text>
-        <Text>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque debitis pariatur amet numquam vel corrupti provident temporibus. Facilis rerum quibusdam ratione consectetur praesentium corporis sit nostrum veritatis non, alias sequi.</Text>
-        <Text>飛經長時才府標美改的！沒半錢？沒留色不自活。學際連作政。理技面友料性這無便。上的道於何，車候主我要連動來工時點實，樣人作沒引超往蘭找國年何備能公研家能法保在他為度臺型設過，線下雲自全新性問顯興不質好有麼只色痛年地做滿，手際水直準的、張續就，務人老……海我明境！</Text>
-        <Text>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque debitis pariatur amet numquam vel corrupti provident temporibus. Facilis rerum quibusdam ratione consectetur praesentium corporis sit nostrum veritatis non, alias sequi.</Text>
-        <Text>飛經長時才府標美改的！沒半錢？沒留色不自活。學際連作政。理技面友料性這無便。上的道於何，車候主我要連動來工時點實，樣人作沒引超往蘭找國年何備能公研家能法保在他為度臺型設過，線下雲自全新性問顯興不質好有麼只色痛年地做滿，手際水直準的、張續就，務人老……海我明境！</Text>
+        <MajorHeading>關於我跟這個部落格</MajorHeading>
+        <Paragraph>嗨！我的名字是陳鎮宇，台北人，目前就讀台大機械所。我對網頁前端開發擁有濃厚的興趣，希望能用這個部落格，記錄我學會的一切。除此之外，我也在<Link href="https://www.tintinpiano.com/score/149172">廷廷的鋼琴窩</Link>上編製琴譜，你可以在上面找到我的作品。</Paragraph>
+        <Paragraph>這個部落格會記錄著我學習的各種事物，我預期會跟寫程式、編琴譜有關，希望你也能從中有所收穫。</Paragraph>
       </Wrapper>
     </Layout>
   )
@@ -28,7 +25,7 @@ const Wrapper = styled.div`
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  padding: 32px 0 256px;
+  padding-bottom: 32px;
   /*border: 1px solid;*/
 `
 
@@ -36,13 +33,13 @@ const Title = styled.h1`
   text-align: center;
   font-size: calc(36 / 16 * 1rem);
   font-weight: 700;
-  color: ${COLORS.gray[1000]};
+  color: var(--color-gray-1000);
   margin-bottom: 32px;
 `
 
 const Text = styled.p`
   font-size: calc(19 / 16 * 1rem);
-  color: ${COLORS.gray[1000]};
+  color: var(--color-gray-1000);
   margin-bottom: 20px;
 `
 

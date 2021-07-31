@@ -5,7 +5,7 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-markup';
-import {COLORS, QUERIES} from '../../constants'
+import { QUERIES } from '../../constants'
 
 // https://www.npmjs.com/package/react-simple-code-editor
 // https://codesandbox.io/s/react-simple-code-editor-wgvnk?file=/src/prism.css
@@ -42,7 +42,7 @@ const Wrapper = styled.div`
   margin-right: -32px;
   margin-bottom: 20px;
   border-radius: 8px;
-  background: ${COLORS.gray[200]};
+  background: var(--color-gray-200);
 
   @media ${QUERIES.phoneAndDown} {
     padding: 32px 16px;
@@ -55,9 +55,9 @@ const MyEditor = styled(Editor)`
   /* -- Syntax Highlighting Style Start -- */
   code[class*="language-"],
   pre[class*="language-"] {
-    color: black;
+    color: var(--syntax-black);
     background: none;
-    text-shadow: 0 1px white;
+    // text-shadow: 0 1px white;
     font-family: monospace, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     font-size: 1em;
     text-align: left;
@@ -82,7 +82,7 @@ const MyEditor = styled(Editor)`
   code[class*="language-"]::-moz-selection,
   code[class*="language-"] ::-moz-selection {
     text-shadow: none;
-    background: #b3d4fc;
+    background: var(--syntax-background-light-blue);
   }
 
   pre[class*="language-"]::selection,
@@ -90,7 +90,7 @@ const MyEditor = styled(Editor)`
   code[class*="language-"]::selection,
   code[class*="language-"] ::selection {
     text-shadow: none;
-    background: #b3d4fc;
+    background: var(--syntax-background-light-blue);
   }
 
   @media print {
@@ -107,7 +107,7 @@ const MyEditor = styled(Editor)`
 
   :not(pre) > code[class*="language-"],
   pre[class*="language-"] {
-    background: #f5f2f0;
+    background: var(--syntax-background-light-gray);
   }
 
   /* Inline code */
@@ -121,12 +121,12 @@ const MyEditor = styled(Editor)`
   .token.prolog,
   .token.doctype,
   .token.cdata {
-    color: slategray;
+    color: var(--syntax-slategray);
     font-family: monospace, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   }
 
   .token.punctuation {
-    color: #999;
+    color: var(--syntax-gray);
     font-family: monospace, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   }
 
@@ -141,7 +141,7 @@ const MyEditor = styled(Editor)`
   .token.constant,
   .token.symbol,
   .token.deleted {
-    color: #905;
+    color: var(--syntax-tag);
     font-family: monospace, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   }
 
@@ -151,7 +151,7 @@ const MyEditor = styled(Editor)`
   .token.char,
   .token.builtin,
   .token.inserted {
-    color: #690;
+    color: var(--syntax-selector);
     font-family: monospace, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   }
 
@@ -160,7 +160,7 @@ const MyEditor = styled(Editor)`
   .token.url,
   .language-css .token.string,
   .style .token.string {
-    color: #9a6e3a;
+    color: var(--syntax-operator);
     background: inherit;
     font-family: monospace, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   }
@@ -168,20 +168,20 @@ const MyEditor = styled(Editor)`
   .token.atrule,
   .token.attr-value,
   .token.keyword {
-    color: #07a;
+    color: var(--syntax-keyword);
     font-family: monospace, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   }
 
   .token.function,
   .token.class-name {
-    color: #dd4a68;
+    color: var(--syntax-function);
     font-family: monospace, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   }
 
   .token.regex,
   .token.important,
   .token.variable {
-    color: #e90;
+    color: var(--syntax-regex);
     font-family: monospace, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   }
 
