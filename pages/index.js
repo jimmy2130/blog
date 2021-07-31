@@ -16,7 +16,7 @@ function Home({ allPostsData }) {
       {
         allPostsData.map(post => {
           return (
-            <Link href={`/blog/${post.id}`} passHref id={post.id}>
+            <Link href={`/blog/${post.id}`} passHref key={post.id}>
               <BlogLink>
                 <PreviewWrapper>
                   <PreviewTitle>{post.title}</PreviewTitle>
@@ -87,7 +87,7 @@ const PreviewAction = styled.p`
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData()
-  console.log(allPostsData)
+  // console.log(allPostsData)
   return {
     props: {
       allPostsData

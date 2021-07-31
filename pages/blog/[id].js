@@ -6,6 +6,7 @@ import {getMDXComponent} from 'mdx-bundler/client'
 import Layout from '../../src/components/Layout'
 import {MajorHeading, NormalHeading} from '../../src/components/Heading'
 import Paragraph from '../../src/components/Paragraph'
+import Link from '../../src/components/Link'
 import Em from '../../src/components/Em'
 import Sidenote from '../../src/components/Sidenote'
 import CodeBox from '../../src/components/CodeBox'
@@ -113,6 +114,7 @@ const components = {
   ol: OrderedList,
   ul: UnorderedList,
   li: List,
+  a: Link,
   // replace the tags in .mdx file with my components
   // 這裡的樣式，css-tag是完全正確的，可以套用contextual style
   // 這裡放的是一般常見的tag，如果是一次性使用的component，在.mdx裡面用import
@@ -142,7 +144,7 @@ const PostWrapper = styled.main`
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  padding: 32px 0 256px;
+  padding: 32px 0;
 `
 
 const Title = styled.h1`
