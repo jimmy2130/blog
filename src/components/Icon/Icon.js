@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components'
-import { Sun, Moon } from 'react-feather';
+import { Sun, Moon, PlayCircle, PauseCircle } from 'react-feather';
 
 const icons = {
   sun: Sun,
   moon: Moon,
+  play: PlayCircle,
+  pause: PauseCircle,
 };
 
 const Icon = ({ id, color, size, strokeWidth, ...delegated }) => {
