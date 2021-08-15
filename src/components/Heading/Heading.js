@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {COLORS, QUERIES} from '../../constants'
+import {QUERIES} from '../../constants'
 
 const MajorHeading = styled.h2`
   font-size: calc(32 / 16 * 1rem);
