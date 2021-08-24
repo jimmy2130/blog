@@ -66,18 +66,14 @@ const AnswerDisplayWrapper = styled.div`
   align-content: center;
   height: 120px;
   padding: 16px 8px;
-  margin: 0 24px;
   text-align: center;
   font-size: calc(30 / 16 * 1rem);
   letter-spacing: 0.6em;
   background: var(--color-gray-200);
-  border-radius: 16px;
+  border-radius: 4px;
   overflow: auto;
 
   @media ${QUERIES.phoneAndDown} {
-    display: block;
-    justify-content: revert;
-    align-content: revert;
     padding: 4px 8px;
     letter-spacing: 0.1em;
   }
@@ -100,13 +96,32 @@ const KeyboardButton = ({ id, playScale, setAnswer }) => {
   )
 }
 
+const ButtonContent = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 4px;
+  background: var(--background);
+  font-size: calc(48 / 16 * 1rem);
+  &:hover {
+    background: var(--hover-background);
+  }
+  @media ${QUERIES.phoneAndDown} {
+    width: 48px;
+    height: 48px;
+    font-size: calc(32 / 16 * 1rem);
+  }
+`
+
 const DeleteButton = ({ deleteAnswer }) => {
   return (
     <UnstyledButton onClick={deleteAnswer}>
-      <ButtonContent style={{
-        '--hover-background': 'var(--color-gray-200)',
-      }}>
-        <Icon id="arrowLeft" color="var(--color-gray-1000)" size={36} strokeWidth={2}/>
+      <ButtonContent>
+        <ButtonView>
+          <Icon id="arrowLeft" color="var(--color-gray-1000)" size={24} strokeWidth={2}/>
+        </ButtonView>
       </ButtonContent>
     </UnstyledButton>
   )
@@ -115,32 +130,24 @@ const DeleteButton = ({ deleteAnswer }) => {
 const ClearButton = ({ clearAnswer }) => {
   return (
     <UnstyledButton onClick={clearAnswer}>
-      <ButtonContent style={{
-        '--hover-background': 'var(--color-gray-200)',
-      }}>
-        <Icon id="delete" color="var(--color-gray-1000)" size={36} strokeWidth={2}/>
+      <ButtonContent>
+        <ButtonView>
+          <Icon id="delete" color="var(--color-gray-1000)" size={24} strokeWidth={2}/>
+        </ButtonView>
       </ButtonContent>
     </UnstyledButton>
   )
 }
 
-const ButtonContent = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 76px;
-  height: 76px;
-  border: 2px solid var(--color-gray-1000);
-  border-radius: 4px;
-  background: var(--background);
-  font-size: calc(48 / 16 * 1rem);
+const ButtonView = styled.span`
+  padding: 16px;
+  border-radius: 50%;
+  background: var(--color-gray-200);
   &:hover {
-    background: var(--hover-background);
+    background: var(--color-gray-300);
   }
   @media ${QUERIES.phoneAndDown} {
-    width: 64px;
-    height: 64px;
-    font-size: calc(36 / 16 * 1rem);
+    padding: 8px;
   }
 `
 
@@ -183,8 +190,7 @@ const KeyboardButtonWrapper = styled.div`
   justify-items: start;
 
   @media ${QUERIES.phoneAndDown} {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
+    gap: 10px;
   }
 `
 
@@ -202,15 +208,17 @@ const PitchQuiz = () => {
         <PlayButton/>
       </PlayButtonWrapper>
       <Spacer size={20}/>
-      <AnswerDisplay answer={answer}></AnswerDisplay>
-      <Spacer size={20}/>
-      <KeyboardWrapper>
-        <Keyboard
-          setAnswer={setAnswer}
-          deleteAnswer={deleteAnswer}
-          clearAnswer={clearAnswer}
-        /> 
-      </KeyboardWrapper>     
+      <QuestionWrapper>
+        <AnswerDisplay answer={answer}></AnswerDisplay>
+        <Spacer size={20}/>
+        <KeyboardWrapper>
+          <Keyboard
+            setAnswer={setAnswer}
+            deleteAnswer={deleteAnswer}
+            clearAnswer={clearAnswer}
+          /> 
+        </KeyboardWrapper>
+      </QuestionWrapper>   
     </PitchQuizWrapper>
   )
 }
@@ -224,6 +232,12 @@ const PitchQuizWrapper = styled.div`
 const PlayButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+`
+
+const QuestionWrapper = styled.div`
+  width: min-content;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 const KeyboardWrapper = styled.div`
