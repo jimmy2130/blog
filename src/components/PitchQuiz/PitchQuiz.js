@@ -1,4 +1,5 @@
 import React from 'react'
+import {PitchQuizProvider, usePitchQuiz, EMOJI} from './usePitchQuiz.hook'
 import styled from 'styled-components'
 import useSound from 'use-sound'
 import UnstyledButton from '../UnstyledButton'
@@ -6,27 +7,11 @@ import Icon from '../Icon'
 import Spacer from '../Spacer'
 import {QUERIES} from '../../constants'
 
-const EMOJI = {
-  'c4': '🐶',
-  'c#4': '🐓',
-  'd4': '🐭',
-  'd#4': '🦃',
-  'e4': '🐱',
-  'f4': '🦊',
-  'f#4': '🦩',
-  'g4': '🐻',
-  'g#4': '🦜',
-  'a4': '🦁',
-  'a#4': '🦆',
-  'b4': '🐵',
-  'c5': '🐷',
-}
-
 const KEY = ['c4', 'c#4', 'd4', 'd#4','e4', 'f4', 'f#4', 'g4', 'g#4', 'a4', 'a#4', 'b4', 'c5']
 
-const PlayButton = () => {
+const PlayButton = ({ soundPath }) => {
   const [isPlaying, setIsPlaying] = React.useState(false)  
-  const [play, { stop }] = useSound('/butterfly.mp3', {
+  const [play, { stop }] = useSound(soundPath, {
     volume: 0.5,
     onplay: () => setIsPlaying(true),
     onend: () => setIsPlaying(false),
@@ -54,7 +39,8 @@ const PlayButton = () => {
   )
 }
 
-const AnswerDisplay = ({ answer }) => {
+const AnswerDisplay = () => {
+  const {answer} = usePitchQuiz()
   return (
     <AnswerDisplayWrapper>{answer}</AnswerDisplayWrapper>
   )
@@ -79,22 +65,46 @@ const AnswerDisplayWrapper = styled.div`
   }
 `
 
-const KeyboardButton = ({ id, playScale, setAnswer }) => {
+const KeyboardButton = ({ id, playScale }) => {
+  const { answer, setAnswer, submitted } = usePitchQuiz()
   const handleClick = () => {
     setAnswer(id)
     playScale({id: id})
   }
   return (
-    <UnstyledButton onClick={handleClick}>
-      <ButtonContent
-        style={{
-          '--background': id.includes('#') ? 'var(--color-gray-500)' : 'var(--color-gray-300)',
-          '--hover-background': id.includes('#') ? 'var(--color-gray-600)' : 'var(--color-gray-400)',
-        }}
-      >{EMOJI[id]}</ButtonContent>
-    </UnstyledButton>
+    <StyledButton
+      onClick={handleClick}
+      style={{
+        '--background': id.includes('#') ? 'var(--color-gray-500)' : 'var(--color-gray-300)',
+        '--hover-background': id.includes('#') ? 'var(--color-gray-600)' : 'var(--color-gray-400)',
+        '--cursor': answer.length >= 32 || submitted ? 'not-allowed' : null,
+      }}
+      disabled={answer.length >= 32 || submitted}
+    >
+    {EMOJI[id]}
+    </StyledButton>
   )
 }
+
+const StyledButton = styled(UnstyledButton)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 4px;
+  background: var(--background);
+  font-size: calc(48 / 16 * 1rem);
+  cursor: var(--cursor);
+  &:hover:enabled {
+    background: var(--hover-background);
+  }
+  @media ${QUERIES.phoneAndDown} {
+    width: 48px;
+    height: 48px;
+    font-size: calc(32 / 16 * 1rem);
+  }
+`
 
 const ButtonContent = styled.span`
   display: flex;
@@ -115,27 +125,24 @@ const ButtonContent = styled.span`
   }
 `
 
-const DeleteButton = ({ deleteAnswer }) => {
+const FunctionButton = ({ id, onClick }) => {
+  const { submitted } = usePitchQuiz()
   return (
-    <UnstyledButton onClick={deleteAnswer}>
-      <ButtonContent>
-        <ButtonView>
-          <Icon id="arrowLeft" color="var(--color-gray-1000)" size={24} strokeWidth={2}/>
-        </ButtonView>
-      </ButtonContent>
-    </UnstyledButton>
-  )
-}
-
-const ClearButton = ({ clearAnswer }) => {
-  return (
-    <UnstyledButton onClick={clearAnswer}>
-      <ButtonContent>
-        <ButtonView>
-          <Icon id="delete" color="var(--color-gray-1000)" size={24} strokeWidth={2}/>
-        </ButtonView>
-      </ButtonContent>
-    </UnstyledButton>
+    <StyledButton
+      onClick={onClick}
+      disabled={submitted}
+      style={{
+        '--cursor': submitted ? 'not-allowed' : null,
+      }}
+    >      
+      <ButtonView
+        style={{
+          '--hover-background': submitted ? 'var(--color-gray-200)' : 'var(--color-gray-300)',
+        }}
+      >
+        <Icon id={id} color="var(--color-gray-1000)" size={24} strokeWidth={2}/>
+      </ButtonView>
+    </StyledButton>
   )
 }
 
@@ -144,16 +151,18 @@ const ButtonView = styled.span`
   border-radius: 50%;
   background: var(--color-gray-200);
   &:hover {
-    background: var(--color-gray-300);
+    background: var(--hover-background);
   }
   @media ${QUERIES.phoneAndDown} {
     padding: 8px;
   }
 `
 
-const Keyboard = ({ setAnswer, deleteAnswer, clearAnswer }) => {
+const Keyboard = () => {
+  const { deleteAnswer, clearAnswer } = usePitchQuiz()
+
   const [playScale] = useSound('/scale.mp3', {
-    volume: 0.2,
+    volume: 0.5,
     sprite: {
       'c4': [0, 600],
       'c#4': [1000, 600],
@@ -174,11 +183,15 @@ const Keyboard = ({ setAnswer, deleteAnswer, clearAnswer }) => {
     <KeyboardButtonWrapper>
     {
       KEY.map(key => {
-        return <KeyboardButton key={key} id={key} playScale={playScale} setAnswer={setAnswer}/>
+        return <KeyboardButton
+          key={key}
+          id={key}
+          playScale={playScale}
+        />
       })
     }
-    <DeleteButton deleteAnswer={deleteAnswer}/>
-    <ClearButton clearAnswer={clearAnswer}/>
+    <FunctionButton onClick={deleteAnswer} id="arrowLeft"/>
+    <FunctionButton onClick={clearAnswer} id="delete"/>
     </KeyboardButtonWrapper>
   )  
 }
@@ -195,29 +208,47 @@ const KeyboardButtonWrapper = styled.div`
 `
 
 
-const PitchQuiz = () => {
-  const [answer, rawSetAnswer] = React.useState('')
-  const setAnswer = (id) => rawSetAnswer(answer + EMOJI[id])
-  const deleteAnswer = () => rawSetAnswer(answer.slice(0, -2))
-  const clearAnswer = () => rawSetAnswer('')
+const QuizContent = () => {
+  const {
+    answer,
+    isCorrect,
+    submitted,
+    setAnswer,
+    deleteAnswer,
+    clearAnswer,
+    checkAnswer,
+    question,
+  } = usePitchQuiz()
 
   return (
     <PitchQuizWrapper>
       <Spacer size={12}/>
       <PlayButtonWrapper>
-        <PlayButton/>
+        <PlayButton soundPath={question.soundPath}/>
       </PlayButtonWrapper>
       <Spacer size={20}/>
       <QuestionWrapper>
-        <AnswerDisplay answer={answer}></AnswerDisplay>
+        <AnswerDisplay/>
         <Spacer size={20}/>
         <KeyboardWrapper>
-          <Keyboard
-            setAnswer={setAnswer}
-            deleteAnswer={deleteAnswer}
-            clearAnswer={clearAnswer}
-          /> 
+          <Keyboard/> 
         </KeyboardWrapper>
+        <button onClick={checkAnswer} disabled={submitted}>Submit</button>
+        {          
+          submitted ? (
+            isCorrect ? (
+              <>
+              <div>That's correct</div>
+              <div>{question.explanation}</div>
+              </>
+            ) : (
+              <>
+              <div>That's not correct</div>
+              <div>{question.explanation}</div>
+              </>
+            )
+          ) : null
+        }
       </QuestionWrapper>   
     </PitchQuizWrapper>
   )
@@ -244,5 +275,13 @@ const KeyboardWrapper = styled.div`
   display: flex;
   justify-content: center;
 `
+
+const PitchQuiz = () => {
+  return (
+    <PitchQuizProvider>
+      <QuizContent></QuizContent>
+    </PitchQuizProvider>
+  )
+}
 
 export default PitchQuiz
