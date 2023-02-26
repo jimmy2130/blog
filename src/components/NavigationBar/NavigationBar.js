@@ -1,77 +1,68 @@
-import { useRouter } from 'next/router'
-import styled from 'styled-components'
-import MaxWidthWrapper from '../MaxWidthWrapper'
-import NavLink from '../NavLink'
-import DarkModeToggle from '../DarkModeToggle'
-import {QUERIES} from '../../constants'
+import NextLink from 'next/link';
+import styled from 'styled-components';
 
-
-const NavigationBar = ({fixed}) => {
-  const router = useRouter()
-  return (   
-    <Wrapper>
-      <MaxWidthWrapper>
-        <NavBar>
-          <Spacer/>
-          <NavList>
-            <li>
-              <NavLink path="/">Home</NavLink>
-            </li>
-            <li>            
-              <NavLink path="/about">About</NavLink>
-            </li>
-          </NavList>
-          <DarkModeToggleWrapper>
-            <DarkModeToggle/>
-          </DarkModeToggleWrapper>
-        </NavBar>
-      </MaxWidthWrapper>
-    </Wrapper>
-  )
-}
+const NavigationBar = () => {
+	return (
+		<Wrapper>
+			<Logo>
+				<Link href="/">JimmyJim</Link>
+			</Logo>
+			<NavigationList>
+				<ListItem>
+					<Link href="/about">關於我</Link>
+				</ListItem>
+				<ListItem>
+					<Link href="/article">文章</Link>
+				</ListItem>
+			</NavigationList>
+		</Wrapper>
+	);
+};
 
 const Wrapper = styled.nav`
-  position: sticky;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  
-  background-color: inherit;
-`
+	--max-width: 1152px;
+	--padding: 60px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 158px;
+	background-color: inherit;
 
-const NavBar = styled.div`
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  padding-top: 24px;
-  padding-bottom: 24px;
+	font-size: calc(18 / 16 * 1rem);
+	color: var(--gray-900);
+	/* border: solid; */
 
-  @media ${QUERIES.phoneAndDown} {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-`
+	max-width: calc(var(--max-width) + 2 * var(--padding));
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--padding);
+	padding-right: var(--padding);
+`;
 
-const Spacer = styled.div`
-`
+const Logo = styled.span``;
 
-const NavList = styled.ul`
-  display: flex;
-  gap: 48px;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-`
+const Link = styled(NextLink)`
+	text-decoration: none;
+	color: var(--gray-900);
+	padding: 16px;
 
-const DarkModeToggleWrapper = styled.div`
-  justify-self: end;
-  align-self: center;
-`
+	&:hover {
+		text-decoration: revert;
+		text-underline-offset: 4px;
+	}
+`;
 
-export default NavigationBar
+const NavigationList = styled.ul`
+	padding: 0;
+	list-style: none;
+	display: flex;
+	gap: 40px;
+`;
 
+const ListItem = styled.li``;
 
+export default NavigationBar;

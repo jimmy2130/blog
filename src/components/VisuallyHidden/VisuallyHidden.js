@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const VisuallyHidden = ({ children, ...delegated }) => {
+const VisuallyHidden = ({ children, as = 'span', ...delegated }) => {
 	const [forceShow, setForceShow] = React.useState(false);
 
 	React.useEffect(() => {
@@ -30,7 +30,11 @@ const VisuallyHidden = ({ children, ...delegated }) => {
 		return children;
 	}
 
-	return <Wrapper {...delegated}>{children}</Wrapper>;
+	return (
+		<Wrapper as={as} {...delegated}>
+			{children}
+		</Wrapper>
+	);
 };
 
 const Wrapper = styled.span`
