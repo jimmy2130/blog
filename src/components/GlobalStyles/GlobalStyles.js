@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -79,6 +79,11 @@ html, body, #root {
 
 #__next {
   height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
 
 

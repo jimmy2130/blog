@@ -1,89 +1,90 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
-import {bundleMDX} from 'mdx-bundler'
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { bundleMDX } from 'mdx-bundler';
 
-const postsDirectory = path.join(process.cwd(), 'posts')
+const postsDirectory = path.join(process.cwd(), 'posts');
 
 function filterPost() {
-  return fs.readdirSync(postsDirectory)
-    .filter(str => !str.startsWith('.'))
-    .filter(fileName => {
-      if(process.env.NODE_ENV !== 'production') {
-        return true
-      }
+	return fs
+		.readdirSync(postsDirectory)
+		.filter(str => !str.startsWith('.'))
+		.filter(fileName => {
+			if (process.env.NODE_ENV !== 'production') {
+				return true;
+			}
 
-      // Read markdown file as string
-      const fullPath = path.join(postsDirectory, `${fileName}/${fileName}.mdx`)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
+			// Read markdown file as string
+			const fullPath = path.join(postsDirectory, `${fileName}/${fileName}.mdx`);
+			const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-      // Use gray-matter to parse the post metadata section
-      const matterResult = matter(fileContents)
+			// Use gray-matter to parse the post metadata section
+			const matterResult = matter(fileContents);
 
-      return matterResult.data.published
-    })
+			return matterResult.data.published;
+		});
 }
 
+// expected data structure:
+// [
+// 	{
+// 		params: { id: 'ssg-ssr' },
+// 	},
+// 	{
+// 		params: { id: 'pre-rendering' },
+// 	},
+// ];
 export function getAllPostIds() {
-  return filterPost().map(file => {
-      return {
-        params: {
-          id: file,
-        }
-      }
-    })
-
-  // Returns an array that looks like this:
-  // [
-  //   {
-  //     params: {
-  //       id: 'ssg-ssr'
-  //     }
-  //   },
-  //   {
-  //     params: {
-  //       id: 'pre-rendering'
-  //     }
-  //   }
-  // ]
+	return filterPost().map(file => {
+		return {
+			params: {
+				id: file,
+			},
+		};
+	});
 }
 
 export async function getPostData(id) {
-  const fullPath = path.join(postsDirectory, `${id}/${id}.mdx`)
-  const mdxSource = fs.readFileSync(fullPath, 'utf8').toString();
-  // get all the components
-  const componentsSource = getAllComponents(mdxSource);
-  
-  // bundle
-  const {code, frontmatter} = await bundleMDX(mdxSource, {
-    // files: {
-    //   '../components/Demo': componentText,
-    // },
-    files: componentsSource,
-    esbuildOptions: (options) => {
-      options.platform = 'node'
-      return options
-    }
+	const fullPath = path.join(postsDirectory, `${id}/${id}.mdx`);
+	const mdxSource = fs.readFileSync(fullPath, 'utf8').toString();
+	// get all the components
+	const componentsSource = getAllComponents(mdxSource);
 
-  })
-  return {code, frontmatter};
-
+	// bundle
+	const { code, frontmatter } = await bundleMDX(mdxSource, {
+		// files: {
+		//   '../components/Demo': componentText,
+		// },
+		files: componentsSource,
+		esbuildOptions: options => {
+			options.platform = 'node';
+			return options;
+		},
+	});
+	return { code, frontmatter };
 }
 
-const getAllComponents = (mdxSource) => {
-  const mdxSourceLines = mdxSource.split('\n').filter(line => {
-    return line.slice(0, 6) === 'import' && line.includes('from') && line.includes('/');
-  });
+function getAllComponents(mdxSource) {
+	const mdxSourceLines = mdxSource.split('\n').filter(line => {
+		return (
+			line.slice(0, 6) === 'import' &&
+			line.includes('from') &&
+			line.includes('/')
+		);
+	});
 
-  const components = mdxSourceLines.map(line => line.split(' ')[1]);
+	const components = mdxSourceLines.map(line => line.split(' ')[1]);
 
-  return components.reduce((acc, cur) => {
-    const key = `../components/${cur}`;
-    const sourcePath = path.join(process.cwd(), `src/components/${cur}/${cur}.js`);
-    const value = fs.readFileSync(sourcePath, 'utf8').toString();
-    acc[key] = value;
-    return acc;
-  }, {})
+	return components.reduce((acc, cur) => {
+		const key = `../components/${cur}`;
+		const sourcePath = path.join(
+			process.cwd(),
+			`src/components/${cur}/${cur}.js`,
+		);
+		const value = fs.readFileSync(sourcePath, 'utf8').toString();
+		acc[key] = value;
+		return acc;
+	}, {});
 }
 
 // const mdxSource = `
@@ -111,28 +112,28 @@ const getAllComponents = (mdxSource) => {
 // }
 
 export function getSortedPostsData() {
-  // Get file names under /posts
-  const fileNames = filterPost()
-  const allPostsData = fileNames.map(fileName => {
-    // Read markdown file as string
-    const fullPath = path.join(postsDirectory, `${fileName}/${fileName}.mdx`)
-    const fileContents = fs.readFileSync(fullPath, 'utf8')
+	// Get file names under /posts
+	const fileNames = filterPost();
+	const allPostsData = fileNames.map(fileName => {
+		// Read markdown file as string
+		const fullPath = path.join(postsDirectory, `${fileName}/${fileName}.mdx`);
+		const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents)
+		// Use gray-matter to parse the post metadata section
+		const matterResult = matter(fileContents);
 
-    // Combine the data with the id
-    return {
-      id: fileName,
-      ...matterResult.data
-    }
-  })
-  // Sort posts by date
-  return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1
-    } else {
-      return -1
-    }
-  })
+		// Combine the data with the id
+		return {
+			id: fileName,
+			...matterResult.data,
+		};
+	});
+	// Sort posts by date
+	return allPostsData.sort((a, b) => {
+		if (a.date < b.date) {
+			return 1;
+		} else {
+			return -1;
+		}
+	});
 }
