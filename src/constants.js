@@ -70,13 +70,13 @@ export const COLORS = {
 };
 
 const BREAKPOINTS = {
-	laptopMax: 1300, //not yet decided
+	laptopMax: 1511, //not yet decided
 	tabletMax: 820,
 	phoneMax: 480,
 };
 
 export const QUERIES = {
-	latopAndDown: `(max-width: ${BREAKPOINTS.laptopMax / 16}rem)`,
+	laptopAndDown: `(max-width: ${BREAKPOINTS.laptopMax / 16}rem)`,
 	tabletAndDown: `(max-width: ${BREAKPOINTS.tabletMax / 16}rem)`,
 	phoneAndDown: `(max-width: ${BREAKPOINTS.phoneMax / 16}rem)`,
 };
