@@ -33,14 +33,18 @@ function Wave() {
 	);
 }
 
+// if(100vw >= 1512px) {
+// 	width = 100vw
+// } else {
+// 	width = 100vw + (1512px - 100vw) * 1 / 10
+// }
+
 const Wrapper = styled.div`
-	position: relative;
-	min-width: 1512px;
-	height: 283px;
+	/* control the wave width */
+	width: max(100%, calc(100% + (1512px - 100%) / 7));
 `;
 
 const Svg = styled.svg`
-	position: absolute;
 	width: 100%;
 `;
 

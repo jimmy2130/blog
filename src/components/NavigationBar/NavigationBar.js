@@ -1,46 +1,43 @@
 import NextLink from 'next/link';
 import styled from 'styled-components';
+import MaxWidthWrapper from '../MaxWidthWrapper';
+import VisuallyHidden from '../VisuallyHidden';
 
 const NavigationBar = () => {
 	return (
 		<Wrapper>
-			<Logo>
-				<Link href="/">JimmyJim</Link>
-			</Logo>
-			<NavigationList>
-				<ListItem>
-					<Link href="/about">關於我</Link>
-				</ListItem>
-				<ListItem>
-					<Link href="/article">文章</Link>
-				</ListItem>
-			</NavigationList>
+			<VisuallyHidden as={'div'}>
+				<h1>JimmyJim's Blog</h1>
+			</VisuallyHidden>
+			<NavMaxWidthWrapper>
+				<Logo>
+					<Link href="/">JimmyJim</Link>
+				</Logo>
+				<NavigationList>
+					<ListItem>
+						<Link href="/about">關於我</Link>
+					</ListItem>
+					<ListItem>
+						<Link href="/article">文章</Link>
+					</ListItem>
+				</NavigationList>
+			</NavMaxWidthWrapper>
 		</Wrapper>
 	);
 };
 
 const Wrapper = styled.nav`
-	--max-width: 1152px;
-	--padding: 60px;
-	position: absolute;
-	left: 0;
-	right: 0;
+	height: 158px;
+	background: var(--color-primary-50);
+	font-size: calc(18 / 16 * 1rem);
+	color: var(--gray-900);
+`;
+
+const NavMaxWidthWrapper = styled(MaxWidthWrapper)`
+	height: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 100%;
-	height: 158px;
-	background-color: inherit;
-
-	font-size: calc(18 / 16 * 1rem);
-	color: var(--gray-900);
-	/* border: solid; */
-
-	max-width: calc(var(--max-width) + 2 * var(--padding));
-	margin-left: auto;
-	margin-right: auto;
-	padding-left: var(--padding);
-	padding-right: var(--padding);
 `;
 
 const Logo = styled.span``;
@@ -48,7 +45,6 @@ const Logo = styled.span``;
 const Link = styled(NextLink)`
 	text-decoration: none;
 	color: var(--gray-900);
-	padding: 16px;
 
 	&:hover {
 		text-decoration: revert;
