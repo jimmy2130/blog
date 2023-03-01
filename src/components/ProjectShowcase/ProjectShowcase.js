@@ -91,24 +91,27 @@ const ButtonGroup = styled.div`
 	gap: 20px;
 `;
 
-const SecondaryButton = styled(UnStyledButton)`
-	color: var(--color-primary-500);
-	border: 2px solid var(--color-primary-500);
-	border-radius: 4px;
+const Button = styled(UnStyledButton)`
 	padding-top: 12px;
 	padding-bottom: 12px;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	font-size: calc(14 / 16 * 1rem);
+	border-radius: 4px;
+`;
+
+const SecondaryButton = styled(Button)`
+	color: var(--color-primary-500);
+	border: 2px solid var(--color-primary-500);
 
 	&:hover {
 		color: var(--color-primary-400);
 		border: 2px solid var(--color-primary-400);
 	}
 `;
-const PrimaryButton = styled(UnStyledButton)`
+const PrimaryButton = styled(Button)`
 	background: var(--color-primary-500);
 	color: var(--color-gray-50);
-	border-radius: 4px;
-	padding-top: 12px;
-	padding-bottom: 12px;
 
 	&:hover {
 		background: var(--color-primary-400);
