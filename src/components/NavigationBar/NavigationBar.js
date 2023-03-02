@@ -43,6 +43,7 @@ const NavMaxWidthWrapper = styled(MaxWidthWrapper)`
 const Logo = styled.span``;
 
 const Link = styled(NextLink)`
+	padding: 8px 12px;
 	text-decoration: none;
 	color: var(--gray-900);
 

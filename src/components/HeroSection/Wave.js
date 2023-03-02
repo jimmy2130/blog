@@ -42,8 +42,6 @@ function Wave() {
 const Wrapper = styled.div`
 	/* control the wave width */
 	width: max(100%, calc(100% + (1512px - 100%) / 7));
-	width: 100%;
-	border: solid;
 `;
 
 const Svg = styled.svg`

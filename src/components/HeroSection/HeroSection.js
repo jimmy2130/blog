@@ -4,6 +4,7 @@ import NavigationBar from '../NavigationBar';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import Spacer from '../Spacer';
 import Wave from './Wave';
+import { QUERIES } from '../../constants';
 
 function HeroSection({ index = false, title, subtitle }) {
 	const NavigationBarHeight = 158;
@@ -47,11 +48,21 @@ const Title = styled.div`
 	font-weight: 700;
 	line-height: 48px;
 	margin-bottom: 16px;
+
+	@media ${QUERIES.phoneAndDown} {
+		font-size: calc(36 / 16 * 1rem);
+		line-height: 39px;
+		margin-bottom: 12px;
+	}
 `;
 
 const SubTitle = styled.div`
 	font-size: calc(22 / 16 * 1rem);
 	line-height: 150%;
+
+	@media ${QUERIES.phoneAndDown} {
+		font-size: calc(16 / 16 * 1rem);
+	}
 `;
 
 const WaveWrapper = styled.div`
