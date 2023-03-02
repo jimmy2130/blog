@@ -70,7 +70,7 @@ export const COLORS = {
 };
 
 const BREAKPOINTS = {
-	laptopMax: 1511, //not yet decided
+	laptopMax: 1400, //not yet decided
 	tabletMax: 820,
 	phoneMax: 480,
 };

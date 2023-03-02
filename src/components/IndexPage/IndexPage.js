@@ -4,6 +4,7 @@ import HeroSection from '../HeroSection';
 import ProjectShowCase from '../ProjectShowcase';
 import Spacer from '../Spacer';
 import Footer from '../Footer';
+import { QUERIES } from '../../constants';
 
 function IndexPage() {
 	return (
@@ -31,6 +32,16 @@ function IndexPage() {
 const MainSection = styled.main`
 	padding-top: 180px;
 	padding-bottom: 180px;
+
+	@media ${QUERIES.tabletAndDown} {
+		padding-top: 80px;
+		padding-bottom: 80px;
+	}
+
+	@media ${QUERIES.phoneAndDown} {
+		padding-top: 52px;
+		padding-bottom: 52px;
+	}
 `;
 
 export default IndexPage;
