@@ -10,7 +10,7 @@ export const DATA = [
 		summary:
 			'這是一個用 REST Countries API打造的國家查詢器，可以瀏覽世界上的國家，也能進一步檢視國家資訊。',
 		illustration: Project1Visual,
-		workLink: '/',
+		workLink: 'https://rest-countries-api-pi-ten.vercel.app',
 		readMoreLink: '/',
 	},
 	{
@@ -20,7 +20,7 @@ export const DATA = [
 		summary:
 			'這是一個可以單人或多人遊玩的記憶翻牌遊戲，不但有兩種遊戲難度，還支援記憶數字與記憶圖案兩種模式。',
 		illustration: Project2Visual,
-		workLink: '/',
+		workLink: 'https://memory-game-one-tau.vercel.app',
 		readMoreLink: '/',
 	},
 	{

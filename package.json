@@ -8,12 +8,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.12",
     "gray-matter": "^4.0.3",
     "mdx-bundler": "^3.4.1",
     "next": "^13.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-feather": "^2.0.9",
+    "react-feather": "^2.0.10",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {

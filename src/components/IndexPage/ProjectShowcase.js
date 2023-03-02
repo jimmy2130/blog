@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import NextLink from 'next/link';
 import MWW from '../MaxWidthWrapper';
-import UnStyledButton from '../UnstyledButton';
 import { QUERIES } from '../../constants';
 
 function ProjectShowcase({
@@ -24,8 +23,12 @@ function ProjectShowcase({
 					<Content>
 						<Summary>{summary}</Summary>
 						<LinkGroup>
-							<SecondaryLink href={workLink}>看作品</SecondaryLink>
-							<PrimaryLink href={readMoreLink}>看製作歷程</PrimaryLink>
+							<SecondaryLink href={workLink} target="_blank">
+								看作品
+							</SecondaryLink>
+							<PrimaryLink href={readMoreLink} target="_blank">
+								看製作歷程
+							</PrimaryLink>
 						</LinkGroup>
 					</Content>
 				</ContextWrapper>
@@ -57,7 +60,7 @@ const MaxWidthWrapper = styled(MWW)`
 
 const Wrapper = styled.div`
 	display: flex;
-	gap: 60px;
+	gap: clamp(60px, 100vw - 1386px, 126px);
 	justify-content: space-between;
 	align-items: center;
 	color: var(--color-gray-900);
@@ -98,6 +101,11 @@ const ContextWrapper = styled.div`
 		max-width: revert;
 		gap: 16px;
 	}
+
+	@media ${QUERIES.phoneAndDown} {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
 `;
 
 const TitleWrapper = styled.div``;
@@ -121,9 +129,11 @@ const Title = styled.h2`
 const Subtitle = styled.div`
 	color: var(--color-gray-500);
 	font-size: calc(18 / 16 * 1rem);
+	margin-left: 2px;
 
 	@media ${QUERIES.phoneAndDown} {
 		font-size: calc(16 / 16 * 1rem);
+		margin-left: 0;
 	}
 `;
 
