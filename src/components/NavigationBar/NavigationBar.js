@@ -16,7 +16,7 @@ const NavigationBar = () => {
 	return (
 		<Wrapper>
 			<VisuallyHidden as="div">
-				<h1>JimmyJim's Blog</h1>
+				<h1>JimmyJim的部落格</h1>
 			</VisuallyHidden>
 			<MaxWidthWrapper>
 				<Logo>

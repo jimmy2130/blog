@@ -1,23 +1,26 @@
 {
-  "name": "blog",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "@headlessui/react": "^1.7.12",
-    "gray-matter": "^4.0.3",
-    "mdx-bundler": "^3.4.1",
-    "next": "^13.2.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-feather": "^2.0.10",
-    "styled-components": "^5.3.6"
-  },
-  "devDependencies": {
-    "babel-plugin-styled-components": "^2.0.7"
-  }
+	"name": "blog",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@headlessui/react": "^1.7.12",
+		"gray-matter": "^4.0.3",
+		"mdx-bundler": "^3.4.1",
+		"next": "^13.2.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-feather": "^2.0.10",
+		"styled-components": "^5.3.6"
+	},
+	"devDependencies": {
+		"babel-plugin-styled-components": "^2.0.7",
+		"eslint": "8.35.0",
+		"eslint-config-next": "13.2.3"
+	}
 }
