@@ -41,7 +41,8 @@ function ProjectShowcase({
 }
 
 const MaxWidthWrapper = styled(MWW)`
-	@media (max-width: calc(1205 / 16 * 1rem)) {
+	/* avoid visible scroll bar width, so add 20px */
+	@media (max-width: calc((1205 + 20) / 16 * 1rem)) {
 		margin: 0;
 		padding: 0;
 		padding-left: 60px;
@@ -67,7 +68,8 @@ const Wrapper = styled.div`
 	/* hide overflow illustration */
 	overflow: hidden;
 
-	@media (max-width: calc(1205 / 16 * 1rem)) {
+	/* avoid visible scroll bar width, so add 20px */
+	@media (max-width: calc((1205 + 20) / 16 * 1rem)) {
 		justify-content: revert;
 	}
 
