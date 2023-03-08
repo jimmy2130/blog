@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const KEYS = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft'];
 
-function CircleElement({
+function GamePiece({
 	cx,
 	cy,
 	id,
@@ -17,6 +17,10 @@ function CircleElement({
 
 	function handleKeyDown(event) {
 		if (event.code === 'Enter') {
+			event.stopPropagation();
+			openCircle();
+		} else if (event.code === 'Space') {
+			event.preventDefault();
 			event.stopPropagation();
 			openCircle();
 		} else if (KEYS.includes(event.code)) {
@@ -43,6 +47,8 @@ function CircleElement({
 					? 'var(--color-primary-200)'
 					: 'var(--color-primary-400)',
 			}}
+			role="button"
+			aria-label={'翻牌'}
 		/>
 	);
 }
@@ -98,4 +104,4 @@ function useFocus(id, focusableId) {
 	return { ref: circleRef, tabIndex };
 }
 
-export default CircleElement;
+export default GamePiece;

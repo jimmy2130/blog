@@ -5,7 +5,7 @@ import ProjectShowCase from './ProjectShowcase';
 import Spacer from '../Spacer';
 import Footer from '../Footer';
 import { QUERIES } from '../../constants';
-import { DATA } from './data';
+import { DATA } from './project-data';
 
 function IndexPage() {
 	return (

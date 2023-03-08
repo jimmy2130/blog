@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import CircleElement from './CircleElement';
+import GamePiece from './GamePiece';
 
 const CX = ['257.895', '323.392', '388.889', '454.386'];
 const CY = ['102.341', '167.839', '233.335', '298.833'];
@@ -64,7 +64,7 @@ function Project2Visual() {
 				/>
 				{CY.map((cy, yIndex) =>
 					CX.map((cx, xIndex) => (
-						<CircleElement
+						<GamePiece
 							cx={cx}
 							cy={cy}
 							key={`${cx}-${cy}`}

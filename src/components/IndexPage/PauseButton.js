@@ -9,12 +9,7 @@ function PauseButton() {
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 		>
-			<circle
-				cx="28.655"
-				cy="28.655"
-				r="28.655"
-				fill="var(--color-primary-500)"
-			/>
+			<circle cx="29" cy="29" r="29" fill="var(--color-primary-500)" />
 			<rect
 				x="20.15"
 				y="19"

@@ -4,7 +4,7 @@ import UnstyledButton from '../UnstyledButton';
 import PlayButton from './PlayButton';
 import PauseButton from './PauseButton';
 import VisuallyHidden from '../VisuallyHidden';
-import RectPath from './RectPath';
+import Staff from './Staff';
 import { QUERIES } from '../../constants';
 
 const TAB_CHANGE_PERIOD = 700;
@@ -30,9 +30,9 @@ function Project3Visual() {
 					)}
 					<VisuallyHidden>
 						{animationState === 'play' || animationState === 'resume'
-							? 'pause'
-							: 'play'}{' '}
-						the animation
+							? '暫停'
+							: '開始'}
+						動畫
 					</VisuallyHidden>
 				</Button>
 			</TransparentCover>
@@ -76,7 +76,7 @@ function Project3Visual() {
 							: 'var(--color-gray-300)'
 					}
 				/>
-				<RectPath
+				<Staff
 					x="98.2456"
 					y="151.463"
 					width="417.544"
@@ -87,7 +87,7 @@ function Project3Visual() {
 					internalPause={internalPause}
 					order={0}
 				/>
-				<RectPath
+				<Staff
 					x="98.2456"
 					y="192.398"
 					width="417.544"
@@ -98,7 +98,7 @@ function Project3Visual() {
 					internalPause={internalPause}
 					order={1}
 				/>
-				<RectPath
+				<Staff
 					x="98.2456"
 					y="249.707"
 					width="417.544"
@@ -109,7 +109,7 @@ function Project3Visual() {
 					internalPause={internalPause}
 					order={2}
 				/>
-				<RectPath
+				<Staff
 					x="98.2456"
 					y="290.643"
 					width="417.544"
@@ -120,7 +120,7 @@ function Project3Visual() {
 					internalPause={internalPause}
 					order={3}
 				/>
-				<RectPath
+				<Staff
 					x="98.2456"
 					y="347.953"
 					width="417.544"
@@ -131,35 +131,35 @@ function Project3Visual() {
 					internalPause={internalPause}
 					order={4}
 				/>
-				<RectPath
+				<Staff
 					d="M98.2456 390.889C98.2456 389.784 99.141 388.889 100.246 388.889H513.789C514.894 388.889 515.789 389.784 515.789 390.889V401.169H98.2456V390.889Z"
 					fill="var(--color-gray-400)"
 					animationState={animationState}
 					internalPause={internalPause}
 					order={5}
 				/>
-				<RectPath
+				<Staff
 					d="M630.409 116.619C630.409 115.515 631.305 114.619 632.409 114.619H700V130.993H632.409C631.305 130.993 630.409 130.098 630.409 128.993V116.619Z"
 					fill="var(--color-gray-400)"
 					animationState={animationState}
 					internalPause={internalPause}
 					order={6}
 				/>
-				<RectPath
+				<Staff
 					d="M630.409 157.555C630.409 156.45 631.305 155.555 632.409 155.555H700V171.929H632.409C631.305 171.929 630.409 171.034 630.409 169.929V157.555Z"
 					fill="var(--color-gray-400)"
 					animationState={animationState}
 					internalPause={internalPause}
 					order={7}
 				/>
-				<RectPath
+				<Staff
 					d="M630.409 214.865C630.409 213.761 631.305 212.865 632.409 212.865H700V229.24H632.409C631.305 229.24 630.409 228.344 630.409 227.24V214.865Z"
 					fill="var(--color-gray-400)"
 					animationState={animationState}
 					internalPause={internalPause}
 					order={8}
 				/>
-				<RectPath
+				<Staff
 					d="M630.409 255.801C630.409 254.696 631.305 253.801 632.409 253.801H700V270.175H632.409C631.305 270.175 630.409 269.28 630.409 268.175V255.801Z"
 					fill="var(--color-gray-400)"
 					animationState={animationState}
