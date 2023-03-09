@@ -63,9 +63,12 @@ const Logo = styled.span`
 `;
 
 const Link = styled(NextLink)`
-	padding: 8px 12px;
+	--horizontal-padding: 12px;
+	padding: 8px var(--horizontal-padding);
 	text-decoration: none;
 	color: var(--gray-900);
+	margin-left: calc(var(--horizontal-padding) * -1);
+	margin-right: calc(var(--horizontal-padding) * -1);
 
 	&:hover {
 		text-decoration: revert;

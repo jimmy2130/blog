@@ -1,8 +1,7 @@
 import Head from 'next/head';
-// import { getSortedPostsData } from '../src/helpers/mdx.helpers';
 import IndexPage from '../src/components/IndexPage';
 
-function Home({ allPostsData }) {
+function Home() {
 	return (
 		<>
 			<Head>
@@ -12,15 +11,5 @@ function Home({ allPostsData }) {
 		</>
 	);
 }
-
-// export async function getStaticProps() {
-// 	const allPostsData = getSortedPostsData();
-// 	// console.log(allPostsData)
-// 	return {
-// 		props: {
-// 			allPostsData,
-// 		},
-// 	};
-// }
 
 export default Home;

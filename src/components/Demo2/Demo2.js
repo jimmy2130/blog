@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const Demo = ({ color }) => {
-	return <div style={{ '--color': color }}>Such a neat demo!</div>;
+const Demo2 = ({ color }) => {
+	return <div style={{ '--color': color }}>Such a neat demo2!</div>;
 };
 
 const Wrapper = styled.div`
@@ -9,9 +9,8 @@ const Wrapper = styled.div`
 	margin: 8px auto;
 	border-radius: 4px;
 	padding: 16px;
-	background: DarkSeaGreen;
-	border: 2px solid green;
+	background: pink;
 	color: var(--color);
 `;
 
-export default Demo;
+export default Demo2;
