@@ -1,12 +1,17 @@
+import H2 from './components/H2';
+import H3 from './components/H3';
 import Em from './components/Em';
+import Link from './components/Link';
+import Paragraph from './components/Paragraph';
 import Sidenote from './components/Sidenote';
-import { MajorHeading, NormalHeading } from './components/Heading';
 
 export const defaultComponents = {
 	Sidenote,
-	h2: props => <MajorHeading {...props} />,
-	h3: props => <NormalHeading {...props} />,
+	h2: props => <H2 {...props} />,
+	h3: props => <H3 {...props} />,
 	em: props => <Em {...props} />,
+	a: props => <Link {...props} />,
+	p: props => <Paragraph {...props} />,
 };
 
 import dynamic from 'next/dynamic';

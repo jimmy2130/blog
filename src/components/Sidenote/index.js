@@ -1,1 +1,2 @@
-export { default, Wrapper } from "./Sidenote";
+export * from './Sidenote';
+export { default } from './Sidenote';
