@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import NextLink from 'next/link';
 import { Link } from 'react-feather';
-import { Wrapper as H2Wrapper } from '../H2';
+// import { Wrapper as H2Wrapper } from '../H2';
 import { Wrapper as H3Wrapper } from '../H3';
 import { Title as SidenoteTitle } from '../Sidenote';
 import VisuallyHidden from '../VisuallyHidden';
@@ -38,7 +38,7 @@ const Wrapper = styled(NextLink)`
 		outline: none;
 	}
 
-	${H2Wrapper}:hover & {
+	h2:hover & {
 		opacity: 1;
 	}
 
