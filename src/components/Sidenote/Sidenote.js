@@ -1,18 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { QUERIES } from '../../constants';
+import TitleLink from '../TitleLink';
 
-const Sidenote = ({ children, title }) => {
+function Sidenote({ children, title }) {
 	return (
 		<Wrapper>
-			<Title>{title}</Title>
+			<Title>
+				<TitleLink name={title} size={19} />
+				{title}
+			</Title>
 			{children}
 		</Wrapper>
 	);
-};
+}
 
 export const Wrapper = styled.aside`
-	--padding: 20px;
+	--padding: clamp(24px, 100vw - 668px, 36px);
 	padding: var(--padding);
 	margin-left: calc(var(--padding) * -1);
 	margin-right: calc(var(--padding) * -1);
@@ -20,18 +23,15 @@ export const Wrapper = styled.aside`
 	margin-bottom: 40px;
 	background: var(--color-gray-100);
 	border-radius: 8px;
-
-	@media ${QUERIES.phoneAndDown} {
-		padding: 16px;
-		margin-left: 0;
-		margin-right: 0;
-	}
 `;
 
-const Title = styled.div`
-	font-weight: 700;
+export const Title = styled.div`
+	position: relative;
+	width: fit-content;
 	margin-bottom: 20px;
-	font-size: calc(17 / 16 1rem);
+	font-size: calc(19 / 16 * 1rem);
+	font-weight: 700;
+	color: var(--color-gray-900);
 `;
 
 export default Sidenote;

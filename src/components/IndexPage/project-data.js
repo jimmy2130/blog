@@ -28,7 +28,7 @@ export const DATA = [
 		title: '自動化製作簡譜',
 		subtitle: 'JavaScript / AppleScript',
 		summary:
-			'融合樂理知識與程式設計，自動將五線譜轉換成譜面正確、排版整齊的數字簡譜。',
+			'融合樂理知識與程式設計，將五線譜轉換成譜面正確、排版整齊的數字簡譜。',
 		illustration: Project3Visual,
 		workLink: 'https://www.youtube.com/watch?v=s3_nK9yZ3AY',
 		readMoreLink: '/',

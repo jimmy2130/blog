@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Image = styled.img`
+function BasicImage(props) {
+	return <Wrapper {...props} />;
+}
+
+const Wrapper = styled.img`
 	border-radius: 4px;
 `;
 
-export default Image;
+export default BasicImage;

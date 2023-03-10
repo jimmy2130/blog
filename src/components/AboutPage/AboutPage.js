@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import HeroSection from '../HeroSection';
-import MWW from '../MaxWidthWrapper';
+import FMWW from '../FluidMaxWidthWrapper';
 import Spacer from '../Spacer';
 import Footer from '../Footer';
 import { QUERIES } from '../../constants';
@@ -14,7 +14,7 @@ function AboutPage({ children }) {
 				subtitle="關於我的介紹，包含了學歷、程式學習經歷，和工作經歷"
 			/>
 			<MainSection>
-				<MaxWidthWrapper>{children}</MaxWidthWrapper>
+				<FluidMaxWidthWrapper>{children}</FluidMaxWidthWrapper>
 			</MainSection>
 			<Spacer size={500} axis="vertical" />
 			<Footer />
@@ -22,18 +22,12 @@ function AboutPage({ children }) {
 	);
 }
 
-const MaxWidthWrapper = styled(MWW)`
+const FluidMaxWidthWrapper = styled(FMWW)`
 	--max-width: 70ch;
 `;
 
 const MainSection = styled.main`
-	padding-top: 60px;
-	padding-bottom: 60px;
-
-	@media ${QUERIES.phoneAndDown} {
-		padding-top: 24px;
-		padding-bottom: 24px;
-	}
+	padding-top: clamp(60px, 100vw - 632px, 160px);
 `;
 
 export default AboutPage;

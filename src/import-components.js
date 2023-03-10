@@ -8,7 +8,7 @@ import UnorderedList from './components/UnorderedList';
 import ListItem from './components/ListItem';
 import Code from './components/Code';
 import CodeBlock from './components/CodeBlock';
-import Image from './components/Image';
+import BasicImage from './components/Image';
 import Sidenote from './components/Sidenote';
 
 export const defaultComponents = {
@@ -22,7 +22,7 @@ export const defaultComponents = {
 	li: props => <ListItem {...props} />,
 	code: props => <Code {...props} />,
 	pre: props => <CodeBlock {...props} />,
-	img: props => <Image {...props} />,
+	img: props => <BasicImage {...props} />,
 	Sidenote,
 };
 

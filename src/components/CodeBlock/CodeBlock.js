@@ -7,7 +7,7 @@ function CodeBlock(props) {
 	return <Wrapper {...props} />;
 }
 
-const Wrapper = styled.pre`
+export const Wrapper = styled.pre`
 	background: var(--color-gray-100);
 	border-radius: 4px;
 	margin-bottom: 20px;

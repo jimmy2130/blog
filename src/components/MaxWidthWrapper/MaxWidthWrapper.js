@@ -2,8 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { QUERIES } from '../../constants';
 
-function MaxWidthWrapper({ children, className }) {
-	return <Wrapper className={className}>{children}</Wrapper>;
+function MaxWidthWrapper({ children, style, className }) {
+	return (
+		<Wrapper className={className} style={style}>
+			{children}
+		</Wrapper>
+	);
 }
 
 const Wrapper = styled.div`

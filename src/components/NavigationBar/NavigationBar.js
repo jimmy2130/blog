@@ -2,6 +2,7 @@ import React from 'react';
 import NextLink from 'next/link';
 import styled from 'styled-components';
 import MWW from '../MaxWidthWrapper';
+import FMWW from '../FluidMaxWidthWrapper';
 import VisuallyHidden from '../VisuallyHidden';
 import UnstyledButton from '../UnstyledButton';
 import MobileMenu from '../MobileMenu';
@@ -20,7 +21,7 @@ const NavigationBar = ({ index }) => {
 					<h1>JimmyJim的部落格</h1>
 				</VisuallyHidden>
 			)}
-			<MaxWidthWrapper>
+			<MaxWidthWrapper as={index ? MWW : FMWW}>
 				<Logo>
 					<Link href="/">JimmyJim</Link>
 				</Logo>
@@ -29,7 +30,7 @@ const NavigationBar = ({ index }) => {
 						<Link href="/about">關於我</Link>
 					</ListItem>
 					<ListItem>
-						<Link href="/article">文章</Link>
+						<Link href="/blog">文章</Link>
 					</ListItem>
 				</NavigationList>
 				<IconWrapper onClick={toggle}>
@@ -45,7 +46,7 @@ const NavigationBar = ({ index }) => {
 const Wrapper = styled.nav`
 	height: 158px;
 	background: var(--color-primary-50);
-	font-size: calc(18 / 16 * 1rem);
+	font-size: calc(19 / 16 * 1rem);
 	color: var(--gray-900);
 `;
 
@@ -57,7 +58,7 @@ const MaxWidthWrapper = styled(MWW)`
 `;
 
 const Logo = styled.span`
-	font-size: calc(18 / 16 * 1rem);
+	font-size: calc(19 / 16 * 1rem);
 
 	@media ${QUERIES.phoneAndDown} {
 		font-size: calc(16 / 16 * 1rem);
@@ -82,7 +83,7 @@ const NavigationList = styled.ul`
 	padding: 0;
 	list-style: none;
 	display: flex;
-	gap: clamp(8px, 100vw - 592px, 40px);
+	gap: clamp(32px, 100vw - 592px, 40px);
 
 	@media ${QUERIES.phoneAndDown} {
 		display: none;
@@ -95,8 +96,10 @@ const IconWrapper = styled(UnstyledButton)`
 	display: none;
 
 	@media ${QUERIES.phoneAndDown} {
+		--padding: 16px;
 		display: block;
-		padding: 16px;
+		padding: var(--padding);
+		margin-right: calc(var(--padding) * -1);
 	}
 `;
 

@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import NavigationBar from '../NavigationBar';
-import MaxWidthWrapper from '../MaxWidthWrapper';
+import MWW from '../MaxWidthWrapper';
+import FMWW from '../FluidMaxWidthWrapper';
 import Spacer from '../Spacer';
+import ShiftBy from '../ShiftBy';
 import Wave from './Wave';
 import { QUERIES } from '../../constants';
 
 function HeroSection({ index = false, title, subtitle }) {
+	const MaxWidthWrapper = index ? MWW : FMWW;
 	const NavigationBarHeight = 158;
 	return (
 		<Wrapper
@@ -20,7 +23,17 @@ function HeroSection({ index = false, title, subtitle }) {
 				<Spacer size={(index ? 240 : 190) - NavigationBarHeight} />
 				<TitleWrapper>
 					<Title as={index ? 'div' : 'h1'}>{title}</Title>
-					<SubTitle>{subtitle}</SubTitle>
+					<ShiftBy x={index ? 0 : 2}>
+						<SubTitle
+							style={{
+								'--font-size': index
+									? 'calc(22 / 16 * 1rem)'
+									: 'calc(19 / 16 * 1rem)',
+							}}
+						>
+							{subtitle}
+						</SubTitle>
+					</ShiftBy>
 				</TitleWrapper>
 			</MaxWidthWrapper>
 			{index && (
@@ -52,16 +65,15 @@ const Title = styled.div`
 	@media ${QUERIES.phoneAndDown} {
 		font-size: calc(36 / 16 * 1rem);
 		line-height: 39px;
-		margin-bottom: 12px;
 	}
 `;
 
 const SubTitle = styled.div`
-	font-size: calc(22 / 16 * 1rem);
+	font-size: var(--font-size);
 	line-height: 150%;
 
 	@media ${QUERIES.phoneAndDown} {
-		font-size: calc(16 / 16 * 1rem);
+		font-size: calc(19 / 16 * 1rem);
 	}
 `;
 

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import NextLink from 'next/link';
 import MWW from '../MaxWidthWrapper';
+import ShiftBy from '../ShiftBy';
 import { QUERIES } from '../../constants';
 
 function ProjectShowcase({
@@ -18,7 +19,9 @@ function ProjectShowcase({
 				<ContextWrapper>
 					<TitleWrapper>
 						<Title>{title}</Title>
-						<Subtitle>{subtitle}</Subtitle>
+						<ShiftBy x={2}>
+							<Subtitle>{subtitle}</Subtitle>
+						</ShiftBy>
 					</TitleWrapper>
 					<Content>
 						<Summary>{summary}</Summary>
@@ -130,8 +133,7 @@ const Title = styled.h2`
 
 const Subtitle = styled.div`
 	color: var(--color-gray-500);
-	font-size: calc(18 / 16 * 1rem);
-	margin-left: 2px;
+	font-size: calc(19 / 16 * 1rem);
 
 	@media ${QUERIES.phoneAndDown} {
 		font-size: calc(16 / 16 * 1rem);
@@ -160,7 +162,8 @@ const Content = styled.div`
 `;
 
 const Summary = styled.p`
-	font-size: calc(18 / 16 * 1rem);
+	font-size: calc(19 / 16 * 1rem);
+	line-height: 180%;
 
 	@media ${QUERIES.tabletAndDown} {
 		max-width: 326px;
