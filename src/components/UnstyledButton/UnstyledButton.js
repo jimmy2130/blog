@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default styled.button`
+const UnstyledButton = styled.button`
 	display: ${props => props.display || 'block'};
 	margin: 0;
 	padding: 0;
@@ -20,3 +20,5 @@ export default styled.button`
 		outline: none;
 	}
 `;
+
+export default UnstyledButton;

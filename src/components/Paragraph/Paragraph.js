@@ -4,7 +4,7 @@ import { Wrapper as SidenoteWrapper } from '../Sidenote';
 import { QUERIES } from '../../constants';
 
 const Paragraph = styled.p`
-	text-align: justify;
+	/* text-align: justify; */
 	font-size: calc(19 / 16 * 1rem);
 	color: var(--color-gray-1000);
 	margin-bottom: 20px;

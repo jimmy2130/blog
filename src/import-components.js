@@ -3,15 +3,27 @@ import H3 from './components/H3';
 import Em from './components/Em';
 import Link from './components/Link';
 import Paragraph from './components/Paragraph';
+import OrderedList from './components/OrderedList';
+import UnorderedList from './components/UnorderedList';
+import ListItem from './components/ListItem';
+import Code from './components/Code';
+import CodeBlock from './components/CodeBlock';
+import Image from './components/Image';
 import Sidenote from './components/Sidenote';
 
 export const defaultComponents = {
-	Sidenote,
 	h2: props => <H2 {...props} />,
 	h3: props => <H3 {...props} />,
 	em: props => <Em {...props} />,
 	a: props => <Link {...props} />,
 	p: props => <Paragraph {...props} />,
+	ol: props => <OrderedList {...props} />,
+	ul: props => <UnorderedList {...props} />,
+	li: props => <ListItem {...props} />,
+	code: props => <Code {...props} />,
+	pre: props => <CodeBlock {...props} />,
+	img: props => <Image {...props} />,
+	Sidenote,
 };
 
 import dynamic from 'next/dynamic';
