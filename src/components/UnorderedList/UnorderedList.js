@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const UnorderedList = styled.ul`
-	margin-bottom: 20px;
+	padding-left: 6px;
+	margin-top: 28px;
+	margin-bottom: 60px;
 `;
 
 export default UnorderedList;

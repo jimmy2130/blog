@@ -3,7 +3,9 @@ import styled from 'styled-components';
 
 const OrderedList = styled.ol`
 	counter-reset: counts 0;
-	margin-bottom: 20px;
+	padding-left: 0px;
+	margin-top: 28px;
+	margin-bottom: 60px;
 `;
 
 export default OrderedList;

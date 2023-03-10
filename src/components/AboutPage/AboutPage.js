@@ -27,17 +27,12 @@ const MaxWidthWrapper = styled(MWW)`
 `;
 
 const MainSection = styled.main`
-	padding-top: 180px;
-	padding-bottom: 180px;
-
-	@media ${QUERIES.tabletAndDown} {
-		padding-top: 80px;
-		padding-bottom: 80px;
-	}
+	padding-top: 60px;
+	padding-bottom: 60px;
 
 	@media ${QUERIES.phoneAndDown} {
-		padding-top: 52px;
-		padding-bottom: 52px;
+		padding-top: 24px;
+		padding-bottom: 24px;
 	}
 `;
 

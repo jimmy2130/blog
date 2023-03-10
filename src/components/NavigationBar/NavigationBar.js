@@ -8,16 +8,18 @@ import MobileMenu from '../MobileMenu';
 import { Menu } from 'react-feather';
 import { QUERIES } from '../../constants';
 
-const NavigationBar = () => {
+const NavigationBar = ({ index }) => {
 	const [isOpen, setIsOpen] = React.useState(false);
 	function toggle() {
 		setIsOpen(!isOpen);
 	}
 	return (
 		<Wrapper>
-			<VisuallyHidden as="div">
-				<h1>JimmyJim的部落格</h1>
-			</VisuallyHidden>
+			{index && (
+				<VisuallyHidden as="div">
+					<h1>JimmyJim的部落格</h1>
+				</VisuallyHidden>
+			)}
 			<MaxWidthWrapper>
 				<Logo>
 					<Link href="/">JimmyJim</Link>

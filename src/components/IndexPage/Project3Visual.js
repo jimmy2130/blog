@@ -137,35 +137,23 @@ function Project3Visual() {
 					animationState={animationState}
 					internalPause={internalPause}
 					order={5}
+					ref={lastAnimatedRef}
 				/>
-				<Staff
+				<path
 					d="M630.409 116.619C630.409 115.515 631.305 114.619 632.409 114.619H700V130.993H632.409C631.305 130.993 630.409 130.098 630.409 128.993V116.619Z"
 					fill="var(--color-gray-400)"
-					animationState={animationState}
-					internalPause={internalPause}
-					order={6}
 				/>
-				<Staff
+				<path
 					d="M630.409 157.555C630.409 156.45 631.305 155.555 632.409 155.555H700V171.929H632.409C631.305 171.929 630.409 171.034 630.409 169.929V157.555Z"
 					fill="var(--color-gray-400)"
-					animationState={animationState}
-					internalPause={internalPause}
-					order={7}
 				/>
-				<Staff
+				<path
 					d="M630.409 214.865C630.409 213.761 631.305 212.865 632.409 212.865H700V229.24H632.409C631.305 229.24 630.409 228.344 630.409 227.24V214.865Z"
 					fill="var(--color-gray-400)"
-					animationState={animationState}
-					internalPause={internalPause}
-					order={8}
 				/>
-				<Staff
+				<path
 					d="M630.409 255.801C630.409 254.696 631.305 253.801 632.409 253.801H700V270.175H632.409C631.305 270.175 630.409 269.28 630.409 268.175V255.801Z"
 					fill="var(--color-gray-400)"
-					animationState={animationState}
-					internalPause={internalPause}
-					ref={lastAnimatedRef}
-					order={9}
 				/>
 
 				<rect
