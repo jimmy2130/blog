@@ -4,18 +4,18 @@ import TitleLink from '../TitleLink';
 
 function H2({ children }) {
 	return (
-		<H2Wrapper>
+		<Wrapper>
 			<Title>{children}</Title>
 			<TitleLink
 				name={children}
 				size={25}
 				style={{ transform: 'translateY(3px)' }}
 			/>
-		</H2Wrapper>
+		</Wrapper>
 	);
 }
 
-export const H2Wrapper = styled.h2`
+export const Wrapper = styled.h2`
 	font-size: calc(25 / 16 * 1rem);
 	color: var(--color-gray-900);
 
