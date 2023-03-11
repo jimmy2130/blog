@@ -86,7 +86,6 @@ export default class MyDocument extends Document {
 						name="description"
 						content="JimmyJim的前端網頁作品集與製作歷程紀錄"
 					/>
-					<meta name="theme-color" content="var(--color-primary-50)" />
 					<link rel="preconnect" href="https://fonts.gstatic.com" />
 					<link
 						href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Roboto:wght@400;700&display=swap"

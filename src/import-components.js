@@ -10,6 +10,7 @@ import Code from './components/Code';
 import CodeBlock from './components/CodeBlock';
 import BasicImage from './components/Image';
 import Sidenote from './components/Sidenote';
+import DescriptionList from './components/DescriptionList';
 
 export const defaultComponents = {
 	h2: props => <H2 {...props} />,
@@ -24,6 +25,7 @@ export const defaultComponents = {
 	pre: props => <CodeBlock {...props} />,
 	img: props => <BasicImage {...props} />,
 	Sidenote,
+	DescriptionList,
 };
 
 import dynamic from 'next/dynamic';

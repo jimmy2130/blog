@@ -2,15 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import OrderedList from '../OrderedList';
 import UnorderedList from '../UnorderedList';
+import { QUERIES } from '../../constants';
 
 const ListItem = styled.li`
+	position: relative;
 	display: flex;
 	align-items: baseline;
-	position: relative;
 	font-size: calc(19 / 16 * 1rem);
 	color: var(--color-gray-900);
-	margin-left: 4px;
 	margin-bottom: 16px;
+	padding-left: 16px;
 
 	${OrderedList} & {
 		counter-increment: counts 1;
@@ -25,12 +26,17 @@ const ListItem = styled.li`
 	${UnorderedList} & {
 		&:before {
 			content: '·';
+			position: absolute;
 			font-size: calc(19 / 16 * 1rem);
-			transform: scale(250%);
-			margin-left: -3px;
-			margin-right: 16px;
+			transform: translateX(calc(-16px - 50%)) scale(250%);
 			color: var(--color-gray-900);
 			font-weight: 700;
+		}
+	}
+
+	@media ${QUERIES.phoneAndDown} {
+		${OrderedList} & {
+			padding-left: 0px;
 		}
 	}
 `;

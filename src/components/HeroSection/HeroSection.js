@@ -52,7 +52,7 @@ const Wrapper = styled.div`
 	height: var(--height);
 `;
 
-const TitleWrapper = styled.div`
+const TitleWrapper = styled.header`
 	color: var(--color-gray-900);
 `;
 
