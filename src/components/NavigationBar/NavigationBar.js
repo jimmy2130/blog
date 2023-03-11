@@ -5,6 +5,7 @@ import MWW from '../MaxWidthWrapper';
 import FMWW from '../FluidMaxWidthWrapper';
 import VisuallyHidden from '../VisuallyHidden';
 import UnstyledButton from '../UnstyledButton';
+import ShiftBy from '../ShiftBy';
 import MobileMenu from '../MobileMenu';
 import { Menu } from 'react-feather';
 import { QUERIES } from '../../constants';
@@ -23,7 +24,12 @@ const NavigationBar = ({ index }) => {
 			)}
 			<MaxWidthWrapper as={index ? MWW : FMWW}>
 				<Logo>
-					<Link href="/">JimmyJim</Link>
+					<Link
+						href="/"
+						style={{ display: 'inline-block', transform: 'translateX(4px)' }}
+					>
+						JimmyJim
+					</Link>
 				</Logo>
 				<NavigationList>
 					<ListItem>
@@ -74,7 +80,7 @@ const Link = styled(NextLink)`
 	margin-right: calc(var(--horizontal-padding) * -1);
 
 	&:hover {
-		text-decoration: revert;
+		text-decoration: underline;
 		text-underline-offset: 4px;
 	}
 `;
@@ -83,7 +89,7 @@ const NavigationList = styled.ul`
 	padding: 0;
 	list-style: none;
 	display: flex;
-	gap: clamp(32px, 100vw - 592px, 40px);
+	gap: 40px;
 
 	@media ${QUERIES.phoneAndDown} {
 		display: none;

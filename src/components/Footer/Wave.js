@@ -37,10 +37,10 @@ function Wave() {
 	);
 }
 
-// if(100vw >= 1512px) {
-// 	width = 100vw
+// if(100% >= 1512px) {
+// 	width = 100%
 // } else {
-// 	width = 100vw + (1512px - 100vw) * 1 / 10
+// 	width = 100% + (1512px - 100%) * 1 / 10
 // }
 
 const Wrapper = styled.div`

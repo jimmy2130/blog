@@ -27,7 +27,7 @@ const FluidMaxWidthWrapper = styled(FMWW)`
 `;
 
 const MainSection = styled.main`
-	padding-top: clamp(60px, 100vw - 632px, 160px);
+	padding-top: clamp(60px, 100% - 632px, 160px);
 `;
 
 export default AboutPage;

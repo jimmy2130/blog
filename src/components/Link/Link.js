@@ -3,14 +3,9 @@ import styled from 'styled-components';
 import NextLink from 'next/link';
 import { Wrapper as SidenoteWrapper } from '../Sidenote';
 
-const Link = ({ href, children, title }) => {
+const Link = ({ children, ...delegated }) => {
 	return (
-		<Wrapper
-			href={href}
-			target="_blank"
-			title={title}
-			rel="noreferrer noopener"
-		>
+		<Wrapper target="_blank" rel="noreferrer noopener" {...delegated}>
 			{children}
 		</Wrapper>
 	);
