@@ -21,7 +21,7 @@ function MobileMenu({ isOpen, toggle }) {
 						<Link href="/about">關於我</Link>
 					</ListItem>
 					<ListItem>
-						<Link href="/article">文章</Link>
+						<Link href="/blog">文章</Link>
 					</ListItem>
 				</NavigationList>
 				<IconWrapper onClick={toggle}>

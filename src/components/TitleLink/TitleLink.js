@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import NextLink from 'next/link';
 import { Link } from 'react-feather';
-import { Wrapper as H2Wrapper } from '../H2';
+import { H2Wrapper } from '../H2';
 import { Wrapper as H3Wrapper } from '../H3';
 import { TitleWrapper as SidenoteTitle } from '../Sidenote';
 import VisuallyHidden from '../VisuallyHidden';
