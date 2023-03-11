@@ -4,7 +4,6 @@ import HeroSection from '../HeroSection';
 import FMWW from '../FluidMaxWidthWrapper';
 import Spacer from '../Spacer';
 import Footer from '../Footer';
-import { QUERIES } from '../../constants';
 
 function AboutPage({ children }) {
 	return (

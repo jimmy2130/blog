@@ -1,23 +1,6 @@
 import Head from 'next/head';
 import { getSortedPostsMetadata } from '../../src/helpers/post.helpers';
-
-function BlogIndex({ allPostsMetadata }) {
-	return (
-		<>
-			<Head>
-				<title>文章</title>
-			</Head>
-			{allPostsMetadata.map(({ id, title, date, description, published }) => (
-				<div key={id}>
-					<div>title: {title}</div>
-					<div>date: {date}</div>
-					<div>description: {description}</div>
-					<div>published: {published.toString()}</div>
-				</div>
-			))}
-		</>
-	);
-}
+import BlogIndexPage from '../../src/components/BlogIndexPage';
 
 export async function getStaticProps() {
 	const allPostsMetadata = getSortedPostsMetadata();
@@ -26,6 +9,17 @@ export async function getStaticProps() {
 			allPostsMetadata,
 		},
 	};
+}
+
+function BlogIndex({ allPostsMetadata }) {
+	return (
+		<>
+			<Head>
+				<title>文章</title>
+			</Head>
+			<BlogIndexPage data={allPostsMetadata} />
+		</>
+	);
 }
 
 export default BlogIndex;
