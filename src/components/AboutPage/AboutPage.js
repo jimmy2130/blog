@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import HeroSection from '../HeroSection';
-import FMWW from '../FluidMaxWidthWrapper';
+import FluidMaxWidthWrapper from '../FluidMaxWidthWrapper';
 import Spacer from '../Spacer';
 import Footer from '../Footer';
 
@@ -20,10 +20,6 @@ function AboutPage({ children }) {
 		</>
 	);
 }
-
-const FluidMaxWidthWrapper = styled(FMWW)`
-	--max-width: 70ch;
-`;
 
 const MainSection = styled.main`
 	padding-top: clamp(60px, 100% - 632px, 160px);

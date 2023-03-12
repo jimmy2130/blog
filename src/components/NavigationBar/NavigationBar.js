@@ -1,8 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
 import styled from 'styled-components';
-import MWW from '../MaxWidthWrapper';
-import FMWW from '../FluidMaxWidthWrapper';
 import VisuallyHidden from '../VisuallyHidden';
 import UnstyledButton from '../UnstyledButton';
 import ShiftBy from '../ShiftBy';
@@ -22,7 +20,7 @@ const NavigationBar = ({ index }) => {
 					<h1>JimmyJim的部落格</h1>
 				</VisuallyHidden>
 			)}
-			<MaxWidthWrapper as={index ? MWW : FMWW}>
+			<Content>
 				<Logo>
 					<Link
 						href="/"
@@ -43,7 +41,7 @@ const NavigationBar = ({ index }) => {
 					<Menu />
 					<VisuallyHidden>Open mobile menu</VisuallyHidden>
 				</IconWrapper>
-			</MaxWidthWrapper>
+			</Content>
 			<MobileMenu isOpen={isOpen} toggle={toggle} />
 		</Wrapper>
 	);
@@ -56,7 +54,7 @@ const Wrapper = styled.nav`
 	color: var(--gray-900);
 `;
 
-const MaxWidthWrapper = styled(MWW)`
+const Content = styled.div`
 	height: 100%;
 	display: flex;
 	justify-content: space-between;

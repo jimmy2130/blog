@@ -18,8 +18,8 @@ function HeroSection({ index = false, title, subtitle }) {
 				'--height': index ? undefined : '390px',
 			}}
 		>
-			<NavigationBar index={index} />
 			<MaxWidthWrapper>
+				<NavigationBar index={index} />
 				<Spacer size={(index ? 240 : 190) - NavigationBarHeight} />
 				<TitleWrapper>
 					<Title as={index ? 'div' : 'h1'}>{title}</Title>
