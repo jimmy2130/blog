@@ -11,12 +11,12 @@ const Link = ({ children, ...delegated }) => {
 };
 
 const Wrapper = styled(NextLink)`
-	text-decoration: none;
+	text-decoration: underline;
+	text-underline-offset: 4px;
 	color: var(--color-gray-900);
 
 	&:hover {
-		text-decoration: underline;
-		text-underline-offset: 4px;
+		text-decoration: none;
 	}
 `;
 

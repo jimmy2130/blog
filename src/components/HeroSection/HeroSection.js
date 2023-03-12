@@ -15,7 +15,7 @@ function HeroSection({ index = false, title, subtitle }) {
 		<Wrapper
 			style={{
 				'--minHeight': index ? 'min(90vh, 800px)' : undefined,
-				'--height': index ? undefined : '390px',
+				'--padding-bottom': index ? undefined : '60px',
 			}}
 		>
 			<MaxWidthWrapper>
@@ -49,7 +49,7 @@ const Wrapper = styled.div`
 	position: relative;
 	background: var(--color-primary-50);
 	min-height: var(--minHeight);
-	height: var(--height);
+	padding-bottom: var(--padding-bottom);
 `;
 
 const TitleWrapper = styled.header`

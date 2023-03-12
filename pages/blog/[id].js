@@ -6,6 +6,7 @@ import {
 	defaultComponents,
 	getSpecialComponents,
 } from '../../src/import-components';
+import BlogPostPage from '../../src/components/BlogPostPage';
 
 export async function getStaticProps({ params }) {
 	const { mdxSource, componentNames } = await getPostData(params.id);
@@ -25,16 +26,17 @@ function Post({ mdxSource, componentNames }) {
 		...defaultComponents,
 		...getSpecialComponents(componentNames),
 	};
+	// console.log(mdxSource.frontmatter);
+	const { title, description } = mdxSource.frontmatter;
 	return (
 		<>
 			<Head>
-				<title>{mdxSource.frontmatter.title}</title>
+				<title>{title}</title>
 			</Head>
 
-			<main>
-				<h1>{mdxSource.frontmatter.title}</h1>
+			<BlogPostPage title={title} subtitle={description}>
 				<MDXRemote {...mdxSource} components={components} />
-			</main>
+			</BlogPostPage>
 		</>
 	);
 }

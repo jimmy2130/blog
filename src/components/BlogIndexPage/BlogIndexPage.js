@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import NextLink from 'next/link';
 import HeroSection from '../HeroSection';
 import FluidMaxWidthWrapper from '../FluidMaxWidthWrapper';
-import Link from '../Link';
 import Spacer from '../Spacer';
 import Footer from '../Footer';
 import { QUERIES } from '../../constants';
@@ -18,7 +18,7 @@ function BlogIndexPage({ data }) {
 				<FluidMaxWidthWrapper>
 					<ContentWrapper>
 						{data.map(({ id, title, description }) => (
-							<Row key={id} href="#">
+							<Row key={id} href={`/blog/${id}`}>
 								<Title>{title}</Title>
 								<Description>{description}</Description>
 							</Row>
@@ -47,10 +47,9 @@ const ContentWrapper = styled.div`
 	}
 `;
 
-const Row = styled(Link)`
-	&:hover {
-		text-decoration: none;
-	}
+const Row = styled(NextLink)`
+	text-decoration: none;
+	color: var(--color-gray-900);
 `;
 
 const Title = styled.h2`

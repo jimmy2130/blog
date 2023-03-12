@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function BasicImage(props) {
-	return <Wrapper {...props} />;
+function BasicImage({ ...delegated }) {
+	return <Wrapper {...delegated} />;
 }
 
 const Wrapper = styled.img`

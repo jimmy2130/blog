@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Wrapper as SidenoteWrapper } from '../Sidenote';
+import { Wrapper as HighlightBlock } from '../HighlightBlock';
 
 const Paragraph = styled.p`
 	font-size: calc(19 / 16 * 1rem);
@@ -8,11 +8,11 @@ const Paragraph = styled.p`
 	color: var(--color-gray-900);
 	margin-bottom: 40px;
 
-	${SidenoteWrapper} & {
+	${HighlightBlock} & {
 		margin-bottom: 28px;
 	}
 
-	${SidenoteWrapper} &:last-child {
+	${HighlightBlock} &:last-child {
 		margin-bottom: 0;
 	}
 `;

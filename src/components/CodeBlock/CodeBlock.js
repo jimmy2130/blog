@@ -1,16 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import HighlightBlock from '../HighlightBlock';
 
-function CodeBlock(props) {
+function CodeBlock({ ...delegated }) {
 	// console.log(props.children.props.className.split('-')[1])  //language
 	// console.log(props.children.props.children)  //code
-	return <Wrapper {...props} />;
+	return <HighlightBlock {...delegated} as="pre" />;
 }
-
-export const Wrapper = styled.pre`
-	background: var(--color-gray-100);
-	border-radius: 4px;
-	margin-bottom: 20px;
-`;
 
 export default CodeBlock;
