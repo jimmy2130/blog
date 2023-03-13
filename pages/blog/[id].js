@@ -26,14 +26,12 @@ function Post({ mdxSource, componentNames }) {
 		...defaultComponents,
 		...getSpecialComponents(componentNames),
 	};
-	// console.log(mdxSource.frontmatter);
 	const { title, description } = mdxSource.frontmatter;
 	return (
 		<>
 			<Head>
 				<title>{title}</title>
 			</Head>
-
 			<BlogPostPage title={title} subtitle={description}>
 				<MDXRemote {...mdxSource} components={components} />
 			</BlogPostPage>
