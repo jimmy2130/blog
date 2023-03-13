@@ -1,77 +1,110 @@
-import { useRouter } from 'next/router'
-import styled from 'styled-components'
-import MaxWidthWrapper from '../MaxWidthWrapper'
-import NavLink from '../NavLink'
-import DarkModeToggle from '../DarkModeToggle'
-import {QUERIES} from '../../constants'
+import React from 'react';
+import NextLink from 'next/link';
+import styled from 'styled-components';
+import VisuallyHidden from '../VisuallyHidden';
+import UnstyledButton from '../UnstyledButton';
+import ShiftBy from '../ShiftBy';
+import MobileMenu from '../MobileMenu';
+import { Menu } from 'react-feather';
+import { QUERIES } from '../../constants';
 
-
-const NavigationBar = ({fixed}) => {
-  const router = useRouter()
-  return (   
-    <Wrapper>
-      <MaxWidthWrapper>
-        <NavBar>
-          <Spacer/>
-          <NavList>
-            <li>
-              <NavLink path="/">Home</NavLink>
-            </li>
-            <li>            
-              <NavLink path="/about">About</NavLink>
-            </li>
-          </NavList>
-          <DarkModeToggleWrapper>
-            <DarkModeToggle/>
-          </DarkModeToggleWrapper>
-        </NavBar>
-      </MaxWidthWrapper>
-    </Wrapper>
-  )
-}
+const NavigationBar = ({ index }) => {
+	const [isOpen, setIsOpen] = React.useState(false);
+	function toggle() {
+		setIsOpen(!isOpen);
+	}
+	return (
+		<Wrapper>
+			{index && (
+				<VisuallyHidden as="div">
+					<h1>JimmyJim的部落格</h1>
+				</VisuallyHidden>
+			)}
+			<Content>
+				<Logo>
+					<Link
+						href="/"
+						style={{ display: 'inline-block', transform: 'translateX(4px)' }}
+					>
+						JimmyJim
+					</Link>
+				</Logo>
+				<NavigationList>
+					<ListItem>
+						<Link href="/about">關於我</Link>
+					</ListItem>
+					<ListItem>
+						<Link href="/blog">文章</Link>
+					</ListItem>
+				</NavigationList>
+				<IconWrapper onClick={toggle}>
+					<Menu />
+					<VisuallyHidden>Open mobile menu</VisuallyHidden>
+				</IconWrapper>
+			</Content>
+			<MobileMenu isOpen={isOpen} toggle={toggle} />
+		</Wrapper>
+	);
+};
 
 const Wrapper = styled.nav`
-  position: sticky;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  
-  background-color: inherit;
-`
+	height: 158px;
+	background: var(--color-primary-50);
+	font-size: calc(19 / 16 * 1rem);
+	color: var(--gray-900);
+`;
 
-const NavBar = styled.div`
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  padding-top: 24px;
-  padding-bottom: 24px;
+const Content = styled.div`
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
 
-  @media ${QUERIES.phoneAndDown} {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-`
+const Logo = styled.span`
+	font-size: calc(19 / 16 * 1rem);
 
-const Spacer = styled.div`
-`
+	@media ${QUERIES.phoneAndDown} {
+		font-size: calc(16 / 16 * 1rem);
+	}}
+`;
 
-const NavList = styled.ul`
-  display: flex;
-  gap: 48px;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-`
+const Link = styled(NextLink)`
+	--horizontal-padding: 12px;
+	padding: 8px var(--horizontal-padding);
+	text-decoration: none;
+	color: var(--gray-900);
+	margin-left: calc(var(--horizontal-padding) * -1);
+	margin-right: calc(var(--horizontal-padding) * -1);
 
-const DarkModeToggleWrapper = styled.div`
-  justify-self: end;
-  align-self: center;
-`
+	&:hover {
+		text-decoration: underline;
+		text-underline-offset: 4px;
+	}
+`;
 
-export default NavigationBar
+const NavigationList = styled.ul`
+	padding: 0;
+	list-style: none;
+	display: flex;
+	gap: 40px;
 
+	@media ${QUERIES.phoneAndDown} {
+		display: none;
+	}
+`;
 
+const ListItem = styled.li``;
+
+const IconWrapper = styled(UnstyledButton)`
+	display: none;
+
+	@media ${QUERIES.phoneAndDown} {
+		--padding: 16px;
+		display: block;
+		padding: var(--padding);
+		margin-right: calc(var(--padding) * -1);
+	}
+`;
+
+export default NavigationBar;

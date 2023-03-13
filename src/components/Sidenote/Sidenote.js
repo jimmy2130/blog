@@ -1,24 +1,33 @@
-import styled from 'styled-components'
-import {QUERIES} from '../../constants'
+import React from 'react';
+import styled from 'styled-components';
+import HighlightBlock from '../HighlightBlock';
+import TitleLink from '../TitleLink';
 
-const Sidenote = ({children}) => {
-  return <Wrapper>{children}</Wrapper>;
-};
+function Sidenote({ children, title }) {
+	return (
+		<HighlightBlock as="aside">
+			<TitleWrapper>
+				<Title>{title}</Title>
+				<TitleLink
+					name={title}
+					size={19}
+					style={{ transform: 'translateY(2px)' }}
+				/>
+			</TitleWrapper>
+			{children}
+		</HighlightBlock>
+	);
+}
 
-export const Wrapper = styled.aside`
-  padding: 32px 32px 32px 28px;
-  margin-left: -32px;
-  margin-right: -32px;
-  margin-bottom: 20px;
-  background: var(--color-gray-200);
-  border-left: 4px solid var(--color-primary);
-  border-radius: 4px 8px 8px 4px;
+export const TitleWrapper = styled.div`
+	margin-bottom: 20px;
+	color: var(--color-gray-900);
+	font-size: calc(19 / 16 * 1rem);
+	font-weight: 700;
+`;
 
-  @media ${QUERIES.phoneAndDown} {
-    padding: 16px;
-    margin-left: 0;
-    margin-right: 0;
-  }
-`
+const Title = styled.span`
+	margin-right: 8px;
+`;
 
 export default Sidenote;

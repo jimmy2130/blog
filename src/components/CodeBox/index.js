@@ -1,1 +1,2 @@
-export { default } from "./CodeBox";
+export * from './CodeBox';
+export { default } from './CodeBox';

@@ -1,22 +1,18 @@
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
-const Demo = ({color}) => {
-  return (
-    <Test
-      style={{'--color': color}}
-    >
-      Such a neat demo!
-    </Test>
-  )
+function Demo({ color }) {
+	return <div style={{ '--color': color }}>Such a neat demo!</div>;
 }
 
-const Test = styled.div`
-  width: fit-content;
-  margin: 8px auto;
-  border-radius: 4px;
-  padding: 16px;
-  background: DarkSeaGreen;
-  color: var(--color);
-`
+const Wrapper = styled.div`
+	width: fit-content;
+	margin: 8px auto;
+	border-radius: 4px;
+	padding: 16px;
+	background: DarkSeaGreen;
+	border: 2px solid green;
+	color: var(--color);
+`;
 
 export default Demo;

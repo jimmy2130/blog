@@ -1,29 +1,25 @@
-import React from 'react'
-import styled from 'styled-components'
-import MaxWidthWrapper from '../MaxWidthWrapper'
-import NavigationBar from '../NavigationBar'
-import Spacer from '../Spacer'
-import Footer from '../Footer'
+import React from 'react';
+import styled from 'styled-components';
+import HeroSection from '../HeroSection';
+import FluidMaxWidthWrapper from '../FluidMaxWidthWrapper';
+import Spacer from '../Spacer';
+import Footer from '../Footer';
 
-function Layout({children}) {
-
-  return (
-    <Wrapper>
-      <NavigationBar/>
-        <Spacer size={36} />
-        <MaxWidthWrapper>
-          {children}
-        </MaxWidthWrapper>
-      <Footer />
-    </Wrapper>
-  )
+function Layout({ title, subtitle, children }) {
+	return (
+		<>
+			<HeroSection title={title} subtitle={subtitle} />
+			<MainSection>
+				<FluidMaxWidthWrapper>{children}</FluidMaxWidthWrapper>
+			</MainSection>
+			<Spacer size={500} axis="vertical" />
+			<Footer />
+		</>
+	);
 }
 
-const Wrapper = styled.div`
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: var(--color-background);
-`
+const MainSection = styled.main`
+	padding-top: clamp(60px, 100% - 632px, 100px);
+`;
 
-export default Layout
+export default Layout;
