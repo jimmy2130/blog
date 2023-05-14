@@ -15,5 +15,5 @@ export function useMouseHover(ref, mouseEnterCallback, mouseLeaveCallback) {
 			elem.removeEventListener('mouseenter', handleMouseEnter);
 			elem.removeEventListener('mouseleave', handleMouseLeave);
 		};
-	}, []);
+	}, [mouseEnterCallback, mouseLeaveCallback, ref]);
 }
