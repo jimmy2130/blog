@@ -124,14 +124,24 @@ function SecondDemo() {
 					onClick={handleBrowserBackClick}
 					disabled={index === 0}
 				>
-					<BrowserBackIcon fill="var(--color-gray-900)" />
+					<BrowserBackIcon
+						fill={
+							index === 0 ? 'var(--color-gray-600)' : 'var(--color-primary-400)'
+						}
+					/>
 				</BrowserBack>
 				<BrowserForward
 					ref={browserForwardRef}
 					onClick={handleBrowserForwardClick}
 					disabled={index === urls.length - 1}
 				>
-					<BrowserForwardIcon fill="var(--color-gray-900)" />
+					<BrowserForwardIcon
+						fill={
+							index === urls.length - 1
+								? 'var(--color-gray-600)'
+								: 'var(--color-primary-400)'
+						}
+					/>
 				</BrowserForward>
 				<Title ref={titleRef} onClick={handleTitleClick}>
 					導覽列標題
@@ -199,13 +209,12 @@ const HistoryStack = styled(OrderedList)`
 `;
 
 const CustomListItem = styled(ListItem)`
-	margin-bottom: 0;
-	padding-left: 0;
 	background: var(--item-background);
 	border-radius: 4px;
 	padding-left: 16px;
 	padding-right: 16px;
 	margin-right: 64px;
+	margin-bottom: 0;
 `;
 
 const ButtonGroup = styled.div`

@@ -40,6 +40,9 @@ const SecondRestApiDemo = dynamic(() =>
 const ThirdRestApiDemo = dynamic(() =>
 	import('./components/RestApiDemo/ThirdDemo'),
 );
+const FourthRestApiDemo = dynamic(() =>
+	import('./components/RestApiDemo/FourthDemo'),
+);
 
 export function getSpecialComponents(componentNames) {
 	if (!componentNames) {
@@ -56,6 +59,9 @@ export function getSpecialComponents(componentNames) {
 			: null,
 		ThirdRestApiDemo: componentNames.includes('ThirdRestApiDemo')
 			? ThirdRestApiDemo
+			: null,
+		FourthRestApiDemo: componentNames.includes('FourthRestApiDemo')
+			? FourthRestApiDemo
 			: null,
 	};
 }

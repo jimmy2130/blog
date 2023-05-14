@@ -11,7 +11,7 @@ export const DATA = [
 			'這是一個用 REST Countries API打造的國家查詢器，可以瀏覽世界上的國家，也能進一步檢視國家資訊。',
 		illustration: Project1Visual,
 		workLink: 'https://rest-countries-api-pi-ten.vercel.app',
-		readMoreLink: '/',
+		readMoreLink: '/blog/rest-countries-api-project-detail',
 	},
 	{
 		id: 1,
