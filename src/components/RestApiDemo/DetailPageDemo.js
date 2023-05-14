@@ -8,7 +8,15 @@ const COUNTRIES_COMPONENT = {
 	gin: DetailGuinea,
 };
 
-function DetailPageDemo({ country = 'belgium', interaction }) {
+function getScale(width) {
+	let scale = 1;
+	if (width <= 592) {
+		scale = (width - 332) / 260;
+	}
+	return scale;
+}
+
+function DetailPageDemo({ country = 'belgium', interaction, width }) {
 	const Country = COUNTRIES_COMPONENT[country];
 	if (!Country) {
 		console.error(`Cannot recognize the country! ${country}`);
@@ -24,35 +32,88 @@ function DetailPageDemo({ country = 'belgium', interaction }) {
 				rx="4"
 				fill={interaction === 'websiteBack' ? 'var(--hover-color)' : '#A8A29E'}
 			/>
-			<DetailPageText />
-			<Country />
+			<DetailPageText width={width} />
+			<Country width={width} />
 		</>
 	);
 }
 
 const WebsiteBack = styled.rect``;
 
-function DetailPageText() {
+function DetailPageText({ width }) {
+	let leftSideX = 0;
+	if (width >= 648) {
+		leftSideX = width - 304;
+	} else if (width >= 592) {
+		leftSideX = 344;
+	} else {
+		leftSideX = width - 248;
+	}
+	let rightSideX = width - (700 - 576);
 	return (
 		<>
-			<rect x="396" y="226" width="72" height="24" rx="4" fill="#57534E" />
-			<rect x="396" y="274" width="92" height="8" rx="4" fill="#A8A29E" />
-			<rect x="396" y="290" width="92" height="8" rx="4" fill="#A8A29E" />
-			<rect x="396" y="306" width="92" height="8" rx="4" fill="#A8A29E" />
-			<rect x="396" y="322" width="92" height="8" rx="4" fill="#A8A29E" />
-			<rect x="396" y="338" width="92" height="8" rx="4" fill="#A8A29E" />
-			<rect x="576" y="274" width="92" height="8" rx="4" fill="#A8A29E" />
-			<rect x="576" y="290" width="92" height="8" rx="4" fill="#A8A29E" />
-			<rect x="576" y="306" width="92" height="8" rx="4" fill="#A8A29E" />
-			<rect x="576" y="322" width="92" height="8" rx="4" fill="#A8A29E" />
-			<rect x="576" y="338" width="92" height="8" rx="4" fill="#A8A29E" />
+			{/* left side */}
+			<rect
+				x={leftSideX}
+				y="226"
+				width="72"
+				height="24"
+				rx="4"
+				fill="#57534E"
+			/>
+			<rect x={leftSideX} y="274" width="92" height="8" rx="4" fill="#A8A29E" />
+			<rect x={leftSideX} y="290" width="92" height="8" rx="4" fill="#A8A29E" />
+			<rect x={leftSideX} y="306" width="92" height="8" rx="4" fill="#A8A29E" />
+			<rect x={leftSideX} y="322" width="92" height="8" rx="4" fill="#A8A29E" />
+			<rect x={leftSideX} y="338" width="92" height="8" rx="4" fill="#A8A29E" />
+			{/* right side */}
+			<rect
+				x={rightSideX}
+				y="274"
+				width="92"
+				height="8"
+				rx="4"
+				fill="#A8A29E"
+			/>
+			<rect
+				x={rightSideX}
+				y="290"
+				width="92"
+				height="8"
+				rx="4"
+				fill="#A8A29E"
+			/>
+			<rect
+				x={rightSideX}
+				y="306"
+				width="92"
+				height="8"
+				rx="4"
+				fill="#A8A29E"
+			/>
+			<rect
+				x={rightSideX}
+				y="322"
+				width="92"
+				height="8"
+				rx="4"
+				fill="#A8A29E"
+			/>
+			<rect
+				x={rightSideX}
+				y="338"
+				width="92"
+				height="8"
+				rx="4"
+				fill="#A8A29E"
+			/>
 		</>
 	);
 }
 
-function DetailBelgium() {
+function DetailBelgium({ width }) {
 	return (
-		<>
+		<Wrapper style={{ '--flag-scale': getScale(width) }}>
 			<path
 				d="M32 234C32 229.582 35.5817 226 40 226H118.667V402H40C35.5817 402 32 398.418 32 394V234Z"
 				fill="#2D2926"
@@ -62,13 +123,13 @@ function DetailBelgium() {
 				d="M205.333 226H284C288.418 226 292 229.582 292 234V394C292 398.418 288.418 402 284 402H205.333V226Z"
 				fill="#C6102E"
 			/>
-		</>
+		</Wrapper>
 	);
 }
 
-function DetailFrance() {
+function DetailFrance({ width }) {
 	return (
-		<>
+		<Wrapper style={{ '--flag-scale': getScale(width) }}>
 			<path
 				d="M32 234C32 229.582 35.5817 226 40 226H118.667V402H40C35.5817 402 32 398.418 32 394V234Z"
 				fill="#0055A2"
@@ -78,13 +139,13 @@ function DetailFrance() {
 				d="M205.333 226H284C288.418 226 292 229.582 292 234V394C292 398.418 288.418 402 284 402H205.333V226Z"
 				fill="#ED4135"
 			/>
-		</>
+		</Wrapper>
 	);
 }
 
-function DetailGermany() {
+function DetailGermany({ width }) {
 	return (
-		<>
+		<Wrapper style={{ '--flag-scale': getScale(width) }}>
 			<path
 				d="M32 234C32 229.582 35.5817 226 40 226H284C288.418 226 292 229.582 292 234V284.667H32V234Z"
 				fill="black"
@@ -94,13 +155,13 @@ function DetailGermany() {
 				d="M32 343.333H292V394C292 398.418 288.418 402 284 402H40C35.5817 402 32 398.418 32 394V343.333Z"
 				fill="#FFCC00"
 			/>
-		</>
+		</Wrapper>
 	);
 }
 
-function DetailGuinea() {
+function DetailGuinea({ width }) {
 	return (
-		<>
+		<Wrapper style={{ '--flag-scale': getScale(width) }}>
 			<path
 				d="M32 234C32 229.582 35.5817 226 40 226H118.667V402H40C35.5817 402 32 398.418 32 394V234Z"
 				fill="#CC1126"
@@ -110,8 +171,13 @@ function DetailGuinea() {
 				d="M205.333 226H284C288.418 226 292 229.582 292 234V394C292 398.418 288.418 402 284 402H205.333V226Z"
 				fill="#009260"
 			/>
-		</>
+		</Wrapper>
 	);
 }
+
+const Wrapper = styled.g`
+	transform: scale(var(--flag-scale));
+	transform-origin: 32px 226px;
+`;
 
 export default DetailPageDemo;

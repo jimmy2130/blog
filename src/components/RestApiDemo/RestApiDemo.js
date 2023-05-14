@@ -44,10 +44,19 @@ function RestApiDemo({ url, interaction = undefined, width = 700 }) {
 		>
 			<Background width={width} height="458" rx="32" fill="#E7E5E4" />
 			<NavBar
-				d="M0 32C0 14.3269 14.3269 0 32 0H668C685.673 0 700 14.3269 700 32V54H0V32Z"
+				d={`M0 32C0 14.3269 14.3269 0 32 0H${width - (700 - 668)}C${
+					width - (700 - 685.673)
+				} 0 ${width - (700 - 700)} 14.3269 ${width - (700 - 700)} 32V54H0V32Z`}
 				fill="#57534E"
 			/>
-			<Url x="193" y="16" width="475" height="22" rx="4" fill="#E7E5E4" />
+			<Url
+				x="193"
+				y="16"
+				width={width - (700 - 475)}
+				height="22"
+				rx="4"
+				fill="#E7E5E4"
+			/>
 			<BrowserBack
 				d="M33 30.2321C31.6667 29.4622 31.6667 27.5377 33 26.7679L51.75 15.9426C53.0833 15.1728 54.75 16.1351 54.75 17.6747V39.3253C54.75 40.8649 53.0833 41.8272 51.75 41.0574L33 30.2321Z"
 				interaction={interaction}
@@ -90,6 +99,7 @@ function RestApiDemo({ url, interaction = undefined, width = 700 }) {
 				<DetailPageDemo
 					country={path.replaceAll('/', '')}
 					interaction={interaction}
+					width={width}
 				/>
 			)}
 			{path.includes('error') && (

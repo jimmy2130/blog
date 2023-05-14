@@ -1,8 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
 
 export function BrowserBackIcon({ fill = 'red' }) {
 	return (
-		<svg
+		<BackWrapper
 			width="23"
 			height="27"
 			viewBox="0 0 23 27"
@@ -13,9 +14,13 @@ export function BrowserBackIcon({ fill = 'red' }) {
 				d="M0.999999 15.232C-0.333335 14.4622 -0.333333 12.5378 1 11.768L19.75 0.942631C21.0833 0.172831 22.75 1.13508 22.75 2.67468V24.3253C22.75 25.8649 21.0833 26.8272 19.75 26.0574L0.999999 15.232Z"
 				fill={fill}
 			/>
-		</svg>
+		</BackWrapper>
 	);
 }
+
+const BackWrapper = styled.svg`
+	transform: translateX(-2px);
+`;
 
 export function BrowserForwardIcon({ fill = 'red' }) {
 	return (
