@@ -134,7 +134,7 @@ function RestApiDemo({
 			{path === '/' && <IndexPageDemo countries={countries} />}
 			{path !== '/' && !path.includes('error') && (
 				<DetailPageDemo
-					country={path.replaceAll('/', '')}
+					country={path?.replaceAll('/', '')}
 					interaction={interaction}
 					width={width}
 				/>
