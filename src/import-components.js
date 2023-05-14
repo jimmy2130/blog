@@ -31,6 +31,15 @@ export const defaultComponents = {
 import dynamic from 'next/dynamic';
 const Demo = dynamic(() => import('./components/Demo'));
 const Demo2 = dynamic(() => import('./components/Demo2'));
+const FirstRestApiDemo = dynamic(() =>
+	import('./components/RestApiDemo/FirstDemo'),
+);
+const SecondRestApiDemo = dynamic(() =>
+	import('./components/RestApiDemo/SecondDemo'),
+);
+const ThirdRestApiDemo = dynamic(() =>
+	import('./components/RestApiDemo/ThirdDemo'),
+);
 
 export function getSpecialComponents(componentNames) {
 	if (!componentNames) {
@@ -39,5 +48,14 @@ export function getSpecialComponents(componentNames) {
 	return {
 		Demo: componentNames.includes('Demo') ? Demo : null,
 		Demo2: componentNames.includes('Demo2') ? Demo2 : null,
+		FirstRestApiDemo: componentNames.includes('FirstRestApiDemo')
+			? FirstRestApiDemo
+			: null,
+		SecondRestApiDemo: componentNames.includes('SecondRestApiDemo')
+			? SecondRestApiDemo
+			: null,
+		ThirdRestApiDemo: componentNames.includes('ThirdRestApiDemo')
+			? ThirdRestApiDemo
+			: null,
 	};
 }
