@@ -49,10 +49,9 @@ const DemoWrapper = styled.div`
 const Background = styled.div`
 	border-radius: 28px;
 	position: absolute;
-	inset: 0;
+	inset: 3px;
 	z-index: -1;
-	outline: 2px dashed var(--color-primary-500);
-	outline-offset: -3px;
+	border: 2px dashed var(--color-primary-500);
 `;
 
 const SliderWrapper = styled.label`

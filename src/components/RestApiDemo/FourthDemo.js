@@ -5,17 +5,17 @@ import UnstyledButton from '../UnstyledButton';
 import { QUERIES } from '../../constants';
 
 const cssLightVariables = [
-	`--color-background: 'hsl(0deg 0% 98%)';`,
-	`--color-elements: 'hsl(0deg 0% 100%)';`,
-	`--color-text: 'hsl(200deg 15% 8%)';`,
-	`--color-input: 'hsl(0deg 0% 52%)';`,
+	['--color-background:', `'hsl(0deg 0% 98%)';`],
+	['--color-elements:', `'hsl(0deg 0% 100%)';`],
+	['--color-text:', `'hsl(200deg 15% 8%)';`],
+	['--color-input:', `'hsl(0deg 0% 52%)';`],
 ];
 
 const cssDarkVariables = [
-	`--color-background: 'hsl(207deg 26% 17%)';`,
-	`--color-elements: 'hsl(209deg 23% 22%)';`,
-	`--color-text: 'hsl(0deg 0% 100%)';`,
-	`--color-input: 'hsl(0deg 0% 100%)';`,
+	['--color-background:', `'hsl(207deg 26% 17%)';`],
+	['--color-elements:', `'hsl(209deg 23% 22%)';`],
+	['--color-text:', `'hsl(0deg 0% 100%)';`],
+	['--color-input:', `'hsl(0deg 0% 100%)';`],
 ];
 
 function FourthDemo() {
@@ -51,7 +51,10 @@ function FourthDemo() {
 				<InfoTitle>CSS 變數</InfoTitle>
 				<Info>
 					{variables.map((elem, index) => (
-						<CustomListItem key={index}>{elem}</CustomListItem>
+						<CustomListItem key={index}>
+							<Key>{elem[0]}</Key>
+							<Value>{elem[1]}</Value>
+						</CustomListItem>
 					))}
 				</Info>
 			</InfoWrapper>
@@ -119,6 +122,20 @@ const CustomListItem = styled.li`
 	padding-left: 8px;
 	padding-right: 16px;
 	margin-bottom: 0;
+`;
+
+const Key = styled.span`
+	margin-right: 8px;
+	@media ${QUERIES.phoneAndDown} {
+		display: block;
+	}
+`;
+
+const Value = styled.span`
+	@media ${QUERIES.phoneAndDown} {
+		display: block;
+		margin-left: 16px;
+	}
 `;
 
 const ButtonGroup = styled.div`

@@ -42,6 +42,7 @@ const Wrapper = styled.form`
 	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 60px;
 
 	display: flex;
 	flex-direction: column;
@@ -50,8 +51,6 @@ const Wrapper = styled.form`
 
 	font-size: calc(19 / 16 * 1rem);
 	color: var(--color-gray-900);
-
-	margin-bottom: 60px;
 
 	@media ${QUERIES.phoneAndDown} {
 		gap: 16px;

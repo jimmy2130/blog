@@ -154,7 +154,7 @@ function SecondDemo() {
 					頁面返回鈕
 				</WebsiteBack>
 				<Restart onClick={handleRestart}>
-					<Icon id="refresh-ccw"></Icon>
+					<Icon id="refresh-ccw" color="var(--color-gray-900)"></Icon>
 				</Restart>
 			</ButtonGroup>
 		</Wrapper>
