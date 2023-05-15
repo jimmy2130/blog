@@ -1,28 +1,10 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-import FirstDemoBoard from './FirstDemoBoard';
-import Piece from './Piece';
+import styled from 'styled-components';
+import SecondDemoBoard from './SecondDemoBoard';
+import Piece2 from './Piece2';
 import UnstyledButton from '../UnstyledButton';
 import Icon from '../Icon';
-import {
-	ACTIVE,
-	COVER_INACTIVE,
-	ACTIVE_INACTIVE,
-	COVER_COVER,
-	ACTIVE_COVER,
-} from './constants';
 import { QUERIES } from '../../constants';
-
-const INACTIVE_STATES = ['cover-inactive', 'active', 'active-inactive'];
-
-const ANIMATION = {
-	active: ACTIVE,
-	cover: undefined,
-	'cover-inactive': COVER_INACTIVE,
-	'active-inactive': ACTIVE_INACTIVE,
-	'cover-cover': COVER_COVER,
-	'active-cover': ACTIVE_COVER,
-};
 
 const INITIAL_GAME = [
 	{ state: 'cover', id: 'abc' },
@@ -30,12 +12,13 @@ const INITIAL_GAME = [
 ];
 
 // 從mdx指定要成功的Demo還是失敗的Demo
-function FirstDemo({ match = 'fail' }) {
+function SecondDemo({ match = 'fail' }) {
 	const [game, setGame] = React.useState(INITIAL_GAME);
-	// state: c, a, ac, ai, cc, ci
+	const [action, setAction] = React.useState('unknown');
+
 	function reveal(id) {
 		const piece = game.find(g => g.id === id);
-		if (INACTIVE_STATES.includes(piece.state)) {
+		if (piece.state === 'active' || piece.state === 'inactive') {
 			return;
 		}
 		const pieceIndex = game.findIndex(g => g.id === id);
@@ -45,20 +28,33 @@ function FirstDemo({ match = 'fail' }) {
 		const twoHaveBeenFlipped =
 			nextGame.filter(g => g.state === 'active').length === 2;
 		if (twoHaveBeenFlipped) {
-			if (match === 'success') {
-				nextGame[pieceIndex]['state'] = 'cover-inactive';
-				nextGame[pieceIndex === 0 ? 1 : 0]['state'] = 'active-inactive';
-			} else if (match === 'fail') {
-				nextGame[pieceIndex]['state'] = 'cover-cover';
-				nextGame[pieceIndex === 0 ? 1 : 0]['state'] = 'active-cover';
-			} else {
-				console.error(`Cannot recognize match ${match}`);
-			}
-		} else {
-			nextGame[pieceIndex === 0 ? 1 : 0]['state'] = 'cover';
+			setAction(match);
 		}
 		setGame(nextGame);
 	}
+
+	React.useEffect(() => {
+		function showResult(action) {
+			const nextGame = game.map(piece => {
+				return {
+					...piece,
+					state: action === 'success' ? 'inactive' : 'cover',
+				};
+			});
+			setGame(nextGame);
+			setAction('unknown');
+		}
+		if (action === 'unknown') {
+			return;
+		}
+		const timeoutId = window.setTimeout(() => {
+			showResult(action);
+		}, 600);
+
+		return () => {
+			window.clearTimeout(timeoutId);
+		};
+	}, [action]);
 
 	function handleRestart(event) {
 		event.preventDefault();
@@ -67,29 +63,29 @@ function FirstDemo({ match = 'fail' }) {
 
 	return (
 		<Wrapper>
-			<FirstDemoBoardWrapper>
-				<FirstDemoBoard
+			<SecondDemoBoardWrapper>
+				<SecondDemoBoard
 					triangleState={game[0]['state']}
 					circleState={game[1]['state']}
 				/>
 				<Restart onClick={handleRestart}>
 					<Icon id="refresh-ccw" color="var(--color-gray-900)"></Icon>
 				</Restart>
-			</FirstDemoBoardWrapper>
+			</SecondDemoBoardWrapper>
 			<ControlGroup>
-				<Piece
+				<Piece2
 					text="8"
 					shape="triangle"
 					id={game[0]['id']}
-					animation={ANIMATION[game[0]['state']]}
 					reveal={reveal}
+					state={game[0]['state']}
 				/>
-				<Piece
+				<Piece2
 					text={match === 'fail' ? '2' : '8'}
 					shape="circle"
 					id={game[1]['id']}
-					animation={ANIMATION[game[1]['state']]}
 					reveal={reveal}
+					state={game[1]['state']}
 				/>
 			</ControlGroup>
 		</Wrapper>
@@ -111,7 +107,7 @@ const Wrapper = styled.form`
 	color: var(--color-gray-900);
 `;
 
-const FirstDemoBoardWrapper = styled.div`
+const SecondDemoBoardWrapper = styled.div`
 	position: relative;
 `;
 
@@ -131,4 +127,4 @@ const Restart = styled(UnstyledButton)`
 	}
 `;
 
-export default FirstDemo;
+export default SecondDemo;

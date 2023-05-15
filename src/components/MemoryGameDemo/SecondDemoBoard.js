@@ -1,10 +1,17 @@
 import React from 'react';
+import Circle from './Circle';
+import Triangle from './Triangle';
 
-function SecondDemoBoard() {
+const TRANSITION = {
+	cover: { x: 154 - 154, y: 0 },
+	active: { x: 314 - 154, y: 0 },
+	inactive: { x: 474 - 154, y: 0 },
+};
+
+function SecondDemoBoard({ triangleState, circleState }) {
 	return (
 		<svg
 			width="629"
-			height="264"
 			viewBox="0 0 629 264"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
@@ -25,6 +32,8 @@ function SecondDemoBoard() {
 				d="M460.56 158V148.08H468.08V114.48H460.56V104.56H488.08V114.48H480.72V148.08H488.08V158H460.56Z"
 				fill="#304859"
 			/>
+			<Circle cx="154" cy="132" {...TRANSITION[circleState]} />
+			<Triangle cx="154" cy="132" {...TRANSITION[triangleState]} />
 		</svg>
 	);
 }

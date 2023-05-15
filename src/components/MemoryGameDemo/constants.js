@@ -1,7 +1,7 @@
 import React from 'react';
 import { keyframes } from 'styled-components';
 
-const BACKGROUND_STYLE = {
+export const BACKGROUND_STYLE = {
 	cover: 'hsl(205deg 30% 27%)',
 	active: 'hsl(37deg 98% 54%)',
 	inactive: 'hsl(203deg 28% 79%)',

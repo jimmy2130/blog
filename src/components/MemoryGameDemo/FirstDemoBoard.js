@@ -54,14 +54,14 @@ function firstDemoBoard({ triangleState, circleState }) {
 				fill="#304859"
 			/>
 			<Circle
-				cx={234}
-				cy={181}
+				cx="234"
+				cy="181"
 				scale={MIDDLE_CIRCLE.includes(circleState) ? 1 : 46 / 67}
 				{...TRANSITION[circleState]}
 			/>
 			<Triangle
-				cx={234}
-				cy={181}
+				cx="234"
+				cy="181"
 				scale={MIDDLE_CIRCLE.includes(triangleState) ? 1 : 56 / 80}
 				{...TRANSITION[triangleState]}
 			/>

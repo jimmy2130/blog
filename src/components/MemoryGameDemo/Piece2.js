@@ -5,6 +5,7 @@ import Eight from './Eight';
 import Two from './Two';
 import Triangle from './Triangle';
 import Circle from './Circle';
+import { BACKGROUND_STYLE } from './constants';
 import { QUERIES } from '../../constants';
 
 const PIECE_TEXT = {
@@ -12,7 +13,7 @@ const PIECE_TEXT = {
 	2: Two,
 };
 
-function Piece({ text = '8', shape, id, animation, reveal }) {
+function Piece2({ text = '8', shape, id, reveal, state }) {
 	const Text = PIECE_TEXT[text];
 	if (!Text) {
 		console.error(`Cannot recognize piece text ${text}`);
@@ -21,6 +22,7 @@ function Piece({ text = '8', shape, id, animation, reveal }) {
 		event.preventDefault();
 		reveal(id);
 	}
+
 	return (
 		<Wrapper onClick={handleClick}>
 			<Svg
@@ -34,8 +36,13 @@ function Piece({ text = '8', shape, id, animation, reveal }) {
 					cx="60"
 					cy="60"
 					r="52"
-					animation={animation}
-					fill="hsl(205deg 30% 27%)"
+					fill={BACKGROUND_STYLE[state]}
+					style={{
+						'--hover-background':
+							state === 'cover'
+								? 'hsl(205deg 37% 55%)'
+								: BACKGROUND_STYLE[state],
+					}}
 				/>
 				<Text />
 				{shape === 'triangle' && <Triangle cx="60" cy="62" r="58" />}
@@ -57,11 +64,9 @@ const Svg = styled.svg`
 `;
 
 const Background = styled.circle`
-	animation: ${p => p.animation} 600ms;
-	animation-fill-mode: both;
 	${Wrapper}:hover & {
-		fill: hsl(205deg 37% 55%);
+		fill: var(--hover-background);
 	}
 `;
 
-export default Piece;
+export default Piece2;
