@@ -22,7 +22,7 @@ function firstDemoBoard({ triangleState, circleState }) {
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 		>
-			<rect width="629" height="362" rx="32" fill="#F2F2F2" />
+			<rect width="629" height="362" rx="32" fill="var(--color-gray-100)" />
 			<circle cx="234" cy="181" r="60" fill="#BDC1C3" />
 			<circle cx="134" cy="81" r="40" fill="#BDC1C3" />
 			<circle cx="134" cy="281" r="40" fill="#BDC1C3" />

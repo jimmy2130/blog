@@ -49,6 +49,9 @@ const FirstMemoryGameDemo = dynamic(() =>
 const SecondMemoryGameDemo = dynamic(() =>
 	import('./components/MemoryGameDemo/SecondDemo'),
 );
+const ThirdMemoryGameDemo = dynamic(() =>
+	import('./components/MemoryGameDemo/ThirdDemo'),
+);
 
 export function getSpecialComponents(componentNames) {
 	if (!componentNames) {
@@ -74,6 +77,9 @@ export function getSpecialComponents(componentNames) {
 			: null,
 		SecondMemoryGameDemo: componentNames.includes('SecondMemoryGameDemo')
 			? SecondMemoryGameDemo
+			: null,
+		ThirdMemoryGameDemo: componentNames.includes('ThirdMemoryGameDemo')
+			? ThirdMemoryGameDemo
 			: null,
 	};
 }
