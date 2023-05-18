@@ -93,6 +93,7 @@ function ThirdDemo() {
 							let Digit = DIGITS[digit];
 							return (
 								<DigitWrapper
+									key={id}
 									style={{
 										'--left': LEFT[id],
 										'--top': TOP[id],
@@ -100,7 +101,7 @@ function ThirdDemo() {
 										'--pos': NUM_POS[id],
 									}}
 								>
-									<Digit key={id} />
+									<Digit />
 								</DigitWrapper>
 							);
 						})}

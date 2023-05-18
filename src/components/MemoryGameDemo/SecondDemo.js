@@ -54,7 +54,7 @@ function SecondDemo({ match = 'fail' }) {
 		return () => {
 			window.clearTimeout(timeoutId);
 		};
-	}, [action]);
+	}, [action, game]);
 
 	function handleRestart(event) {
 		event.preventDefault();
