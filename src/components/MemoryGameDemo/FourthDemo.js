@@ -20,9 +20,10 @@ function FourthDemo() {
 	return (
 		<Wrapper>
 			<FourthDemoBoard ref={topLeftAnchorRef} mode={mode} />
-			<ButtonGroup>
+			<ButtonWrapper>
 				<Toggle onClick={handleToggle}>切換模式</Toggle>
-			</ButtonGroup>
+				<FailedMessage>這個元件需要使用鍵盤才能操作</FailedMessage>
+			</ButtonWrapper>
 		</Wrapper>
 	);
 }
@@ -43,7 +44,7 @@ const Wrapper = styled.form`
 	color: var(--color-gray-900);
 `;
 
-const ButtonGroup = styled.div`
+const ButtonWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 16px;
@@ -54,7 +55,7 @@ const ButtonGroup = styled.div`
 	}
 `;
 
-const CustomButton = styled(UnstyledButton)`
+const Toggle = styled(UnstyledButton)`
 	background: var(--color-primary-100);
 	border-radius: 4px;
 	padding: 8px 12px;
@@ -69,8 +70,25 @@ const CustomButton = styled(UnstyledButton)`
 		border: 2px solid var(--color-gray-200);
 		cursor: not-allowed;
 	}
+
+	@media (hover: none) and (pointer: coarse) {
+		display: none;
+	}
+
+	@media (hover: none) and (pointer: none) {
+		display: none;
+	}
 `;
 
-const Toggle = styled(CustomButton)``;
+const FailedMessage = styled.span`
+	background: var(--color-warning);
+	border-radius: 4px;
+	padding: 8px 12px;
+	border: 2px solid var(--color-warning);
+
+	@media (hover: hover) and (pointer: fine) {
+		display: none;
+	}
+`;
 
 export default FourthDemo;

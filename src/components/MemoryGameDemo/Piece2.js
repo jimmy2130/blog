@@ -13,7 +13,7 @@ const PIECE_TEXT = {
 	2: Two,
 };
 
-function Piece2({ text = '8', shape, id, reveal, state }) {
+function Piece2({ text = '8', shape, id, reveal, state, x }) {
 	const Text = PIECE_TEXT[text];
 	if (!Text) {
 		console.error(`Cannot recognize piece text ${text}`);
@@ -24,7 +24,7 @@ function Piece2({ text = '8', shape, id, reveal, state }) {
 	}
 
 	return (
-		<Wrapper onClick={handleClick}>
+		<Wrapper onClick={handleClick} style={{ '--x': `${x}px` }}>
 			<Svg
 				width="120"
 				height="120"
@@ -51,7 +51,13 @@ function Piece2({ text = '8', shape, id, reveal, state }) {
 		</Wrapper>
 	);
 }
-const Wrapper = styled(UnstyledButton)``;
+const Wrapper = styled(UnstyledButton)`
+	transform: scale(0.7) translateX(var(--x));
+
+	@media ${QUERIES.phoneAndDown} {
+		transform: revert;
+	}
+`;
 
 const Svg = styled.svg`
 	width: 120px;

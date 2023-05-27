@@ -21,7 +21,7 @@ export const DATA = [
 			'這是一個可以單人或多人遊玩的記憶翻牌遊戲，不但有兩種遊戲難度，還支援記憶數字與記憶圖案兩種模式。',
 		illustration: Project2Visual,
 		workLink: 'https://memory-game-one-tau.vercel.app',
-		readMoreLink: '/',
+		readMoreLink: '/blog/memory-game-project-detail',
 	},
 	{
 		id: 2,

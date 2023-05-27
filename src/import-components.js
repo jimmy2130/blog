@@ -11,6 +11,7 @@ import CodeBlock from './components/CodeBlock';
 import BasicImage from './components/Image';
 import Sidenote from './components/Sidenote';
 import DescriptionList from './components/DescriptionList';
+import InfiniteLoopVideo from './components/InfiniteLoopVideo';
 
 export const defaultComponents = {
 	h2: props => <H2 {...props} />,
@@ -26,6 +27,7 @@ export const defaultComponents = {
 	img: props => <BasicImage {...props} />,
 	Sidenote,
 	DescriptionList,
+	InfiniteLoopVideo,
 };
 
 import dynamic from 'next/dynamic';
@@ -42,6 +44,9 @@ const ThirdRestApiDemo = dynamic(() =>
 );
 const FourthRestApiDemo = dynamic(() =>
 	import('./components/RestApiDemo/FourthDemo'),
+);
+const DemoGroup = dynamic(() =>
+	import('./components/MemoryGameDemo/DemoGroup'),
 );
 const FirstMemoryGameDemo = dynamic(() =>
 	import('./components/MemoryGameDemo/FirstDemo'),
@@ -75,6 +80,7 @@ export function getSpecialComponents(componentNames) {
 		FourthRestApiDemo: componentNames.includes('FourthRestApiDemo')
 			? FourthRestApiDemo
 			: null,
+		DemoGroup: componentNames.includes('DemoGroup') ? DemoGroup : null,
 		FirstMemoryGameDemo: componentNames.includes('FirstMemoryGameDemo')
 			? FirstMemoryGameDemo
 			: null,

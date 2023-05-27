@@ -77,12 +77,7 @@ function FourthDemoBoard({ mode }, topLeftAnchorRef) {
 		<Wrapper>
 			<Tag>{MODE[mode]}</Tag>
 			<TopLeftAnchor onClick={handleClick} ref={topLeftAnchorRef}>
-				<Icon
-					id="anchor"
-					size="40"
-					color="var(--color-primary-500)"
-					strokeWidth="3"
-				/>
+				<CustomIcon id="anchor" size="40" color="#304859" strokeWidth="3" />
 			</TopLeftAnchor>
 			<PieceWrapper>
 				{range(16).map(index => (
@@ -97,12 +92,7 @@ function FourthDemoBoard({ mode }, topLeftAnchorRef) {
 				))}
 			</PieceWrapper>
 			<BottomRightAnchor onClick={handleClick}>
-				<Icon
-					id="anchor"
-					size="40"
-					color="var(--color-primary-500)"
-					strokeWidth="3"
-				/>
+				<CustomIcon id="anchor" size="40" color="#304859" strokeWidth="3" />
 			</BottomRightAnchor>
 		</Wrapper>
 	);
@@ -116,6 +106,10 @@ const Wrapper = styled.div`
 
 	display: grid;
 	place-content: center;
+
+	@media ${QUERIES.phoneAndDown} {
+		padding: 64px;
+	}
 `;
 
 const Tag = styled.div`
@@ -123,7 +117,7 @@ const Tag = styled.div`
 	top: 0;
 	right: 32px;
 	padding: 8px 24px;
-	background: var(--color-primary-500);
+	background: #304859;
 	color: var(--color-gray-10);
 	font-size: calc(16 / 16 * 1rem);
 	font-weight: 700;
@@ -135,10 +129,14 @@ const PieceWrapper = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	gap: 16px;
+
+	@media ${QUERIES.phoneAndDown} {
+		gap: 8px;
+	}
 `;
 
 const DemoPiece = styled(UnstyledButton)`
-	background: var(--color-primary-500);
+	background: #304859;
 	border-radius: 50%;
 	width: 48px;
 	height: 48px;
@@ -147,6 +145,11 @@ const DemoPiece = styled(UnstyledButton)`
 		background: var(--color-gray-200);
 		border: 2px solid var(--color-gray-200);
 		cursor: not-allowed;
+	}
+
+	@media ${QUERIES.phoneAndDown} {
+		width: 30px;
+		height: 30px;
 	}
 `;
 
@@ -157,11 +160,27 @@ const Anchor = styled(UnstyledButton)`
 const TopLeftAnchor = styled(Anchor)`
 	top: 40px;
 	left: 40px;
+
+	@media ${QUERIES.phoneAndDown} {
+		top: 20px;
+		left: 20px;
+	}
 `;
 
 const BottomRightAnchor = styled(Anchor)`
 	bottom: 40px;
 	right: 40px;
+
+	@media ${QUERIES.phoneAndDown} {
+		bottom: 20px;
+		right: 20px;
+	}
+`;
+
+const CustomIcon = styled(Icon)`
+	@media ${QUERIES.phoneAndDown} {
+		transform: scale(0.7);
+	}
 `;
 
 export default React.forwardRef(FourthDemoBoard);

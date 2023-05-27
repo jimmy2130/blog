@@ -73,7 +73,7 @@ function FirstDemo({ match = 'fail' }) {
 					circleState={game[1]['state']}
 				/>
 				<Restart onClick={handleRestart}>
-					<Icon id="refresh-ccw" color="var(--color-gray-900)"></Icon>
+					<Icon id="refresh-ccw" color="var(--color-gray-900)" size="20"></Icon>
 				</Restart>
 			</FirstDemoBoardWrapper>
 			<ControlGroup>
@@ -83,6 +83,7 @@ function FirstDemo({ match = 'fail' }) {
 					id={game[0]['id']}
 					animation={ANIMATION[game[0]['state']]}
 					reveal={reveal}
+					x={10}
 				/>
 				<Piece
 					text={match === 'fail' ? '2' : '8'}
@@ -90,6 +91,7 @@ function FirstDemo({ match = 'fail' }) {
 					id={game[1]['id']}
 					animation={ANIMATION[game[1]['state']]}
 					reveal={reveal}
+					x={-10}
 				/>
 			</ControlGroup>
 		</Wrapper>
@@ -97,18 +99,16 @@ function FirstDemo({ match = 'fail' }) {
 }
 
 const Wrapper = styled.form`
-	max-width: 500px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 60px;
-
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 32px;
 
 	font-size: calc(19 / 16 * 1rem);
 	color: var(--color-gray-900);
+
+	@media ${QUERIES.phoneAndDown} {
+		gap: 16px;
+	}
 `;
 
 const FirstDemoBoardWrapper = styled.div`
@@ -117,18 +117,16 @@ const FirstDemoBoardWrapper = styled.div`
 
 const ControlGroup = styled.div`
 	display: flex;
-	gap: 32px;
+
+	@media ${QUERIES.phoneAndDown} {
+		gap: 32px;
+	}
 `;
 
 const Restart = styled(UnstyledButton)`
 	position: absolute;
-	bottom: 20px;
-	right: 20px;
-
-	@media ${QUERIES.phoneAndDown} {
-		bottom: 12px;
-		right: 12px;
-	}
+	bottom: 12px;
+	right: 12px;
 `;
 
 export default FirstDemo;
