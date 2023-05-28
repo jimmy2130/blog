@@ -11,7 +11,7 @@ export const DATA = [
 			'這是一個用 REST Countries API打造的國家查詢器，可以瀏覽世界上的國家，也能進一步檢視國家資訊。',
 		illustration: Project1Visual,
 		workLink: 'https://rest-countries-api-pi-ten.vercel.app',
-		readMoreLink: '/',
+		readMoreLink: '/blog/rest-countries-api-project-detail',
 	},
 	{
 		id: 1,
@@ -21,7 +21,7 @@ export const DATA = [
 			'這是一個可以單人或多人遊玩的記憶翻牌遊戲，不但有兩種遊戲難度，還支援記憶數字與記憶圖案兩種模式。',
 		illustration: Project2Visual,
 		workLink: 'https://memory-game-one-tau.vercel.app',
-		readMoreLink: '/',
+		readMoreLink: '/blog/memory-game-project-detail',
 	},
 	{
 		id: 2,
@@ -31,6 +31,6 @@ export const DATA = [
 			'融合樂理知識與程式設計，將五線譜轉換成譜面正確、排版整齊的數字簡譜。',
 		illustration: Project3Visual,
 		workLink: 'https://www.youtube.com/watch?v=s3_nK9yZ3AY',
-		readMoreLink: '/',
+		readMoreLink: '/blog/jianpu-project-detail',
 	},
 ];

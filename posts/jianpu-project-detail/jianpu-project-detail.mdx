@@ -1,0 +1,136 @@
+---
+title: 自動化製作簡譜說明
+date: 2023/05/27
+description: 此篇文章以快速導覽的形式，說明如何把五線譜轉換成數字簡譜
+published: true
+components: CodeComparison, ImageComparison
+---
+
+從 2012 年開始，我就有在廷廷的鋼琴窩上面販售鋼琴五線譜。由於當時編琴譜的能力尚未純熟，因此一直都是斷斷續續地在進行這份工作。一直到 2020 年年初，我才正式投入編琴譜的工作，以日更的頻率上傳五線譜。因為將五線譜轉換成數字簡譜可以額外得到一筆收入，所以當時也開始研究起將五線譜轉換成簡譜的方法。
+
+本人習慣在 Mac 上，使用 MuseScore 軟體來製作琴譜，很可惜的是，MuseScore 並沒有提供將五線譜轉換成簡譜的方法。經過一番查詢，以及深入了解 MuseScore 的各項功能後，我開發出了以下流程，來將五線譜轉換成簡譜。
+
+## Part A: 流程講解
+
+![將五線譜轉換成數字簡譜的流程](/flow.png '將五線譜轉換成數字簡譜的流程')
+
+首先，將製作好的五線譜輸出成 MusicXML 檔，再利用 NodeJS 解析該檔案後，得到琴譜音符的資訊，並以此產生 AppleScript 腳本。
+
+接著，執行 AppleScript 腳本，並搭配自製的簡譜樣式表，讓電腦自動填入琴譜的節奏資訊，完成後，再使用自製的 MuseScore 插件，填上代表音高的數字。
+
+琴譜轉換的時間，視樂曲的複雜度而定，但通常在五分鐘內可以完成全部的作業，以下進一步說明解析琴譜的過程。
+
+<CodeComparison
+  left={<img src="/G-note.png" alt="a G note" title="音符 G" style={{maxWidth: '240px'}} />}
+  leftTag="Score"
+  leftStyle={{display: 'grid', placeContent: 'center'}}
+  rightTag="MusicXML"
+  right={`<measure>
+  <note>
+    <pitch>
+      <step>G</step>
+      <octave>4</octave>
+    </pitch>
+    <type>eighth</type>
+  </note>
+</measure>`}
+/>
+
+MusicXML 是一種標籤語言，以一個音高為 G 的八分音符為例，在 MusicXML 檔裡面，會包含了該音符的音高和時長資訊。
+
+利用 NodeJS，將 MusicXML 檔中的音符資訊取出，整理成一個物件 (Object)。沿用上述的範例，假設拍號為四四拍，且該小節後方全是休止符，則整理好的物件會長得像對照表右邊的樣子。
+
+<CodeComparison
+  leftTag="MusicXML"
+  left={`<measure>
+  <note>
+    <pitch>
+      <step>G</step>
+      <octave>4</octave>
+    </pitch>
+    <type>eighth</type>
+  </note>
+</measure>`}
+  rightTag="JavaScript"
+  right={`{
+  note: [[
+    ["G4b"],
+    ["s"],
+    ["s"],
+    ["s"],
+    ["s"]
+  ]],
+  time: [[
+    [8, 8, 4, 4, 4]
+  ]]
+}`}
+/>
+
+由於轉換琴譜的過程，需要複製貼上簡譜樣式表中的音符樣式，因此根據上一步所得到的物件，製作對應的 AppleScript 腳本。
+
+<CodeComparison
+  leftTag="JavaScript"
+  left={`{
+  note: [[
+    ["G4b"],
+    ["s"],
+    ["s"],
+    ["s"],
+    ["s"]
+  ]],
+  time: [[
+    [8, 8, 4, 4, 4]
+  ]]
+}`}
+  rightTag="AppleScript"
+  right={`tell application "System Events"
+  delay 0.06
+  keystroke "f" using command down
+  delay 0.06
+  keystroke "001"
+  delay 0.06
+  keystroke return
+  // ...
+end tell`}
+/>
+
+有了音符資訊物件和 AppleScript 腳本後，先執行 AppleScript 腳本，讓電腦快速的複製貼上簡譜樣式表的音符到要轉換的琴譜上，再利用 MuseScore 插件，一口氣將所有數字填入琴譜中。Part B 與 Part C 分別會進一步說明簡譜樣式表與插件的細節。
+
+## Part B: 簡譜樣式表
+
+![簡譜樣式表](/N-type-note.png '簡譜樣式表')
+
+簡譜樣式表中有各種長得蠻奇怪的音符，實際顯示的部分皆只有符桿，沒有符頭。利用它們可以組合出簡譜所需要的各種線段。在這些奇怪音符中，有兩個特別值得注意的地方：
+
+### 一、它們有兩個聲部
+
+之所以要有兩個聲部，是因為需要兩組定位點來放置簡譜的元素。下層的音符是用來定位數字以及點點，上層的音符則是用來定位連結線和歌詞。
+
+### 二、上層音符的符槓呈倒 N 型
+
+之所以要特別設計倒 N 型的符槓，是因為要確保放置連結線時，線段的開口朝下。只有朝上的符桿連結到朝下的符桿，才能達到此一目的。
+
+## Part C: 插件
+
+原先，放置簡譜數字也是交由 AppleScript 完成，但經過進一步研究後，發現可以撰寫一個 MuseScore 插件，搭配已經準備好的音符資訊物件來填入音符。由於是自己開發的插件，因此可以精準控制數字、點點的位置，確保它們不會和其他元素重疊。
+
+<ImageComparison
+  style={{maxWidth: '500px'}}
+  failImage={<img src="/wrong-dot.png" alt="錯誤的點點位置" title="錯誤的點點位置"/>}
+  successImage={<img src="/correct-dot.png" alt="正確的點點位置" title="正確的點點位置"/>}
+/>
+
+以上圖為例，以一條底線來描述八分音符時，低八度的點點需要往下移動，才能避開底線。
+
+## Part D: 結語
+
+這篇文章快速的說明了琴譜轉換的過程。其實，從點子形成到最終的轉換作業，整體的流程更新過好幾個版本，大約耗時了一年左右的時間。
+
+終究，使用 AppleScript 並不是一個很可靠的方法，如果以後還有機會繼續鑽研轉換琴譜的方法，會朝著完全使用 MuseScore 插件來轉換琴譜的方向做研究。
+
+另外，本文的操作方法適用於 MuseScore 2，MuseScore 已經出到第四代了，說不定有更好的功能可以更方便的製作簡譜。
+
+## 參考資料
+
+- [MuseScore 製作簡譜方法](https://streamelody.github.io/2015/07/musescore-jianpu-ways/)
+- [AppleScript Key Codes](https://eastmanreference.com/complete-list-of-applescript-key-codes)

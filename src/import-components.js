@@ -11,6 +11,7 @@ import CodeBlock from './components/CodeBlock';
 import BasicImage from './components/Image';
 import Sidenote from './components/Sidenote';
 import DescriptionList from './components/DescriptionList';
+import InfiniteLoopVideo from './components/InfiniteLoopVideo';
 
 export const defaultComponents = {
 	h2: props => <H2 {...props} />,
@@ -26,18 +27,46 @@ export const defaultComponents = {
 	img: props => <BasicImage {...props} />,
 	Sidenote,
 	DescriptionList,
+	InfiniteLoopVideo,
 };
 
 import dynamic from 'next/dynamic';
-const Demo = dynamic(() => import('./components/Demo'));
-const Demo2 = dynamic(() => import('./components/Demo2'));
+
+const DEMO = {
+	Demo: dynamic(() => import('./components/Demo')),
+	Demo2: dynamic(() => import('./components/Demo2')),
+	FirstRestApiDemo: dynamic(() => import('./components/RestApiDemo/FirstDemo')),
+	SecondRestApiDemo: dynamic(() =>
+		import('./components/RestApiDemo/SecondDemo'),
+	),
+	ThirdRestApiDemo: dynamic(() => import('./components/RestApiDemo/ThirdDemo')),
+	FourthRestApiDemo: dynamic(() =>
+		import('./components/RestApiDemo/FourthDemo'),
+	),
+	DemoGroup: dynamic(() => import('./components/MemoryGameDemo/DemoGroup')),
+	FirstMemoryGameDemo: dynamic(() =>
+		import('./components/MemoryGameDemo/FirstDemo'),
+	),
+	SecondMemoryGameDemo: dynamic(() =>
+		import('./components/MemoryGameDemo/SecondDemo'),
+	),
+	ThirdMemoryGameDemo: dynamic(() =>
+		import('./components/MemoryGameDemo/ThirdDemo'),
+	),
+	FourthMemoryGameDemo: dynamic(() =>
+		import('./components/MemoryGameDemo/FourthDemo'),
+	),
+	CodeComparison: dynamic(() => import('./components/CodeComparison')),
+	ImageComparison: dynamic(() => import('./components/ImageComparison')),
+};
 
 export function getSpecialComponents(componentNames) {
 	if (!componentNames) {
 		return {};
 	}
-	return {
-		Demo: componentNames.includes('Demo') ? Demo : null,
-		Demo2: componentNames.includes('Demo2') ? Demo2 : null,
-	};
+	const components = {};
+	componentNames.forEach(c => {
+		components[c] = DEMO[c];
+	});
+	return components;
 }

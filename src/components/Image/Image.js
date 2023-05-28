@@ -7,6 +7,7 @@ function BasicImage({ ...delegated }) {
 
 const Wrapper = styled.img`
 	border-radius: 4px;
+	box-shadow: var(--shadow-elevation-medium);
 `;
 
 export default BasicImage;

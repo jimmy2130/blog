@@ -16,11 +16,11 @@ function H3({ children }) {
 }
 
 export const Wrapper = styled.h3`
-	font-size: calc(22 / 16 * 1rem);
+	font-size: calc(19 / 16 * 1rem);
 	color: var(--color-gray-900);
 
-	margin-top: 60px;
-	margin-bottom: 20px;
+	margin-top: 40px;
+	margin-bottom: 16px;
 `;
 
 const Title = styled.span`

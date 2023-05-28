@@ -13,7 +13,7 @@ const UnstyledButton = styled.button`
 	color: inherit;
 
 	&:focus {
-		outline-offset: 2px;
+		outline-offset: 8px;
 	}
 
 	&:focus:not(:focus-visible) {

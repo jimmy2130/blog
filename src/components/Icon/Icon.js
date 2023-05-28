@@ -1,10 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Sun, Moon } from 'react-feather';
+import {
+	Sun,
+	Moon,
+	ChevronDown,
+	RefreshCcw,
+	Play,
+	Pause,
+	Anchor,
+	X,
+	Check,
+} from 'react-feather';
 
 const icons = {
 	sun: Sun,
 	moon: Moon,
+	'chevron-down': ChevronDown,
+	'refresh-ccw': RefreshCcw,
+	play: Play,
+	pause: Pause,
+	anchor: Anchor,
+	x: X,
+	check: Check,
 };
 
 function Icon({ id, color, size, strokeWidth, ...delegated }) {

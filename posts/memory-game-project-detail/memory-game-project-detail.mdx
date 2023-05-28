@@ -1,0 +1,80 @@
+---
+title: 記憶遊戲作品說明
+date: 2023/05/14
+description: 此篇文章以四個互動式元件，來說明記憶遊戲的作品亮點
+published: true
+components: DemoGroup, FirstMemoryGameDemo, SecondMemoryGameDemo, ThirdMemoryGameDemo, FourthMemoryGameDemo
+---
+
+以狀態 (State) 來改變元件 (Component) 顯示的結果，是 React 的核心精神。為了精進這方面的實力，我在 Frontend Mentor 上面，找到了一款記憶翻牌遊戲的[設計作品](https://www.frontendmentor.io/challenges/memory-game-vse4WFPvM)，並嘗試寫出此遊戲的[程式碼](https://github.com/jimmy2130/memory-game)，以練習規劃遊戲中所用到的各種狀態。
+
+[這個作品](https://memory-game-one-tau.vercel.app)，可供 1 至 4 名玩家遊玩，有 4x4 和 6x6 兩種遊戲難度，記憶的內容則有數字和圖形兩種。遊戲過程中，需要將數字或圖形進行配對，成功配對最多組的人獲勝。
+
+## 狀態設計
+
+玩家點擊一張牌後，牌面會從覆蓋 (Cover) 變成被翻開 (Active) 的狀態，如果有兩張被翻開的牌，則根據配對結果會有不同的動作。兩張相同的牌會被鎖住(Inactive)，兩張不同的牌則會變回覆蓋的狀態。
+
+按照以上敘述，設計了六種狀態，名字以及說明如下：
+
+1. Cover (C)：被覆蓋的牌
+2. Active (A)：被翻開的牌
+3. Cover-Inactive (CI)：原本被覆蓋的牌，配對成功後被鎖住
+4. Active-Inactive (AI)：原本被翻開的牌，配對成功後被鎖住
+5. Cover-Cover (CC)：原本被覆蓋的牌，配對失敗後被覆蓋
+6. Active-Cover (AC)：原本被翻開的牌，配對失敗後被覆蓋
+
+狀態 3、4、5、6 涵蓋了牌面變化，這些動畫皆是由 CSS 的 Animation 撰寫。
+
+下面的互動式元件，以六個圓圈表示六種不同的狀態，按按看牌，然後觀察各張牌的狀態是如何變化的吧。
+
+<DemoGroup>
+  <FirstMemoryGameDemo match="fail" />
+  <FirstMemoryGameDemo match="success" />
+</DemoGroup>
+
+上面所呈現的狀態設計方法，主要有兩個缺點：
+
+1. 如果配對失敗的話，下次翻牌時，需要將 Cover-Cover 狀態或 Active-Cover 狀態的牌，校正回 Cover 狀態。
+2. 為了描述牌面的變化，需要寫大量的 CSS Animation 規則。
+
+現在回頭來看，如果要重新製作這個作品，我應該會將狀態分成牌面狀態及牌面動作兩類，牌面狀態包含了Cover(被覆蓋的牌)、Active(被翻開的牌)、Inactive(被鎖住的牌)；牌面動作則包含了Unknown(配對結果未知)、Success(配對成功)、Fail(配對失敗)。
+
+首先，任何狀態為 Cover 的牌，點擊後都會變成 Active 狀態。接著，當狀態為 Active 的牌收到 Success 或 Fail 的動作時，利用 useEffect 將 Active 狀態改成 Cover 狀態或 Inactive 狀態。
+
+當牌的狀態是 Cover 或 Inactive，或是當牌面動作為 Unknown 時，則不動作。
+
+<DemoGroup>
+  <SecondMemoryGameDemo match="fail" />
+  <SecondMemoryGameDemo match="success" />
+</DemoGroup>
+
+這樣的狀態設計較好理解，且利用 useEffect，也可以省去寫大量 CSS Animation 規則的麻煩。
+
+## 用 Position Absolute 定位時間顯示器
+
+由於設計作品的字體並不是等寬字體 (Monospace Font)，因此如果沒有特別對數字的顯示位置進行處理，會導致數字，以及中間的冒號移位。
+
+<InfiniteLoopVideo src="/timer-showcase.mov" width="180"/>
+
+為了解決這個問題，可以使用 Position Absolute 的方式，對每個數字進行定位，以爭取在任何數字組合下，都能漂亮呈現時間的位置。
+
+利用互動式元件下面的按鈕，比較看看兩種定位模式下的時間顯示器吧。
+
+<ThirdMemoryGameDemo />
+
+## Rove Tab Index
+
+這個遊戲的每張牌都是可被聚焦 (Focus) 的按鈕，因此如果不對按鈕進行特別的設定，習慣用鍵盤瀏覽網頁的使用者可能會覺得很困擾。當他們想要選到特定的按鈕時，需要按非常多次的 Tab 鍵才行。
+
+<InfiniteLoopVideo src="/rove-tab-index-showcase.mov" width="250"/>
+
+為了解決這個問題，可以遵循 Rove Tab Index 的設計模式，調整聚焦牌面的方法。當焦點落在牌堆中時，按下 Tab 鍵會跳離牌堆，使用方向鍵則可以在牌堆中尋找要選取的牌。
+
+先按下互動式元件下面的切換按鈕，再使用 Tab 鍵，比較看看兩種模式的差異吧。
+
+<FourthMemoryGameDemo />
+
+## 參考資料
+
+- [Animation in Styled Components](https://styled-components.com/docs/basics#animations)
+- [UseInterval Hook](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
