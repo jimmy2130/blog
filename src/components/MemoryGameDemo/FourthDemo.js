@@ -84,7 +84,7 @@ const FailedMessage = styled.span`
 	background: var(--color-warning);
 	border-radius: 4px;
 	padding: 8px 12px;
-	border: 2px solid var(--color-warning);
+	border: 2px solid var(--color-warning-background);
 
 	@media (hover: hover) and (pointer: fine) {
 		display: none;

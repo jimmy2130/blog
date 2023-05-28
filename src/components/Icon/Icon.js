@@ -8,6 +8,8 @@ import {
 	Play,
 	Pause,
 	Anchor,
+	X,
+	Check,
 } from 'react-feather';
 
 const icons = {
@@ -18,6 +20,8 @@ const icons = {
 	play: Play,
 	pause: Pause,
 	anchor: Anchor,
+	x: X,
+	check: Check,
 };
 
 function Icon({ id, color, size, strokeWidth, ...delegated }) {

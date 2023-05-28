@@ -18,7 +18,10 @@ export const COLORS = {
 			'primary-300': 'hsl(40deg 41% 48%)',
 			'primary-400': 'hsl(40deg 55% 34%)',
 			'primary-500': 'hsl(40deg 94% 20%)',
-			warning: 'hsl(0deg 93% 78%)',
+			warning: 'hsl(0deg 70% 44%)',
+			'warning-background': 'hsl(0deg 88% 88%)',
+			success: 'hsl(122deg 85% 25%)',
+			'success-background': 'hsl(122deg 62% 89%)',
 		},
 		syntax: {
 			'background-light-blue': 'hsl(213deg 92% 85%)',
@@ -53,7 +56,10 @@ export const COLORS = {
 			'primary-300': 'hsl(40deg 41% 48%)',
 			'primary-400': 'hsl(40deg 55% 34%)',
 			'primary-500': 'hsl(40deg 94% 20%)',
-			warning: 'hsl(0deg 88% 88%)',
+			warning: 'hsl(0deg 70% 44%)',
+			'warning-background': 'hsl(0deg 88% 88%)',
+			success: 'hsl(122deg 85% 25%)',
+			'success-background': 'hsl(122deg 62% 89%)',
 		},
 		syntax: {
 			'background-light-blue': 'hsl(213deg 92% 85%)',

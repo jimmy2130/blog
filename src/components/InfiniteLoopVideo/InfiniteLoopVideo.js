@@ -54,11 +54,6 @@ function InfiniteLoopVideo({ src, width, type = 'video/mp4' }) {
 }
 
 const Wrapper = styled.div`
-	--shadow-color: 0deg 0% 73%;
-	--shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
-		0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
-		2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
-		5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
 	position: relative;
 	border-radius: 4px;
 	/* video element has 4px of border-radius */

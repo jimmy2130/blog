@@ -31,67 +31,42 @@ export const defaultComponents = {
 };
 
 import dynamic from 'next/dynamic';
-const Demo = dynamic(() => import('./components/Demo'));
-const Demo2 = dynamic(() => import('./components/Demo2'));
-const FirstRestApiDemo = dynamic(() =>
-	import('./components/RestApiDemo/FirstDemo'),
-);
-const SecondRestApiDemo = dynamic(() =>
-	import('./components/RestApiDemo/SecondDemo'),
-);
-const ThirdRestApiDemo = dynamic(() =>
-	import('./components/RestApiDemo/ThirdDemo'),
-);
-const FourthRestApiDemo = dynamic(() =>
-	import('./components/RestApiDemo/FourthDemo'),
-);
-const DemoGroup = dynamic(() =>
-	import('./components/MemoryGameDemo/DemoGroup'),
-);
-const FirstMemoryGameDemo = dynamic(() =>
-	import('./components/MemoryGameDemo/FirstDemo'),
-);
-const SecondMemoryGameDemo = dynamic(() =>
-	import('./components/MemoryGameDemo/SecondDemo'),
-);
-const ThirdMemoryGameDemo = dynamic(() =>
-	import('./components/MemoryGameDemo/ThirdDemo'),
-);
-const FourthMemoryGameDemo = dynamic(() =>
-	import('./components/MemoryGameDemo/FourthDemo'),
-);
+
+const DEMO = {
+	Demo: dynamic(() => import('./components/Demo')),
+	Demo2: dynamic(() => import('./components/Demo2')),
+	FirstRestApiDemo: dynamic(() => import('./components/RestApiDemo/FirstDemo')),
+	SecondRestApiDemo: dynamic(() =>
+		import('./components/RestApiDemo/SecondDemo'),
+	),
+	ThirdRestApiDemo: dynamic(() => import('./components/RestApiDemo/ThirdDemo')),
+	FourthRestApiDemo: dynamic(() =>
+		import('./components/RestApiDemo/FourthDemo'),
+	),
+	DemoGroup: dynamic(() => import('./components/MemoryGameDemo/DemoGroup')),
+	FirstMemoryGameDemo: dynamic(() =>
+		import('./components/MemoryGameDemo/FirstDemo'),
+	),
+	SecondMemoryGameDemo: dynamic(() =>
+		import('./components/MemoryGameDemo/SecondDemo'),
+	),
+	ThirdMemoryGameDemo: dynamic(() =>
+		import('./components/MemoryGameDemo/ThirdDemo'),
+	),
+	FourthMemoryGameDemo: dynamic(() =>
+		import('./components/MemoryGameDemo/FourthDemo'),
+	),
+	CodeComparison: dynamic(() => import('./components/CodeComparison')),
+	ImageComparison: dynamic(() => import('./components/ImageComparison')),
+};
 
 export function getSpecialComponents(componentNames) {
 	if (!componentNames) {
 		return {};
 	}
-	return {
-		Demo: componentNames.includes('Demo') ? Demo : null,
-		Demo2: componentNames.includes('Demo2') ? Demo2 : null,
-		FirstRestApiDemo: componentNames.includes('FirstRestApiDemo')
-			? FirstRestApiDemo
-			: null,
-		SecondRestApiDemo: componentNames.includes('SecondRestApiDemo')
-			? SecondRestApiDemo
-			: null,
-		ThirdRestApiDemo: componentNames.includes('ThirdRestApiDemo')
-			? ThirdRestApiDemo
-			: null,
-		FourthRestApiDemo: componentNames.includes('FourthRestApiDemo')
-			? FourthRestApiDemo
-			: null,
-		DemoGroup: componentNames.includes('DemoGroup') ? DemoGroup : null,
-		FirstMemoryGameDemo: componentNames.includes('FirstMemoryGameDemo')
-			? FirstMemoryGameDemo
-			: null,
-		SecondMemoryGameDemo: componentNames.includes('SecondMemoryGameDemo')
-			? SecondMemoryGameDemo
-			: null,
-		ThirdMemoryGameDemo: componentNames.includes('ThirdMemoryGameDemo')
-			? ThirdMemoryGameDemo
-			: null,
-		FourthMemoryGameDemo: componentNames.includes('FourthMemoryGameDemo')
-			? FourthMemoryGameDemo
-			: null,
-	};
+	const components = {};
+	componentNames.forEach(c => {
+		components[c] = DEMO[c];
+	});
+	return components;
 }
