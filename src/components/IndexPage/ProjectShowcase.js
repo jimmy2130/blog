@@ -30,7 +30,7 @@ function ProjectShowcase({
 								看作品
 							</SecondaryLink>
 							<PrimaryLink href={readMoreLink} target="_blank">
-								看製作歷程
+								看作品說明
 							</PrimaryLink>
 						</LinkGroup>
 					</Content>

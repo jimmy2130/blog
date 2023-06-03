@@ -1,34 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 陳鎮宇的作品集網站
 
-## Getting Started
+這個網站有我製作的一些網頁作品，以及我設計的自動化程式。每個作品都有搭配一篇文章，記錄該作品的特色。
 
-First, run the development server:
+## 目錄
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- [概覽](#概覽)
+  - [目標](#目標)
+  - [網站截圖](#網站截圖)
+  - [連結](#連結)
+- [我的製作過程](#我的製作過程)
+  - [用到的技術](#用到的技術)
+  - [有用的資源](#有用的資源)
+- [作者](#作者)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 概覽
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### 目標
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+使用者來到這個網站後，應該可以：
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- 和首頁的示意圖互動，觀看精心製作的動畫
+- 和作品特色頁中的元件互動，了解作品的特色
+- 點擊連結觀看作品，或是點擊連結觀看該作品的特色
+- 在不同螢幕寬度下，皆能有良好的瀏覽體驗
 
-## Learn More
+### 網站截圖
 
-To learn more about Next.js, take a look at the following resources:
+![首頁](./public/screenshots/index-page-hero-section.png)
+![三篇文章](./public/screenshots/index-page-main-section.png)
+![國家查詢器的互動式元件](./public/screenshots/rest-api-demo.png)
+![記憶遊戲的互動式元件](./public/screenshots/memory-game-demo.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 連結
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- 網址: [jimmjim's blog](https://blog-jimmy2130.vercel.app)
 
-## Deploy on Vercel
+## 我的製作過程
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 用到的技術
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Desktop-first workflow
+- [React](https://reactjs.org/)
+- [Next.js](https://nextjs.org/)
+- [Styled Components](https://styled-components.com/)
+- [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
+
+### 有用的資源
+
+- [CSS for JS Dev](https://css-for-js.dev)
+- [Joy of React](https://joyofreact.com)
+- [Josh Comeau's blog](https://www.joshwcomeau.com)
+
+## 作者
+
+- Facebook - [陳鎮宇](https://www.facebook.com/jimmy.chen.73700136/)
