@@ -26,10 +26,10 @@
 
 ### 網站截圖
 
-![首頁](./screenshots/index-page-hero-section.png)
-![三篇文章](./screenshots/index-page-main-section.png)
-![國家查詢器的互動式元件](./screenshots/rest-api-demo.png)
-![記憶遊戲的互動式元件](./screenshots/memory-game-demo.png)
+![首頁](./public/screenshots/index-page-hero-section.png)
+![三篇文章](./public/screenshots/index-page-main-section.png)
+![國家查詢器的互動式元件](./public/screenshots/rest-api-demo.png)
+![記憶遊戲的互動式元件](./public/screenshots/memory-game-demo.png)
 
 ### 連結
 
