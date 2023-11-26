@@ -22,11 +22,11 @@ const Footer = () => {
 							<Link href="/about">關於我</Link>
 						</ListItem>
 						<ListItem>
-							<Link href="/article">文章</Link>
+							<Link href="/blog">文章</Link>
 						</ListItem>
 					</NavigationList>
 					<Spacer size={80} />
-					<Copyright>© 2021 Jimmy Chen. All Rights Reserved.</Copyright>
+					<Copyright>© 2021-2023 Jimmy Chen. All Rights Reserved.</Copyright>
 				</MaxWidthWrapper>
 			</Background>
 		</Wrapper>

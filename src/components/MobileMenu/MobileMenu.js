@@ -8,10 +8,22 @@ import { Dialog } from '@headlessui/react';
 import { X } from 'react-feather';
 
 function MobileMenu({ isOpen, toggle }) {
+	const [shouldRender, setShouldRender] = React.useState(isOpen);
+
+	React.useEffect(() => {
+		if (isOpen) {
+			setShouldRender(true);
+		}
+	}, [isOpen]);
+
+	function handleAnimationEnd() {
+		setShouldRender(isOpen);
+	}
+
 	return (
-		<Menu open={isOpen} onClose={toggle}>
+		<Menu open={shouldRender} onClose={toggle}>
 			<Backdrop />
-			<Panel>
+			<Panel isOpen={isOpen} onAnimationEnd={handleAnimationEnd}>
 				<Logo>
 					<Link href="/">JimmyJim</Link>
 				</Logo>
@@ -33,10 +45,7 @@ function MobileMenu({ isOpen, toggle }) {
 	);
 }
 
-const Menu = styled(Dialog)`
-	position: fixed;
-	inset: 0;
-`;
+const Menu = styled(Dialog)``;
 
 const Backdrop = styled.div`
 	position: absolute;
@@ -53,6 +62,15 @@ const slideIn = keyframes`
   }
 `;
 
+const slideOut = keyframes`
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+`;
+
 const Panel = styled(Dialog.Panel)`
 	position: absolute;
 	top: 0;
@@ -61,7 +79,7 @@ const Panel = styled(Dialog.Panel)`
 	padding: 68px 24px 52px 24px;
 	background: var(--color-gray-900);
 	color: var(--color-gray-100);
-	animation: ${slideIn} 200ms ease-out;
+	animation: ${props => (props.isOpen ? slideIn : slideOut)} 200ms ease-out both;
 `;
 
 const Logo = styled.span`
