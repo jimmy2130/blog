@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import NavigationBar from '../NavigationBar';
 import MWW from '../MaxWidthWrapper';
 import FMWW from '../FluidMaxWidthWrapper';
-import Spacer from '../Spacer';
 import ShiftBy from '../ShiftBy';
 import Wave from './Wave';
 import { QUERIES } from '../../constants';
@@ -20,8 +19,11 @@ function HeroSection({ index = false, title, subtitle }) {
 		>
 			<MaxWidthWrapper>
 				<NavigationBar index={index} />
-				<Spacer size={(index ? 240 : 190) - NavigationBarHeight} />
-				<TitleWrapper>
+				<TitleWrapper
+					style={{
+						'--margin-top': `${(index ? 240 : 190) - NavigationBarHeight}px`,
+					}}
+				>
 					<Title as={index ? 'div' : 'h1'}>{title}</Title>
 					<ShiftBy x={index ? 0 : 2}>
 						<SubTitle
@@ -54,6 +56,11 @@ const Wrapper = styled.div`
 
 const TitleWrapper = styled.header`
 	color: var(--color-gray-900);
+	margin-top: var(--margin-top);
+
+	@media ${QUERIES.phoneAndDown} {
+		margin-top: 0px;
+	}
 `;
 
 const Title = styled.div`
