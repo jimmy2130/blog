@@ -14,40 +14,34 @@ function ProjectShowcase({
 	readMoreLink,
 }) {
 	return (
-		<ContainerWrapper>
-			<MaxWidthWrapper>
-				<Wrapper>
-					<ContextWrapper>
-						<TitleWrapper>
-							<Title>{title}</Title>
-							<ShiftBy x={2}>
-								<Subtitle>{subtitle}</Subtitle>
-							</ShiftBy>
-						</TitleWrapper>
-						<Content>
-							<Summary>{summary}</Summary>
-							<LinkGroup>
-								<SecondaryLink href={workLink} target="_blank">
-									看作品
-								</SecondaryLink>
-								<PrimaryLink href={readMoreLink} target="_blank">
-									看製作歷程
-								</PrimaryLink>
-							</LinkGroup>
-						</Content>
-					</ContextWrapper>
-					<ImageWrapper>
-						<Illustration />
-					</ImageWrapper>
-				</Wrapper>
-			</MaxWidthWrapper>
-		</ContainerWrapper>
+		<MaxWidthWrapper>
+			<Wrapper>
+				<ContextWrapper>
+					<TitleWrapper>
+						<Title>{title}</Title>
+						<ShiftBy x={2}>
+							<Subtitle>{subtitle}</Subtitle>
+						</ShiftBy>
+					</TitleWrapper>
+					<Content>
+						<Summary>{summary}</Summary>
+						<LinkGroup>
+							<SecondaryLink href={workLink} target="_blank">
+								看作品
+							</SecondaryLink>
+							<PrimaryLink href={readMoreLink} target="_blank">
+								看作品說明
+							</PrimaryLink>
+						</LinkGroup>
+					</Content>
+				</ContextWrapper>
+				<ImageWrapper>
+					<Illustration />
+				</ImageWrapper>
+			</Wrapper>
+		</MaxWidthWrapper>
 	);
 }
-
-const ContainerWrapper = styled.div`
-	container: fullscreen / inline-size;
-`;
 
 const MaxWidthWrapper = styled(MWW)`
 	@media (max-width: calc(1205 / 16 * 1rem)) {
@@ -73,8 +67,10 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	color: var(--color-gray-900);
+	/* hide overflow illustration */
+	overflow: hidden;
 
-	@container fullscreen (max-width: calc(1205 / 16 * 1rem)) {
+	@media (max-width: calc(1205 / 16 * 1rem)) {
 		justify-content: revert;
 	}
 
