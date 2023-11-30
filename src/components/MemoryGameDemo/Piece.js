@@ -1,15 +1,31 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import UnstyledButton from '../UnstyledButton';
 import Eight from './Eight';
 import Two from './Two';
 import Triangle from './Triangle';
 import Circle from './Circle';
 import { QUERIES } from '../../constants';
+import {
+	ACTIVE,
+	COVER_INACTIVE,
+	ACTIVE_INACTIVE,
+	COVER_COVER,
+	ACTIVE_COVER,
+} from './constants';
 
 const PIECE_TEXT = {
 	8: Eight,
 	2: Two,
+};
+
+const ANIMATION = {
+	active: ACTIVE,
+	cover: undefined,
+	'cover-inactive': COVER_INACTIVE,
+	'active-inactive': ACTIVE_INACTIVE,
+	'cover-cover': COVER_COVER,
+	'active-cover': ACTIVE_COVER,
 };
 
 function Piece({ text = '8', shape, id, animation, reveal, x }) {
@@ -62,9 +78,13 @@ const Svg = styled.svg`
 	}
 `;
 
+const animation = props =>
+	css`
+		${ANIMATION[props.animation]} 600ms both;
+	`;
+
 const Background = styled.circle`
-	animation: ${p => p.animation} 600ms;
-	animation-fill-mode: both;
+	animation: ${animation};
 	${Wrapper}:hover & {
 		fill: hsl(205deg 37% 55%);
 	}

@@ -4,25 +4,9 @@ import FirstDemoBoard from './FirstDemoBoard';
 import Piece from './Piece';
 import UnstyledButton from '../UnstyledButton';
 import Icon from '../Icon';
-import {
-	ACTIVE,
-	COVER_INACTIVE,
-	ACTIVE_INACTIVE,
-	COVER_COVER,
-	ACTIVE_COVER,
-} from './constants';
 import { QUERIES } from '../../constants';
 
 const INACTIVE_STATES = ['cover-inactive', 'active', 'active-inactive'];
-
-const ANIMATION = {
-	active: ACTIVE,
-	cover: undefined,
-	'cover-inactive': COVER_INACTIVE,
-	'active-inactive': ACTIVE_INACTIVE,
-	'cover-cover': COVER_COVER,
-	'active-cover': ACTIVE_COVER,
-};
 
 const INITIAL_GAME = [
 	{ state: 'cover', id: 'abc' },
@@ -81,7 +65,7 @@ function FirstDemo({ match = 'fail' }) {
 					text="8"
 					shape="triangle"
 					id={game[0]['id']}
-					animation={ANIMATION[game[0]['state']]}
+					animation={game[0]['state']}
 					reveal={reveal}
 					x={10}
 				/>
@@ -89,7 +73,7 @@ function FirstDemo({ match = 'fail' }) {
 					text={match === 'fail' ? '2' : '8'}
 					shape="circle"
 					id={game[1]['id']}
-					animation={ANIMATION[game[1]['state']]}
+					animation={game[1]['state']}
 					reveal={reveal}
 					x={-10}
 				/>
