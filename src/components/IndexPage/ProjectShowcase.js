@@ -73,6 +73,8 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	color: var(--color-gray-900);
+	/*  hide image overflow (for safari) */
+	overflow: hidden;
 
 	@container fullscreen (max-width: calc(1205 / 16 * 1rem)) {
 		justify-content: revert;
