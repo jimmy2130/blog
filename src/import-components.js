@@ -58,6 +58,7 @@ const DEMO = {
 	),
 	CodeComparison: dynamic(() => import('./components/CodeComparison')),
 	ImageComparison: dynamic(() => import('./components/ImageComparison')),
+	RevealContent: dynamic(() => import('./components/RevealContent')),
 };
 
 export function getSpecialComponents(componentNames) {
