@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from '../ThemeProvider';
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
-import VisuallyHidden from '../VisuallyHidden';
+import { ThemeContext } from '@/components/ThemeProvider';
+import UnstyledButton from '@/components/UnstyledButton';
+import Icon from '@/components/Icon';
+import VisuallyHidden from '@/components/VisuallyHidden';
 
 const DarkModeToggle = () => {
 	const { colorMode, setColorMode } = React.useContext(ThemeContext);

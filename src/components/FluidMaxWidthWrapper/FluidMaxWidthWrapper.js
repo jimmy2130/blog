@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MWW from '../MaxWidthWrapper';
+import MWW from '@/components/MaxWidthWrapper';
 
 function FluidMaxWidthWrapper({ children, style, className }) {
 	return (

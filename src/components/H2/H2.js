@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import TitleLink from '../TitleLink';
+import TitleLink from '@/components/TitleLink';
 
 function H2({ children }) {
 	return (

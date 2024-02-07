@@ -7,7 +7,6 @@ function Circle({ cx, cy, r = '67', scale = 1, x = 0, y = 0 }) {
 	r = parseInt(r);
 	return (
 		<Wrapper
-			animate={{ cx, cy }}
 			cx={cx}
 			cy={cy}
 			r={r}

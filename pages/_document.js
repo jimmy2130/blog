@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import { COLORS } from '../src/constants';
+import { COLORS } from '@/constants';
 
 function setColorsByTheme() {
 	const colors = '🌈';

@@ -1,11 +1,11 @@
 import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import UnstyledButton from '../UnstyledButton';
+import UnstyledButton from '@/components/UnstyledButton';
 import Eight from './Eight';
 import Two from './Two';
 import Triangle from './Triangle';
 import Circle from './Circle';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 import {
 	ACTIVE,
 	COVER_INACTIVE,
@@ -78,13 +78,10 @@ const Svg = styled.svg`
 	}
 `;
 
-const animation = props =>
-	css`
-		${ANIMATION[props.animation]} 600ms both;
-	`;
-
-const Background = styled.circle`
-	animation: ${animation};
+const Background = styled.circle.withConfig({
+	shouldForwardProp: prop => true,
+})`
+	animation: ${p => ANIMATION[p.animation]} 600ms both;
 	${Wrapper}:hover & {
 		fill: hsl(205deg 37% 55%);
 	}

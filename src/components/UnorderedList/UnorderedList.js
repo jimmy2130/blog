@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 
 const UnorderedList = styled.ul`
 	padding-left: 28px;

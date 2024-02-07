@@ -1,5 +1,5 @@
-import GlobalStyles from '../src/components/GlobalStyles';
-import ThemeProvider from '../src/components/ThemeProvider';
+import GlobalStyles from '@/components/GlobalStyles';
+import ThemeProvider from '@/components/ThemeProvider';
 import Head from 'next/head';
 import React from 'react';
 

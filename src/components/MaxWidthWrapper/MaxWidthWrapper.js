@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 
 function MaxWidthWrapper({ children, style, className }) {
 	return (

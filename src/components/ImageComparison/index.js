@@ -1,2 +1,5 @@
-export * from './ImageComparison';
-export { default } from './ImageComparison';
+import dynamic from 'next/dynamic';
+
+const ImageComparison = dynamic(() => import('./ImageComparison'));
+
+export default ImageComparison;

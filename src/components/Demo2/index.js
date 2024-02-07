@@ -1,2 +1,5 @@
-export * from './Demo2';
-export { default } from './Demo2';
+import dynamic from 'next/dynamic';
+
+const Demo2 = dynamic(() => import('./Demo2'));
+
+export default Demo2;

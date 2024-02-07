@@ -164,15 +164,25 @@ const flash = keyframes`
 const Background = styled.rect``;
 const NavBar = styled.path``;
 const Url = styled.rect``;
-const BrowserBack = styled.path`
+
+const BrowserBack = styled.path.withConfig({
+	shouldForwardProp: prop => true,
+})`
 	animation: ${p => p.interaction === 'browserBackClick' && flash} 1000ms;
 `;
-const BrowserForward = styled.path`
+
+const BrowserForward = styled.path.withConfig({
+	shouldForwardProp: prop => true,
+})`
 	animation: ${p => p.interaction === 'browserForwardClick' && flash} 1000ms;
 `;
-const Title = styled.rect`
+
+const Title = styled.path.withConfig({
+	shouldForwardProp: prop => true,
+})`
 	animation: ${p => p.interaction === 'titleClick' && flash} 1000ms;
 `;
+
 const Error = styled.rect``;
 
 export default RestApiDemo;

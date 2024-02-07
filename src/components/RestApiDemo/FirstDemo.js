@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import RestApiDemo from './RestApiDemo';
-import Select from '../Select';
-import { QUERIES } from '../../constants';
+import Select from '@/components/Select';
+import { QUERIES } from '@/constants';
 
 const URLS = [
 	{ name: '/', id: 'abc' },

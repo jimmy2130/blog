@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import NextLink from 'next/link';
-import HeroSection from '../HeroSection';
-import FluidMaxWidthWrapper from '../FluidMaxWidthWrapper';
-import Spacer from '../Spacer';
-import Footer from '../Footer';
-import { QUERIES } from '../../constants';
+import HeroSection from '@/components/HeroSection';
+import FluidMaxWidthWrapper from '@/components/FluidMaxWidthWrapper';
+import Spacer from '@/components/Spacer';
+import Footer from '@/components/Footer';
+import { QUERIES } from '@/constants';
 
 function BlogIndexPage({ data }) {
 	return (

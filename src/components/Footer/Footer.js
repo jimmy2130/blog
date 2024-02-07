@@ -1,9 +1,9 @@
 import NextLink from 'next/link';
 import styled from 'styled-components';
-import MWW from '../MaxWidthWrapper';
-import Spacer from '../Spacer';
+import MWW from '@/components/MaxWidthWrapper';
+import Spacer from '@/components/Spacer';
 import Wave from './Wave';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 
 const Footer = () => {
 	return (

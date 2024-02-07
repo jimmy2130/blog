@@ -8,12 +8,27 @@ function getWidth({ axis, size }) {
 	return axis === 'vertical' ? 1 : size;
 }
 
-const Spacer = styled.span`
+function Spacer(props) {
+	const width = getWidth(props);
+	const height = getHeight(props);
+	return (
+		<Wrapper
+			style={{
+				'--width': `${width}px`,
+				'--min-width': `${width}px`,
+				'--height': `${height}px`,
+				'--min-height': `${height}px`,
+			}}
+		/>
+	);
+}
+
+const Wrapper = styled.span`
 	display: block;
-	width: ${getWidth}px;
-	min-width: ${getWidth}px;
-	height: ${getHeight}px;
-	min-height: ${getHeight}px;
+	width: var(--width);
+	min-width: var(--width);
+	height: var(--height);
+	min-height: var(--height);
 `;
 
 export default Spacer;

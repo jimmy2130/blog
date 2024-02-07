@@ -1,2 +1,5 @@
-export * from './RevealContent';
-export { default } from './RevealContent';
+import dynamic from 'next/dynamic';
+
+const RevealContent = dynamic(() => import('./RevealContent'));
+
+export default RevealContent;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Icon from '../Icon';
+import Icon from '@/components/Icon';
 
 function Select({ label, value, children, ...delegated }) {
 	const id = React.useId();

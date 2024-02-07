@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import HeroSection from '../HeroSection';
+import HeroSection from '@/components/HeroSection';
 import ProjectShowCase from './ProjectShowcase';
-import Spacer from '../Spacer';
-import Footer from '../Footer';
-import { QUERIES } from '../../constants';
+import Spacer from '@/components/Spacer';
+import Footer from '@/components/Footer';
+import { QUERIES } from '@/constants';
 import { DATA } from './project-data';
 
 function IndexPage() {

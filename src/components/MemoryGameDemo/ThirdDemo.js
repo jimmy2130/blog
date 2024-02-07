@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Icon from '../Icon';
-import UnstyledButton from '../UnstyledButton';
+import Icon from '@/components/Icon';
+import UnstyledButton from '@/components/UnstyledButton';
 import ThirdDemoBoard from './ThirdDemoBoard';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 import useTimer from './use-timer.hook';
 
 function ThirdDemo() {

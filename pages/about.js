@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import AboutPage from '../src/components/AboutPage';
+import AboutPage from '@/components/AboutPage';
 
-import { getPostData } from '../src/helpers/post.helpers';
+import { getPostData } from '@/helpers/post.helpers';
 import { MDXRemote } from 'next-mdx-remote';
-import { defaultComponents } from '../src/import-components';
+import COMPONENT_MAP from '@/helpers/mdx-components';
 
 export async function getStaticProps() {
 	const { mdxSource, componentNames } = await getPostData('about');
@@ -17,7 +17,7 @@ function About({ mdxSource, componentNames }) {
 				<title>關於我</title>
 			</Head>
 			<AboutPage>
-				<MDXRemote {...mdxSource} components={defaultComponents} />
+				<MDXRemote {...mdxSource} components={COMPONENT_MAP} />
 			</AboutPage>
 		</>
 	);

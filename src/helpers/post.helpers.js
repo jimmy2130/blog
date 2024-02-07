@@ -54,11 +54,27 @@ export function getSortedPostsMetadata() {
 			...getMetadata(fileName).data,
 		};
 	});
-	return posts.sort((a, b) => a.date < b.date);
+
+	return posts.sort((a, b) => descend(a.date, b.date));
 }
 
 function getMetadata(fileName) {
 	const fullPath = path.join(postsDirectory, `${fileName}/${fileName}.mdx`);
 	const fileContents = fs.readFileSync(fullPath, 'utf8');
 	return matter(fileContents);
+}
+
+function descend(str1, str2) {
+	const [year1, month1, day1] = str1.split('/');
+	const [year2, month2, day2] = str2.split('/');
+	if (year1 !== year2) {
+		return -(year1 - year2);
+	}
+	if (month1 !== month2) {
+		return -(month1 - month2);
+	}
+	if (day1 !== day2) {
+		return -(day1 - day2);
+	}
+	return 1;
 }

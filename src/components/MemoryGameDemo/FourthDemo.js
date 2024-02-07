@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import UnstyledButton from '../UnstyledButton';
+import UnstyledButton from '@/components/UnstyledButton';
 import FourthDemoBoard from './FourthDemoBoard';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 import useTimer from './use-timer.hook';
 
 function FourthDemo() {

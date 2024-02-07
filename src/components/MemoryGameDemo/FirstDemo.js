@@ -2,9 +2,9 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import FirstDemoBoard from './FirstDemoBoard';
 import Piece from './Piece';
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
-import { QUERIES } from '../../constants';
+import UnstyledButton from '@/components/UnstyledButton';
+import Icon from '@/components/Icon';
+import { QUERIES } from '@/constants';
 
 const INACTIVE_STATES = ['cover-inactive', 'active', 'active-inactive'];
 

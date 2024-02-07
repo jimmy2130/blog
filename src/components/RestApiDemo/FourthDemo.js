@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import RestApiDemo from './RestApiDemo';
-import UnstyledButton from '../UnstyledButton';
-import { QUERIES } from '../../constants';
+import UnstyledButton from '@/components/UnstyledButton';
+import { QUERIES } from '@/constants';
 
 const cssLightVariables = [
 	['--color-background:', `'hsl(0deg 0% 98%)';`],

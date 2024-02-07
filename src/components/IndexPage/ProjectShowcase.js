@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import NextLink from 'next/link';
-import MWW from '../MaxWidthWrapper';
-import ShiftBy from '../ShiftBy';
-import { QUERIES } from '../../constants';
+import MWW from '@/components/MaxWidthWrapper';
+import ShiftBy from '@/components/ShiftBy';
+import { QUERIES } from '@/constants';
 
 function ProjectShowcase({
 	title,

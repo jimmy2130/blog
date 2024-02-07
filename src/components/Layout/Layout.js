@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import HeroSection from '../HeroSection';
-import FluidMaxWidthWrapper from '../FluidMaxWidthWrapper';
-import Spacer from '../Spacer';
-import Footer from '../Footer';
+import HeroSection from '@/components/HeroSection';
+import FluidMaxWidthWrapper from '@/components/FluidMaxWidthWrapper';
+import Spacer from '@/components/Spacer';
+import Footer from '@/components/Footer';
 
 function Layout({ title, subtitle, children }) {
 	return (

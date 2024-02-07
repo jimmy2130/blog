@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Wrapper as HighlightBlock } from '../HighlightBlock';
+import { Wrapper as HighlightBlock } from '@/components/HighlightBlock';
 
 const Paragraph = styled.p`
 	font-size: calc(19 / 16 * 1rem);

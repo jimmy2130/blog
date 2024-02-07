@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import NavigationBar from '../NavigationBar';
-import MWW from '../MaxWidthWrapper';
-import FMWW from '../FluidMaxWidthWrapper';
-import ShiftBy from '../ShiftBy';
+import NavigationBar from '@/components/NavigationBar';
+import MWW from '@/components/MaxWidthWrapper';
+import FMWW from '@/components/FluidMaxWidthWrapper';
+import ShiftBy from '@/components/ShiftBy';
 import Wave from './Wave';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 
 function HeroSection({ index = false, title, subtitle }) {
 	const MaxWidthWrapper = index ? MWW : FMWW;
