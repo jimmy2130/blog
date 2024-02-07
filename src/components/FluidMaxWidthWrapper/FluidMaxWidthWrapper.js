@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import MWW from '@/components/MaxWidthWrapper';
 
 function FluidMaxWidthWrapper({ children, style, className }) {
 	return (
@@ -10,10 +9,16 @@ function FluidMaxWidthWrapper({ children, style, className }) {
 	);
 }
 
-const Wrapper = styled(MWW)`
+const Wrapper = styled.div`
 	--max-width: 70ch;
-	padding-left: clamp(24px, 100% - 668px, 60px);
-	padding-right: clamp(24px, 100% - 668px, 60px);
+	--padding: 60px;
+
+	max-width: calc(var(--max-width) + 2 * var(--padding));
+	margin-left: auto;
+	margin-right: auto;
+
+	padding-left: clamp(24px, 100% - 70ch, 60px);
+	padding-right: clamp(24px, 100% - 70ch, 60px);
 `;
 
 export default FluidMaxWidthWrapper;

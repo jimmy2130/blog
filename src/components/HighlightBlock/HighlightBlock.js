@@ -6,7 +6,7 @@ function HighlightBlock({ as, ...delegated }) {
 }
 
 export const Wrapper = styled.aside`
-	--aside-padding: clamp(24px, 100vw - 668px, 36px);
+	--aside-padding: clamp(24px, 100vw - 70ch, 36px);
 	padding: var(--aside-padding);
 	margin-left: calc(var(--aside-padding) * -1);
 	margin-right: calc(var(--aside-padding) * -1);

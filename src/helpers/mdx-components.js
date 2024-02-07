@@ -33,6 +33,7 @@ import CodeComparison from '@/components/CodeComparison';
 import ImageComparison from '@/components/ImageComparison';
 import InfiniteLoopVideo from '@/components/InfiniteLoopVideo';
 import RevealContent from '@/components/RevealContent';
+import FullBleed from '@/components/FullBleed';
 
 const COMPONENT_MAP = {
 	h2: H2,
@@ -64,6 +65,7 @@ const COMPONENT_MAP = {
 	ImageComparison,
 	InfiniteLoopVideo,
 	RevealContent,
+	FullBleed,
 };
 
 export default COMPONENT_MAP;
