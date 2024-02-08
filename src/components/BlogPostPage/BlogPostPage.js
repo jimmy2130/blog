@@ -4,11 +4,9 @@ import Layout from '@/components/Layout';
 
 function BlogPostPage({ title, subtitle, children }) {
 	return (
-		<>
-			<Layout title={title} subtitle={subtitle}>
-				{children}
-			</Layout>
-		</>
+		<Layout title={title} subtitle={subtitle}>
+			{children}
+		</Layout>
 	);
 }
 

@@ -88,3 +88,5 @@ export const QUERIES = {
 	tabletAndDown: `(max-width: ${BREAKPOINTS.tabletMax / 16}rem)`,
 	phoneAndDown: `(max-width: ${BREAKPOINTS.phoneMax / 16}rem)`,
 };
+
+export const CONTENT_MAX_WIDTH = 630;

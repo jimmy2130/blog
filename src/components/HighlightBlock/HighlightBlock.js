@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { CONTENT_MAX_WIDTH } from '@/constants';
 
 function HighlightBlock({ as, ...delegated }) {
 	return <Wrapper as={as} {...delegated} />;
 }
 
 export const Wrapper = styled.aside`
-	--aside-padding: clamp(24px, 100vw - 70ch, 36px);
+	--max-width: ${CONTENT_MAX_WIDTH}px;
+	--aside-padding: clamp(24px, 100vw - var(--max-width), 36px);
 	padding: var(--aside-padding);
-	margin-left: calc(var(--aside-padding) * -1);
-	margin-right: calc(var(--aside-padding) * -1);
-	margin-top: 40px;
-	margin-bottom: 40px;
+	margin: 40px calc(var(--aside-padding) * -1);
+
 	background: var(--color-gray-100);
 	border-radius: 8px;
 `;
