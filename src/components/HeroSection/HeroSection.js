@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import NavigationBar from '@/components/NavigationBar';
-import MWW from '@/components/MaxWidthWrapper';
-import FMWW from '@/components/FluidMaxWidthWrapper';
+import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import ShiftBy from '@/components/ShiftBy';
 import Wave from './Wave';
-import { QUERIES } from '@/constants';
+import {
+	QUERIES,
+	CONTENT_MAX_WIDTH,
+	CONTENT_BREATHING_ROOM,
+} from '@/constants';
 
 function HeroSection({ index = false, title, subtitle }) {
-	const MaxWidthWrapper = index ? MWW : FMWW;
+	const maxWidth = index ? 1152 : CONTENT_MAX_WIDTH;
+	const breathingRoom = CONTENT_BREATHING_ROOM;
 	const NavigationBarHeight = 158;
 	return (
 		<Wrapper
@@ -17,7 +21,7 @@ function HeroSection({ index = false, title, subtitle }) {
 				'--padding-bottom': index ? undefined : '60px',
 			}}
 		>
-			<MaxWidthWrapper>
+			<MaxWidthWrapper maxWidth={maxWidth} breathingRoom={breathingRoom}>
 				<NavigationBar index={index} />
 				<TitleWrapper
 					style={{

@@ -90,3 +90,4 @@ export const QUERIES = {
 };
 
 export const CONTENT_MAX_WIDTH = 630;
+export const CONTENT_BREATHING_ROOM = 24;

@@ -1,28 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import UnstyledButton from '../UnstyledButton';
+import UnstyledButton from '@/components/UnstyledButton';
 
 const SHAPES = [Circle, Square, Triangle];
 const COLORS = ['#dc2626', '#fbbf24', '#0284c7'];
-
 const BACKGROUND_COLORS = ['#e4e4e7', '#a1a1aa', '#52525b'];
 
-function Shape({ id = '021', num, handleAddNum }) {
-	const [isSelected, setIsSelected] = React.useState(false);
+function Shape({ id = '021', num, guess, handleAddNum }) {
 	const Pattern = SHAPES[id[0]];
 	const color = COLORS[id[1]];
 	const backgroundColor = BACKGROUND_COLORS[id[2]];
+	const currentGuessArr = guess.split('').map(el => Number(el));
 
 	function handleClick(event) {
 		event.preventDefault();
 		handleAddNum(num);
-		setIsSelected(!isSelected);
 	}
 	return (
 		<Wrapper
 			style={{
 				'--background-color': backgroundColor,
-				'--border-color': isSelected ? '#1ac23b' : backgroundColor,
+				'--border-color': currentGuessArr.includes(num)
+					? '#1ac23b'
+					: backgroundColor,
 			}}
 			onClick={handleClick}
 		>

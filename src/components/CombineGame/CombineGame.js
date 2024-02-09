@@ -6,6 +6,7 @@ import {
 	checkFinish,
 } from './CombineGame.helpers';
 
+import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import Shape from './Shape';
 import UnstyledButton from '@/components/UnstyledButton';
 import Icon from '@/components/Icon';
@@ -17,14 +18,13 @@ function CombineGame() {
 	const [puzzle, setPuzzle] = React.useState([]);
 	const [combo, setCombo] = React.useState([]);
 	const [guess, setGuess] = React.useState('');
-	const [score, setScore] = React.useState(0);
 	const [questionIndex, setQuestionIndex] = React.useState(1);
 	const [time, setTime] = React.useState(0);
 	const [finish, setFinish] = React.useState(false);
 
-	function handleChange(event) {
-		event.preventDefault();
-		setGuess(event.target.value);
+	const answers = Array(12).fill('');
+	for (let i = 0; i < combo.length; i++) {
+		answers[i] = combo[i].split(',').join('');
 	}
 
 	function handleAddNum(num) {
@@ -43,26 +43,20 @@ function CombineGame() {
 		}
 	}
 
-	const handleGuess = React.useCallback(
-		function (event) {
-			event.preventDefault();
-			const result = checkSingleGuess(guess, puzzle, combo);
-			if (result) {
-				setScore(score + 1);
-				setCombo([...combo, guess.split('').join(',')]);
-				setGuess('');
-			} else {
-				setScore(score - 1);
-				setGuess('');
-			}
-		},
-		[guess, puzzle, combo, score],
-	);
+	function handleGuess(event) {
+		event.preventDefault();
+		const result = checkSingleGuess(guess, puzzle, combo);
+		if (result) {
+			setCombo([...combo, guess.split('').join(',')]);
+			setGuess('');
+		} else {
+			setGuess('');
+		}
+	}
 
 	function handleFinish(event) {
 		event.preventDefault();
 		if (checkFinish(puzzle, combo.length)) {
-			setScore(score + 3);
 			setCombo([]);
 			setGuess('');
 			if (questionIndex === TOTAL_QUESTIONS) {
@@ -71,8 +65,6 @@ function CombineGame() {
 				setPuzzle(createPuzzle());
 				setQuestionIndex(questionIndex + 1);
 			}
-		} else {
-			setScore(score - 1);
 		}
 	}
 
@@ -81,7 +73,6 @@ function CombineGame() {
 		setPuzzle(createPuzzle());
 		setCombo([]);
 		setGuess('');
-		setScore(0);
 		setQuestionIndex(1);
 		setTime(0);
 		setFinish(false);
@@ -105,119 +96,81 @@ function CombineGame() {
 		};
 	}, [finish, time]);
 
-	React.useEffect(() => {
-		function handleKeyPress(event) {
-			if (event.key === 'Enter') {
-				handleGuess(event);
-			}
-		}
-		window.addEventListener('keypress', handleKeyPress);
-		return () => {
-			window.removeEventListener('keypress', handleKeyPress);
-		};
-	}, [handleGuess]);
-
 	return (
-		<Wrapper>
-			<Game>
-				<Board>
-					{puzzle.map((id, index) => (
-						<Shape
-							key={index}
-							id={id}
-							handleAddNum={handleAddNum}
-							num={index + 1}
-						/>
-					))}
-					<Tag>第{questionIndex}題</Tag>
-					<Timer>{time}</Timer>
-				</Board>
-				<InfoWrapper>
-					<Result>
-						{combo.map((c, index) => (
-							<Item key={c}>{c}</Item>
+		<MaxWidthWrapper maxWidth={800} breathingRoom={24}>
+			<OuterWrapper>
+				<InnerWrapper onSubmit={event => event.preventDefault()}>
+					<Board>
+						{puzzle.map((id, index) => (
+							<Shape
+								key={index}
+								id={id}
+								handleAddNum={handleAddNum}
+								num={index + 1}
+								guess={guess}
+							/>
 						))}
-					</Result>
-					<ControlGroup onSubmit={event => event.preventDefault()}>
-						<Input
-							type="text"
-							maxLength="3"
-							value={guess}
-							onChange={handleChange}
-							disabled={finish}
-						/>
-						<ButtonWrapper>
-							<StyledButton
-								onClick={handleFinish}
-								disabled={guess !== '' || finish}
-							>
-								結!
-							</StyledButton>
-							<StyledButton
-								onClick={handleGuess}
-								disabled={guess === '' || finish}
-							>
-								合!
-							</StyledButton>
-						</ButtonWrapper>
-						{finish && (
-							<IconButton onClick={handleRestart}>
-								<Icon id="refresh-ccw" />
-							</IconButton>
-						)}
-					</ControlGroup>
-					<ScoreBoard>
-						<Title>分數</Title>
-						<Score>{score}</Score>
-					</ScoreBoard>
-				</InfoWrapper>
-			</Game>
-		</Wrapper>
+						<Tag>第{questionIndex}題</Tag>
+						<Timer>{time}</Timer>
+					</Board>
+					<AnswerList>
+						{answers.map((answer, index) => (
+							<Answer key={index}>{answer}</Answer>
+						))}
+					</AnswerList>
+					<ControlPanel>
+						<Message>答案重複</Message>
+						<FinishButton
+							onClick={handleFinish}
+							disabled={guess !== '' || finish}
+						>
+							結
+						</FinishButton>
+						<CombineButton
+							onClick={handleGuess}
+							disabled={guess === '' || finish}
+						>
+							合
+						</CombineButton>
+					</ControlPanel>
+					<IconButton onClick={handleRestart}>
+						<Icon id="refresh-ccw" />
+					</IconButton>
+				</InnerWrapper>
+			</OuterWrapper>
+		</MaxWidthWrapper>
 	);
 }
 
-const Wrapper = styled.div`
-	display: grid;
-	place-content: center;
-
-	padding-left: 32px;
-	padding-right: 32px;
-
+const OuterWrapper = styled.div`
+	border: 4px solid #ddd;
+	border-radius: 8px;
+	padding: 4px;
 	margin-top: 40px;
 	margin-bottom: 40px;
-
-	@media ${QUERIES.tabletAndDown} {
-		height: revert;
-		display: revert;
-		padding: 96px 48px 48px 48px;
-	}
-
-	@media ${QUERIES.tabletAndDown} {
-		padding: 56px 24px 24px 24px;
-	}
 `;
 
-const Game = styled.div`
-	display: flex;
-	gap: 32px;
+const InnerWrapper = styled.form`
+	display: grid;
+	grid-template-areas:
+		'board answer-list'
+		'control-panel restart';
+	grid-template-columns: 3fr 1fr;
+	gap: 32px 16px;
 
-	@media ${QUERIES.tabletAndDown} {
-		flex-direction: column;
-	}
+	border: 4px dashed #ddd;
 
-	@media ${QUERIES.tabletAndDown} {
-		gap: 8px;
-	}
+	padding: 84px 32px 32px 32px;
 `;
 
 const Board = styled.div`
+	grid-area: board;
+	aspect-ratio: 1 / 1;
+
 	position: relative;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 8px;
-
-	/* border: solid; */
-	height: fit-content;
 `;
 
 const Eyebrow = styled.span`
@@ -242,78 +195,58 @@ const Timer = styled(Eyebrow)`
 	right: 0;
 `;
 
-const InfoWrapper = styled.div`
-	position: relative;
-	padding: 24px;
-	border: solid;
-	display: flex;
-	flex-direction: column;
+const AnswerList = styled.ul`
+	grid-area: answer-list;
+	border: 4px solid #a1a1a1;
+	border-radius: 12px;
 
-	@media ${QUERIES.tabletAndDown} {
-		padding: 16px;
-	}
+	padding: 32px 20px;
+
+	list-style-type: none;
+
+	aspect-ratio: 1 / 3;
+	overflow-y: scroll;
 `;
 
-const Result = styled.div`
-	height: 180px;
-	font-size: calc(32 / 16 * 1rem);
-	margin-bottom: auto;
-
-	display: flex;
-	flex-direction: column;
-	align-content: flex-start;
-	flex-wrap: wrap;
-
-	@media ${QUERIES.tabletAndDown} {
-		height: 60px;
-		font-size: calc(16 / 16 * 1rem);
-		margin-bottom: 8px;
-	}
-`;
-
-const Item = styled.p`
+const Answer = styled.li`
+	font-size: calc(19 / 16 * 1rem);
+	text-align: center;
+	border-bottom: solid #ddd;
 	padding-left: 16px;
 	padding-right: 16px;
+	height: 28px;
+	margin-bottom: 16px;
 
-	@media ${QUERIES.tabletAndDown} {
-		padding-left: 8px;
-		padding-right: 16px;
+	&:last-child {
+		margin-bottom: 0;
 	}
 `;
 
-const ControlGroup = styled.form`
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	margin-bottom: 32px;
+const ControlPanel = styled.div`
+	grid-area: control-panel;
 
-	@media ${QUERIES.tabletAndDown} {
-		margin-bottom: 16px;
-	}
+	display: grid;
+	grid-template-areas:
+		'message message'
+		'finish-button combine-button';
+
+	gap: 8px 16px;
 `;
 
-const Input = styled.input`
-	padding: 8px 24px;
-	font-size: clamp(16 / 16 * 1rem, 16vw - 144 / 16 * 1rem, 32 / 16 * 1rem);
+const Message = styled.p`
+	font-size: calc(19 / 16 * 1rem);
+	grid-area: message;
 	text-align: center;
-
-	@media ${QUERIES.tabletAndDown} {
-		padding: 4px 12px;
-	}
-`;
-
-const ButtonWrapper = styled.div`
-	display: flex;
-	justify-content: space-between;
-	gap: 16px;
 `;
 
 const StyledButton = styled(UnstyledButton)`
-	height: 80px;
-	background: #e6e6e6;
+	padding-top: 8px;
+	padding-bottom: 8px;
+
+	background: #e4e4e7;
 	border-radius: 4px;
-	border: 2px solid #e6e6e6;
-	font-size: calc(32 / 16 * 1rem);
+	border: 2px solid #e4e4e7;
+	font-size: calc(19 / 16 * 1rem);
 	flex: 1;
 
 	&:hover {
@@ -324,48 +257,25 @@ const StyledButton = styled(UnstyledButton)`
 		cursor: not-allowed;
 	}
 	&:disabled&:hover {
-		border: 2px solid #e6e6e6;
+		border: 2px solid #e4e4e7;
 	}
+`;
 
-	@media ${QUERIES.tabletAndDown} {
-		height: revert;
-		font-size: calc(16 / 16 * 1rem);
-		padding-top: 4px;
-		padding-bottom: 4px;
-	}
+const FinishButton = styled(StyledButton)`
+	grid-area: finish-button;
+`;
+
+const CombineButton = styled(StyledButton)`
+	grid-area: combine-button;
 `;
 
 const IconButton = styled(UnstyledButton)`
-	position: absolute;
-	top: 32px;
-	right: 32px;
-`;
+	grid-area: restart;
+	justify-self: end;
+	align-self: end;
 
-const ScoreBoard = styled.div`
-	font-size: calc(24 / 16 * 1rem);
-	text-align: center;
-
-	@media ${QUERIES.tabletAndDown} {
-		display: flex;
-		justify-content: space-between;
-		margin-left: 8px;
-		margin-right: 8px;
-	}
-`;
-
-const Title = styled.p`
-	@media ${QUERIES.tabletAndDown} {
-		font-size: calc(16 / 16 * 1rem);
-	}
-`;
-
-const Score = styled.p`
-	font-size: calc(48 / 16 * 1rem);
-
-	@media ${QUERIES.tabletAndDown} {
-		font-size: calc(16 / 16 * 1rem);
-		font-weight: bold;
-	}
+	margin-right: 8px;
+	margin-bottom: 8px;
 `;
 
 export default CombineGame;
