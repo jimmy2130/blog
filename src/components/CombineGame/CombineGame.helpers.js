@@ -81,7 +81,6 @@ export function checkFinish(puzzle, guessNum) {
 	let correctAnsNum = 0;
 	for (let i = 0; i < combos.length; i++) {
 		if (checkSingleGuess(combos[i], puzzle, [])) {
-			console.log(combos[i]);
 			correctAnsNum += 1;
 		}
 	}

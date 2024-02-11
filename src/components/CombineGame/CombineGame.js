@@ -12,7 +12,8 @@ import UnstyledButton from '@/components/UnstyledButton';
 import Icon from '@/components/Icon';
 import { QUERIES } from '@/constants';
 
-const TOTAL_QUESTIONS = 3;
+const TOTAL_QUESTIONS = 1;
+const TABLET_MAX_WIDTH = 440;
 
 function CombineGame() {
 	const [puzzle, setPuzzle] = React.useState([]);
@@ -27,21 +28,20 @@ function CombineGame() {
 		answers[i] = combo[i].split(',').join('');
 	}
 
-	function handleAddNum(num) {
-		const nextGuess = guess;
-		if (nextGuess.includes(num.toString())) {
-			setGuess(
-				nextGuess
+	const handleAddNum = React.useCallback(function (num) {
+		setGuess(g => {
+			if (g.includes(num.toString())) {
+				return g
 					.split('')
 					.filter(el => el !== num.toString())
-					.join(''),
-			);
-		} else if (nextGuess.length === 3) {
-			return;
-		} else {
-			setGuess(`${nextGuess}${num}`);
-		}
-	}
+					.join('');
+			} else if (g.length === 3) {
+				return g;
+			} else {
+				return `${g}${num}`;
+			}
+		});
+	}, []);
 
 	function handleGuess(event) {
 		event.preventDefault();
@@ -97,7 +97,7 @@ function CombineGame() {
 	}, [finish, time]);
 
 	return (
-		<MaxWidthWrapper maxWidth={800} breathingRoom={24}>
+		<MaxWidthWrapper maxWidth={700} breathingRoom={24}>
 			<OuterWrapper>
 				<InnerWrapper onSubmit={event => event.preventDefault()}>
 					<Board>
@@ -107,7 +107,10 @@ function CombineGame() {
 								id={id}
 								handleAddNum={handleAddNum}
 								num={index + 1}
-								guess={guess}
+								isSelected={guess
+									.split('')
+									.map(el => Number(el))
+									.includes(index + 1)}
 							/>
 						))}
 						<Tag>第{questionIndex}題</Tag>
@@ -115,7 +118,11 @@ function CombineGame() {
 					</Board>
 					<AnswerList>
 						{answers.map((answer, index) => (
-							<Answer key={index}>{answer}</Answer>
+							<Answer key={index}>
+								<FirstDigit>{answer[0]}</FirstDigit>
+								<SecondDigit>{answer[1]}</SecondDigit>
+								<ThirdDigit>{answer[2]}</ThirdDigit>
+							</Answer>
 						))}
 					</AnswerList>
 					<ControlPanel>
@@ -134,7 +141,7 @@ function CombineGame() {
 						</CombineButton>
 					</ControlPanel>
 					<IconButton onClick={handleRestart}>
-						<Icon id="refresh-ccw" />
+						<Icon id="refresh-ccw" color="#52525b" />
 					</IconButton>
 				</InnerWrapper>
 			</OuterWrapper>
@@ -161,6 +168,14 @@ const InnerWrapper = styled.form`
 	border: 4px dashed #ddd;
 
 	padding: 84px 32px 32px 32px;
+
+	@media ${QUERIES.tabletAndDown} {
+		display: block;
+	}
+
+	@media ${QUERIES.phoneAndDown} {
+		padding: 60px 8px 20px 8px;
+	}
 `;
 
 const Board = styled.div`
@@ -171,6 +186,11 @@ const Board = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 8px;
+
+	@media ${QUERIES.tabletAndDown} {
+		max-width: ${TABLET_MAX_WIDTH}px;
+		margin: 0px auto 16px auto;
+	}
 `;
 
 const Eyebrow = styled.span`
@@ -178,11 +198,7 @@ const Eyebrow = styled.span`
 	display: block;
 	transform: translateY(-100%);
 	padding: 8px 24px;
-	font-size: calc(24 / 16 * 1rem);
-
-	@media ${QUERIES.tabletAndDown} {
-		font-size: calc(16 / 16 * 1rem);
-	}
+	font-size: calc(19 / 16 * 1rem);
 `;
 
 const Tag = styled(Eyebrow)`
@@ -200,25 +216,70 @@ const AnswerList = styled.ul`
 	border: 4px solid #a1a1a1;
 	border-radius: 12px;
 
-	padding: 32px 20px;
+	padding: 4px 0px;
 
 	list-style-type: none;
 
 	aspect-ratio: 1 / 3;
 	overflow-y: scroll;
+
+	display: flex;
+	flex-direction: column;
+
+	@media ${QUERIES.tabletAndDown} {
+		aspect-ratio: revert;
+		max-width: ${TABLET_MAX_WIDTH}px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 16px;
+		padding: 0px 4px;
+		height: 124px;
+
+		overflow-y: revert;
+		overflow-x: scroll;
+
+		flex-direction: row;
+	}
 `;
 
 const Answer = styled.li`
 	font-size: calc(19 / 16 * 1rem);
-	text-align: center;
 	border-bottom: solid #ddd;
-	padding-left: 16px;
-	padding-right: 16px;
-	height: 28px;
-	margin-bottom: 16px;
+	min-height: 40px;
 
 	&:last-child {
-		margin-bottom: 0;
+		border-bottom: revert;
+	}
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	@media ${QUERIES.tabletAndDown} {
+		border-bottom: revert;
+		border-right: solid #ddd;
+
+		min-width: 40px;
+		height: revert;
+
+		flex-direction: column;
+
+		&:last-child {
+			border-right: revert;
+		}
+	}
+`;
+
+const FirstDigit = styled.span`
+	@media ${QUERIES.tabletAndDown} {
+		transform: translateY(8px);
+	}
+`;
+const SecondDigit = styled.span``;
+const ThirdDigit = styled.span`
+	@media ${QUERIES.tabletAndDown} {
+		transform: translateY(-8px);
 	}
 `;
 
@@ -231,6 +292,13 @@ const ControlPanel = styled.div`
 		'finish-button combine-button';
 
 	gap: 8px 16px;
+
+	@media ${QUERIES.tabletAndDown} {
+		max-width: ${TABLET_MAX_WIDTH}px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 44px;
+	}
 `;
 
 const Message = styled.p`
@@ -245,19 +313,22 @@ const StyledButton = styled(UnstyledButton)`
 
 	background: #e4e4e7;
 	border-radius: 4px;
-	border: 2px solid #e4e4e7;
 	font-size: calc(19 / 16 * 1rem);
 	flex: 1;
 
+	&:focus {
+		outline-offset: -4px;
+	}
+
 	&:hover {
-		border: 2px solid #777777;
+		background: #a1a1aa;
 	}
 
 	&:disabled {
 		cursor: not-allowed;
 	}
 	&:disabled&:hover {
-		border: 2px solid #e4e4e7;
+		background: #e4e4e7;
 	}
 `;
 
@@ -276,6 +347,12 @@ const IconButton = styled(UnstyledButton)`
 
 	margin-right: 8px;
 	margin-bottom: 8px;
+
+	@media ${QUERIES.tabletAndDown} {
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: revert;
+	}
 `;
 
 export default CombineGame;
