@@ -8,25 +8,22 @@ import {
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import Shape from './Shape';
+import AnswerList from './AnswerList';
 import UnstyledButton from '@/components/UnstyledButton';
 import Icon from '@/components/Icon';
 import { QUERIES } from '@/constants';
+import { TABLET_MAX_WIDTH } from './constants';
 
 const TOTAL_QUESTIONS = 1;
-const TABLET_MAX_WIDTH = 440;
 
 function CombineGame() {
 	const [puzzle, setPuzzle] = React.useState([]);
 	const [combo, setCombo] = React.useState([]);
 	const [guess, setGuess] = React.useState('');
+	const [message, setMessage] = React.useState('');
 	const [questionIndex, setQuestionIndex] = React.useState(1);
 	const [time, setTime] = React.useState(0);
 	const [finish, setFinish] = React.useState(false);
-
-	const answers = Array(12).fill('');
-	for (let i = 0; i < combo.length; i++) {
-		answers[i] = combo[i].split(',').join('');
-	}
 
 	const handleAddNum = React.useCallback(function (num) {
 		setGuess(g => {
@@ -35,8 +32,6 @@ function CombineGame() {
 					.split('')
 					.filter(el => el !== num.toString())
 					.join('');
-			} else if (g.length === 3) {
-				return g;
 			} else {
 				return `${g}${num}`;
 			}
@@ -45,26 +40,30 @@ function CombineGame() {
 
 	function handleGuess(event) {
 		event.preventDefault();
-		const result = checkSingleGuess(guess, puzzle, combo);
-		if (result) {
-			setCombo([...combo, guess.split('').join(',')]);
+		const { isCorrect, message } = checkSingleGuess(guess, puzzle, combo);
+		if (isCorrect) {
+			setCombo([...combo, guess]);
 			setGuess('');
+			setMessage('');
 		} else {
-			setGuess('');
+			setMessage(message);
 		}
 	}
 
 	function handleFinish(event) {
 		event.preventDefault();
-		if (checkFinish(puzzle, combo.length)) {
-			setCombo([]);
+		const { isFinished, message } = checkFinish(puzzle, combo.length);
+		if (isFinished) {
 			setGuess('');
 			if (questionIndex === TOTAL_QUESTIONS) {
 				setFinish(true);
 			} else {
+				setCombo([]);
 				setPuzzle(createPuzzle());
 				setQuestionIndex(questionIndex + 1);
 			}
+		} else {
+			setMessage(message);
 		}
 	}
 
@@ -116,27 +115,13 @@ function CombineGame() {
 						<Tag>第{questionIndex}題</Tag>
 						<Timer>{time}</Timer>
 					</Board>
-					<AnswerList>
-						{answers.map((answer, index) => (
-							<Answer key={index}>
-								<FirstDigit>{answer[0]}</FirstDigit>
-								<SecondDigit>{answer[1]}</SecondDigit>
-								<ThirdDigit>{answer[2]}</ThirdDigit>
-							</Answer>
-						))}
-					</AnswerList>
+					<AnswerList combo={combo} finish={finish} />
 					<ControlPanel>
-						<Message>答案重複</Message>
-						<FinishButton
-							onClick={handleFinish}
-							disabled={guess !== '' || finish}
-						>
+						<Message>{message}</Message>
+						<FinishButton onClick={handleFinish} disabled={finish}>
 							結
 						</FinishButton>
-						<CombineButton
-							onClick={handleGuess}
-							disabled={guess === '' || finish}
-						>
+						<CombineButton onClick={handleGuess} disabled={finish}>
 							合
 						</CombineButton>
 					</ControlPanel>
@@ -211,78 +196,6 @@ const Timer = styled(Eyebrow)`
 	right: 0;
 `;
 
-const AnswerList = styled.ul`
-	grid-area: answer-list;
-	border: 4px solid #a1a1a1;
-	border-radius: 12px;
-
-	padding: 4px 0px;
-
-	list-style-type: none;
-
-	aspect-ratio: 1 / 3;
-	overflow-y: scroll;
-
-	display: flex;
-	flex-direction: column;
-
-	@media ${QUERIES.tabletAndDown} {
-		aspect-ratio: revert;
-		max-width: ${TABLET_MAX_WIDTH}px;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 16px;
-		padding: 0px 4px;
-		height: 124px;
-
-		overflow-y: revert;
-		overflow-x: scroll;
-
-		flex-direction: row;
-	}
-`;
-
-const Answer = styled.li`
-	font-size: calc(19 / 16 * 1rem);
-	border-bottom: solid #ddd;
-	min-height: 40px;
-
-	&:last-child {
-		border-bottom: revert;
-	}
-
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-
-	@media ${QUERIES.tabletAndDown} {
-		border-bottom: revert;
-		border-right: solid #ddd;
-
-		min-width: 40px;
-		height: revert;
-
-		flex-direction: column;
-
-		&:last-child {
-			border-right: revert;
-		}
-	}
-`;
-
-const FirstDigit = styled.span`
-	@media ${QUERIES.tabletAndDown} {
-		transform: translateY(8px);
-	}
-`;
-const SecondDigit = styled.span``;
-const ThirdDigit = styled.span`
-	@media ${QUERIES.tabletAndDown} {
-		transform: translateY(-8px);
-	}
-`;
-
 const ControlPanel = styled.div`
 	grid-area: control-panel;
 
@@ -302,6 +215,7 @@ const ControlPanel = styled.div`
 `;
 
 const Message = styled.p`
+	min-height: 32px;
 	font-size: calc(19 / 16 * 1rem);
 	grid-area: message;
 	text-align: center;
