@@ -4,7 +4,7 @@ import UnstyledButton from '@/components/UnstyledButton';
 import { QUERIES } from '@/constants';
 import { SHAPES, COLORS, BACKGROUND_COLORS } from './constants';
 
-function Shape({ id = '021', num, isSelected, handleAddNum }) {
+function Shape({ id = '021', num, isSelected, gameStatus, handleAddNum }) {
 	const Pattern = SHAPES[id[0]];
 	const color = COLORS[id[1]];
 	const backgroundColor = BACKGROUND_COLORS[id[2]];
@@ -20,6 +20,7 @@ function Shape({ id = '021', num, isSelected, handleAddNum }) {
 				'--border-color': isSelected ? '#1ac23b' : backgroundColor,
 			}}
 			onClick={handleClick}
+			disabled={gameStatus === 'success' || gameStatus === 'fail'}
 		>
 			<LabelWrapper
 				style={{
@@ -54,6 +55,10 @@ const Wrapper = styled(UnstyledButton)`
 
 	&:focus {
 		outline-offset: -8px;
+	}
+
+	&:disabled {
+		cursor: not-allowed;
 	}
 
 	display: grid;

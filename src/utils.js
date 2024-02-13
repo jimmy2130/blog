@@ -12,3 +12,7 @@ export function range(start, end, step = 1) {
 
 	return output;
 }
+
+export function sampleOne(arr) {
+	return arr[Math.floor(Math.random() * arr.length)];
+}

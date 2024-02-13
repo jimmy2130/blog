@@ -1,32 +1,42 @@
 import { MESSAGES } from './constants';
+import { range, sampleOne } from '@/utils';
 
-export function createPuzzle() {
-	let set = new Set();
-	let arr = [];
-	while (arr.length < 9) {
-		let randomNum = Math.floor(Math.random() * 27);
-		if (!set.has(randomNum)) {
-			set.add(randomNum);
-			arr.push(randomNum);
+export function createPuzzle(input) {
+	const [low, high] = typeof input === 'number' ? [input, input] : input;
+	const targetAnswerNum = sampleOne(range(low, high + 1));
+
+	while (true) {
+		const set = new Set();
+		const arr = [];
+		while (arr.length < 9) {
+			const randomNum = Math.floor(Math.random() * 27);
+			if (!set.has(randomNum)) {
+				set.add(randomNum);
+				arr.push(randomNum);
+			}
+		}
+		const puzzle = arr.map(num => num.toString(3).padStart(3, '0'));
+		const correctAnswers = getCorrectAnswers(puzzle);
+		if (correctAnswers.length === targetAnswerNum) {
+			return puzzle;
 		}
 	}
-	return arr.map(num => num.toString(3).padStart(3, '0'));
+}
+
+function deleteNum(arr, num) {
+	let set = new Set(arr);
+	set.delete(num);
+	return Array.from(set);
 }
 
 export function checkSingleGuess(guess, puzzle, combo) {
-	if (guess.length !== 3 || isNaN(parseInt(guess))) {
-		return { isCorrect: false, message: '請選 3 個圖案' };
-	}
-	if (guess[0] === guess[1] || guess[1] === guess[2] || guess[0] === guess[2]) {
-		return { isCorrect: false, message: '請選 3 個不一樣的圖案' };
-	}
-	const guessCombo = getCombo(guess);
+	const variations = getVariations(guess);
 
-	for (let i = 0; i < guessCombo.length; i++) {
-		if (combo.includes(guessCombo[i])) {
+	for (let i = 0; i < variations.length; i++) {
+		if (combo.includes(variations[i])) {
 			return {
 				isCorrect: false,
-				message: `${guessCombo[i]} 已被回答過`,
+				message: `${variations[i]} 已被回答過`,
 			};
 		}
 	}
@@ -53,11 +63,11 @@ export function checkSingleGuess(guess, puzzle, combo) {
 	return { isCorrect: true, message: '' };
 }
 
-function getCombo(guess) {
-	let input = guess.split('');
-	let ans = [];
-	dfs(input, [], ans, new Set());
-	return ans;
+function getVariations(guess) {
+	const input = guess.split('');
+	const variations = [];
+	dfs(input, [], variations, new Set());
+	return variations;
 }
 
 function dfs(input, combo, ans, record) {
@@ -97,20 +107,38 @@ function getErrorMessage(d1, d2, d3, i) {
 	return `${MESSAGES[i][Number(commonCode)]}有 2 個`;
 }
 
-export function checkFinish(puzzle, guessNum) {
+export function getCorrectAnswers(puzzle) {
+	const correctAnswers = [];
 	const input = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-	const combos = getEveryCombo(input);
-	let correctAnsNum = 0;
+	const combos = getEveryPossibleAnswer(input);
+
 	for (let i = 0; i < combos.length; i++) {
 		if (checkSingleGuess(combos[i], puzzle, []).isCorrect) {
-			correctAnsNum += 1;
+			correctAnswers.push(combos[i]);
 		}
 	}
-	const isFinished = correctAnsNum === guessNum;
-	return { isFinished, message: isFinished ? '' : '還有組合沒被找到' };
+	return correctAnswers;
 }
 
-function getEveryCombo(input) {
+export function getRemainingAnswers(answers, correctAnswers) {
+	const remainingAnswers = [];
+	for (let i = 0; i < correctAnswers.length; i++) {
+		const variations = getVariations(correctAnswers[i]);
+		let isAnswered = false;
+		for (let j = 0; j < variations.length; j++) {
+			if (answers.includes(variations[j])) {
+				isAnswered = true;
+				break;
+			}
+		}
+		if (!isAnswered) {
+			remainingAnswers.push(correctAnswers[i]);
+		}
+	}
+	return remainingAnswers;
+}
+
+function getEveryPossibleAnswer(input) {
 	let ans = [];
 	dfs2(input, 0, [], ans, new Set());
 	return ans;
