@@ -32,9 +32,9 @@ import {
 import CodeComparison from '@/components/CodeComparison';
 import ImageComparison from '@/components/ImageComparison';
 import InfiniteLoopVideo from '@/components/InfiniteLoopVideo';
-import RevealContent from '@/components/RevealContent';
 import FullBleed from '@/components/FullBleed';
-import CombineGame from '@/components/CombineGame';
+
+import { CombineGameProvider } from '@/components/CombineGame';
 
 const COMPONENT_MAP = {
 	h2: H2,
@@ -65,9 +65,9 @@ const COMPONENT_MAP = {
 	CodeComparison,
 	ImageComparison,
 	InfiniteLoopVideo,
-	RevealContent,
+
 	FullBleed,
-	CombineGame,
+	CombineGameProvider,
 };
 
 export default COMPONENT_MAP;

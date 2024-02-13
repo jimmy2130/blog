@@ -21,13 +21,14 @@ import { TABLET_MAX_WIDTH } from './constants';
 // requiredAnswerNum: 0, 1, 2, 3, 4, 5, 6, 8, 12
 
 const QUESTIONS = [
-	{ requiredAnswerNum: [1, 6], hideAnswer: false },
-	{ requiredAnswerNum: [1, 6], hideAnswer: true },
+	{ requiredAnswerNum: [1, 1], hideAnswer: false },
+	// { requiredAnswerNum: [1, 6], hideAnswer: true },
 ];
 
 function CombineGame({
-	difficulty = 'hard',
-	timeLimit = 10,
+	handleReveal,
+	difficulty = 'medium',
+	timeLimit = Infinity,
 	questions = QUESTIONS,
 }) {
 	const [puzzle, setPuzzle] = React.useState([]);
@@ -88,6 +89,25 @@ function CombineGame({
 		setGuess('');
 	}
 
+	function handleGameSuccess() {
+		setGameStatus('success');
+		const [date, time] = format(new Date(), 'yyyy/MM/dd HH:mm:ss').split(' ');
+		setFinishedTime({ date, time });
+		if (handleReveal) {
+			handleReveal();
+		}
+	}
+
+	const handleGameFail = React.useCallback(
+		function () {
+			setGameStatus('fail');
+			setRemainingAnswers(getRemainingAnswers(answers, correctAnswers));
+			const [date, time] = format(new Date(), 'yyyy/MM/dd HH:mm:ss').split(' ');
+			setFinishedTime({ date, time });
+		},
+		[answers, correctAnswers],
+	);
+
 	function handleGuess(event) {
 		event.preventDefault();
 
@@ -101,12 +121,7 @@ function CombineGame({
 		if (!isCorrect) {
 			setMessage(message);
 			if (difficulty === 'hard') {
-				setGameStatus('fail');
-				setRemainingAnswers(getRemainingAnswers(answers, correctAnswers));
-				const [date, time] = format(new Date(), 'yyyy/MM/dd HH:mm:ss').split(
-					' ',
-				);
-				setFinishedTime({ date, time });
+				handleGameFail();
 			}
 			return;
 		}
@@ -117,9 +132,7 @@ function CombineGame({
 		setMessage('');
 
 		if (difficulty === 'easy' && correctAnswers.length === nextAnswers.length) {
-			setGameStatus('success');
-			const [date, time] = format(new Date(), 'yyyy/MM/dd HH:mm:ss').split(' ');
-			setFinishedTime({ date, time });
+			handleGameSuccess();
 		}
 	}
 
@@ -136,20 +149,13 @@ function CombineGame({
 		if (!isFinished) {
 			setMessage('還有組合沒被找到');
 			if (difficulty === 'hard') {
-				setGameStatus('fail');
-				setRemainingAnswers(getRemainingAnswers(answers, correctAnswers));
-				const [date, time] = format(new Date(), 'yyyy/MM/dd HH:mm:ss').split(
-					' ',
-				);
-				setFinishedTime({ date, time });
+				handleGameFail();
 			}
 			return;
 		}
 
 		if (questionIndex === questions.length - 1) {
-			setGameStatus('success');
-			const [date, time] = format(new Date(), 'yyyy/MM/dd HH:mm:ss').split(' ');
-			setFinishedTime({ date, time });
+			handleGameSuccess();
 		} else {
 			moveToNextQuestion();
 			setQuestionIndex(questionIndex + 1);
@@ -189,10 +195,8 @@ function CombineGame({
 			return;
 		}
 		if (time === 0) {
-			setGameStatus('fail');
 			setMessage('時間到');
-			const [date, time] = format(new Date(), 'yyyy/MM/dd HH:mm:ss').split(' ');
-			setFinishedTime({ date, time });
+			handleGameFail();
 			return;
 		}
 		function handleTimeout() {
@@ -204,7 +208,7 @@ function CombineGame({
 		return () => {
 			window.clearTimeout(timeoutId);
 		};
-	}, [startGame, gameStatus, time]);
+	}, [handleGameFail, startGame, gameStatus, time]);
 
 	React.useEffect(() => {
 		if (startGame || !startCountdown) {
@@ -307,7 +311,7 @@ const OuterWrapper = styled.div`
 	border-radius: 8px;
 	padding: 4px;
 	margin-top: 40px;
-	margin-bottom: 40px;
+	margin-bottom: 80px;
 `;
 
 const InnerWrapper = styled.form`

@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
 
-const CombineGame = dynamic(() => import('./CombineGame'));
+const CombineGameProvider = dynamic(() => import('./CombineGameProvider'));
 
-export default CombineGame;
+export { CombineGameProvider };
