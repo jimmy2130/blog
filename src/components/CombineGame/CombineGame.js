@@ -17,11 +17,12 @@ import { QUERIES } from '@/constants';
 import { TABLET_MAX_WIDTH } from './constants';
 
 // difficulty: easy, medium, hard
-// gameStatus: unknown, success, fail
+// gameStatus: preparing, countdown, running, success, fail
 // answerNum: 0, 1, 2, 3, 4, 5, 6, 8, 12
+// mode: normal, missing
 
 const QUESTIONS = [
-	{ answerNum: [1, 1], hideAnswer: false },
+	{ answerNum: [6, 6], hideAnswer: false, mode: 'missing' },
 	// { answerNum: [1, 6], hideAnswer: true },
 ];
 
@@ -32,6 +33,7 @@ function CombineGame({
 	questions = QUESTIONS,
 }) {
 	const [puzzle, setPuzzle] = React.useState([]);
+	const [missingPuzzleIndex, setMissingPuzzleIndex] = React.useState(undefined);
 	const [countdown, setCountdown] = React.useState(3);
 	const [correctAnswers, setCorrectAnswers] = React.useState([]);
 	const [answers, setAnswers] = React.useState([]);
@@ -43,8 +45,13 @@ function CombineGame({
 		timeLimit === Infinity ? 'running' : 'preparing',
 	);
 
-	const { answerNum, hideAnswer = false } = questions[questionIndex];
-	const { answerLBound, answerHBound } = getAnsBoundary(answerNum);
+	const {
+		answerNum,
+		hideAnswer = false,
+		mode = 'normal',
+	} = questions[questionIndex];
+
+	const { answerLBound, answerHBound } = getAnsBoundary(answerNum, mode);
 
 	const handleAddNum = React.useCallback(function (num) {
 		setGuess(g => {
@@ -59,14 +66,22 @@ function CombineGame({
 		});
 	}, []);
 
+	const handleGameStart = React.useCallback(
+		function () {
+			const { puzzle, correctAnswers, clue, missingPuzzleIndex } = createPuzzle(
+				[answerLBound, answerHBound],
+				mode,
+			);
+			setPuzzle(puzzle);
+			setMissingPuzzleIndex(missingPuzzleIndex);
+			setCorrectAnswers(correctAnswers);
+			setAnswers(clue ? [clue] : []);
+		},
+		[answerHBound, answerLBound, mode],
+	);
+
 	function moveToNextQuestion() {
-		const { puzzle, correctAnswers } = createPuzzle([
-			answerLBound,
-			answerHBound,
-		]);
-		setPuzzle(puzzle);
-		setCorrectAnswers(correctAnswers);
-		setAnswers([]);
+		handleGameStart();
 		setMessage('');
 		setGuess('');
 	}
@@ -142,13 +157,8 @@ function CombineGame({
 	}
 
 	React.useEffect(() => {
-		const { puzzle, correctAnswers } = createPuzzle([
-			answerLBound,
-			answerHBound,
-		]);
-		setPuzzle(puzzle);
-		setCorrectAnswers(correctAnswers);
-	}, [answerLBound, answerHBound]);
+		handleGameStart();
+	}, [handleGameStart]);
 
 	React.useEffect(() => {
 		if (time === Infinity || gameStatus !== 'running') {
@@ -195,19 +205,26 @@ function CombineGame({
 				<InnerWrapper onSubmit={event => event.preventDefault()}>
 					{['running', 'success', 'fail'].includes(gameStatus) ? (
 						<GameBoard>
-							{puzzle.map((id, index) => (
-								<Shape
-									key={index}
-									id={id}
-									handleAddNum={handleAddNum}
-									num={index + 1}
-									isSelected={guess
-										.split('')
-										.map(el => Number(el))
-										.includes(index + 1)}
-									gameStatus={gameStatus}
-								/>
-							))}
+							{puzzle.map((id, index) => {
+								const isHidden =
+									index === missingPuzzleIndex &&
+									gameStatus !== 'success' &&
+									gameStatus !== 'fail';
+								return (
+									<Shape
+										key={index}
+										id={id}
+										handleAddNum={handleAddNum}
+										num={index + 1}
+										isSelected={guess
+											.split('')
+											.map(el => Number(el))
+											.includes(index + 1)}
+										gameStatus={gameStatus}
+										isHidden={isHidden}
+									/>
+								);
+							})}
 							{questions.length !== 1 && (
 								<Tag>
 									第 {questionIndex + 1} 題，總共 {questions.length} 題
@@ -232,6 +249,7 @@ function CombineGame({
 						correctAnswers={correctAnswers}
 						gameStatus={gameStatus}
 						hideAnswer={hideAnswer}
+						mode={mode}
 					/>
 					<ControlPanel>
 						<ErrorMessage>{message}</ErrorMessage>
@@ -239,9 +257,7 @@ function CombineGame({
 							<FinishButton
 								onClick={difficulty === 'easy' ? undefined : handleFinish}
 								disabled={
-									difficulty === 'easy'
-										? true
-										: gameStatus === 'success' || gameStatus === 'fail'
+									difficulty === 'easy' ? true : gameStatus !== 'running'
 								}
 							>
 								{difficulty === 'easy'
@@ -251,7 +267,7 @@ function CombineGame({
 						}
 						<CombineButton
 							onClick={handleGuess}
-							disabled={gameStatus === 'success' || gameStatus === 'fail'}
+							disabled={gameStatus !== 'running'}
 						>
 							合
 						</CombineButton>
@@ -266,7 +282,7 @@ function CombineGame({
 }
 
 const OuterWrapper = styled.div`
-	border: 4px solid #ddd;
+	border: 4px solid #e4e4e7;
 	border-radius: 8px;
 	padding: 4px;
 	margin-top: 40px;
@@ -281,7 +297,7 @@ const InnerWrapper = styled.form`
 	grid-template-columns: 3fr 1fr;
 	gap: 32px 16px;
 
-	border: 4px dashed #ddd;
+	border: 4px dashed #e4e4e7;
 
 	padding: 84px 32px 32px 32px;
 

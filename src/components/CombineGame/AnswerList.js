@@ -9,16 +9,19 @@ const STATUS = {
 	fail: '失敗',
 };
 
-function AnswerList({ answers, correctAnswers, hideAnswer, gameStatus }) {
+function AnswerList({ answers, correctAnswers, hideAnswer, gameStatus, mode }) {
 	const { date, time } =
 		gameStatus === 'success' || gameStatus === 'fail' ? getDateAndTime() : {};
 	const remainingAnswers =
 		gameStatus === 'fail' ? getRemainingAnswers(answers, correctAnswers) : [];
-	const totalAnswers = [
-		...answers,
-		...remainingAnswers,
-		...Array(12 - answers.length - remainingAnswers.length).fill(''),
-	];
+	const totalAnswers =
+		gameStatus === 'preparing' || gameStatus === 'countdown'
+			? Array(12).fill('')
+			: [
+					...answers,
+					...remainingAnswers,
+					...Array(12 - answers.length - remainingAnswers.length).fill(''),
+			  ];
 
 	return (
 		<Wrapper>
@@ -26,7 +29,9 @@ function AnswerList({ answers, correctAnswers, hideAnswer, gameStatus }) {
 				{totalAnswers.map((answer, index) => {
 					let displayedAnswer = answer;
 					if (answer !== '' && hideAnswer && gameStatus === 'running') {
-						displayedAnswer = '???';
+						if (mode === 'normal' || (mode === 'missing' && index !== 0)) {
+							displayedAnswer = '???';
+						}
 					}
 					return (
 						<Answer

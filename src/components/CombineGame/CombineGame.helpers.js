@@ -10,18 +10,28 @@ function decode(str) {
 	return parseInt(str, 3);
 }
 
-export function getAnsBoundary(answerNum) {
+export function getAnsBoundary(answerNum, mode) {
+	const defaultLBound = {
+		normal: 0,
+		missing: 1,
+	};
 	if (typeof answerNum === 'number') {
 		return { answerLBound: answerNum, answerHBound: answerNum };
 	}
-	if (Array.isArray(answerNum) && answerNum.length === 2) {
+	if (
+		Array.isArray(answerNum) &&
+		answerNum.length === 2 &&
+		answerNum[0] <= answerNum[1]
+	) {
 		return { answerLBound: answerNum[0], answerHBound: answerNum[1] };
 	}
-	return { answerLBound: 0, answerHBound: 6 };
+	return { answerLBound: defaultLBound[mode], answerHBound: 6 };
 }
 
-export function createPuzzle(input) {
-	const [low, high] = typeof input === 'number' ? [input, input] : input;
+export function createPuzzle([low, high], mode) {
+	if (mode === 'missing' && low === 0) {
+		throw new Error(`missing mode needs at least 1 answer`);
+	}
 	const targetAnswerNum = sampleOne(range(low, high + 1));
 
 	if (targetAnswerNum === 0) {
@@ -36,8 +46,18 @@ export function createPuzzle(input) {
 			puzzle.push(encode(randomNumber));
 		}
 		const correctAnswers = getCorrectAnswers(puzzle);
-		if (correctAnswers.length === targetAnswerNum) {
+		if (correctAnswers.length !== targetAnswerNum) {
+			continue;
+		}
+
+		if (mode === 'normal') {
 			return { puzzle, correctAnswers };
+		}
+		if (mode === 'missing') {
+			const clue = sampleOne(correctAnswers);
+			const missingPuzzleIndex =
+				sampleOne(clue.split('').map(el => Number(el))) - 1;
+			return { puzzle, correctAnswers, clue, missingPuzzleIndex };
 		}
 	}
 }

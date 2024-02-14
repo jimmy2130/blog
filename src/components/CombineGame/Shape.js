@@ -4,10 +4,18 @@ import UnstyledButton from '@/components/UnstyledButton';
 import { QUERIES } from '@/constants';
 import { SHAPES, COLORS, BACKGROUND_COLORS } from './constants';
 
-function Shape({ id = '021', num, isSelected, gameStatus, handleAddNum }) {
+function Shape({
+	id = '021',
+	num,
+	isSelected,
+	gameStatus,
+	handleAddNum,
+	isHidden,
+}) {
 	const Pattern = SHAPES[id[0]];
 	const color = COLORS[id[1]];
-	const backgroundColor = BACKGROUND_COLORS[id[2]];
+	const backgroundColor = isHidden ? 'white' : BACKGROUND_COLORS[id[2]];
+	const borderColor = isHidden ? '#e4e4e7' : BACKGROUND_COLORS[id[2]];
 
 	function handleClick(event) {
 		event.preventDefault();
@@ -17,7 +25,7 @@ function Shape({ id = '021', num, isSelected, gameStatus, handleAddNum }) {
 		<Wrapper
 			style={{
 				'--background-color': backgroundColor,
-				'--border-color': isSelected ? '#1ac23b' : backgroundColor,
+				'--border-color': isSelected ? '#1ac23b' : borderColor,
 			}}
 			onClick={handleClick}
 			disabled={gameStatus === 'success' || gameStatus === 'fail'}
@@ -41,7 +49,7 @@ function Shape({ id = '021', num, isSelected, gameStatus, handleAddNum }) {
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
 			>
-				<Pattern fill={color} />
+				{!isHidden && <Pattern fill={color} />}
 			</svg>
 		</Wrapper>
 	);
