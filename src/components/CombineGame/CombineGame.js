@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import {
+	getAnsBoundary,
 	createPuzzle,
 	checkSingleGuess,
 	getCorrectAnswers,
-	getRemainingAnswers,
 } from './CombineGame.helpers';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
@@ -18,50 +18,33 @@ import { TABLET_MAX_WIDTH } from './constants';
 
 // difficulty: easy, medium, hard
 // gameStatus: unknown, success, fail
-// requiredAnswerNum: 0, 1, 2, 3, 4, 5, 6, 8, 12
+// answerNum: 0, 1, 2, 3, 4, 5, 6, 8, 12
 
 const QUESTIONS = [
-	{ requiredAnswerNum: [1, 1], hideAnswer: false },
-	// { requiredAnswerNum: [1, 6], hideAnswer: true },
+	{ answerNum: [1, 1], hideAnswer: false },
+	// { answerNum: [1, 6], hideAnswer: true },
 ];
 
 function CombineGame({
 	handleReveal,
-	difficulty = 'medium',
+	difficulty = 'hard',
 	timeLimit = Infinity,
 	questions = QUESTIONS,
 }) {
 	const [puzzle, setPuzzle] = React.useState([]);
-	const [startGame, setStartGame] = React.useState(timeLimit === Infinity);
 	const [countdown, setCountdown] = React.useState(3);
-	const [startCountdown, setStartCountdown] = React.useState(false);
 	const [correctAnswers, setCorrectAnswers] = React.useState([]);
 	const [answers, setAnswers] = React.useState([]);
-	const [remainingAnswers, setRemainingAnswers] = React.useState([]);
 	const [guess, setGuess] = React.useState('');
 	const [message, setMessage] = React.useState('');
 	const [questionIndex, setQuestionIndex] = React.useState(0);
 	const [time, setTime] = React.useState(timeLimit);
-	const [gameStatus, setGameStatus] = React.useState('unknown');
-	const [finishedTime, setFinishedTime] = React.useState({
-		date: '',
-		time: '',
-	});
+	const [gameStatus, setGameStatus] = React.useState(
+		timeLimit === Infinity ? 'running' : 'preparing',
+	);
 
-	const { requiredAnswerNum, hideAnswer = false } = questions[questionIndex];
-
-	const requiredAnswerLowerBound =
-		typeof requiredAnswerNum === 'number'
-			? requiredAnswerNum
-			: typeof requiredAnswerNum === 'undefined'
-			? 1
-			: requiredAnswerNum[0];
-	const requiredAnswerHigherBound =
-		typeof requiredAnswerNum === 'number'
-			? requiredAnswerNum
-			: typeof requiredAnswerNum === 'undefined'
-			? 6
-			: requiredAnswerNum[1];
+	const { answerNum, hideAnswer = false } = questions[questionIndex];
+	const { answerLBound, answerHBound } = getAnsBoundary(answerNum);
 
 	const handleAddNum = React.useCallback(function (num) {
 		setGuess(g => {
@@ -77,36 +60,23 @@ function CombineGame({
 	}, []);
 
 	function moveToNextQuestion() {
-		const newPuzzle = createPuzzle([
-			requiredAnswerLowerBound,
-			requiredAnswerHigherBound,
+		const { puzzle, correctAnswers } = createPuzzle([
+			answerLBound,
+			answerHBound,
 		]);
-		setPuzzle(newPuzzle);
-		setCorrectAnswers(getCorrectAnswers(newPuzzle));
+		setPuzzle(puzzle);
+		setCorrectAnswers(correctAnswers);
 		setAnswers([]);
-		setRemainingAnswers([]);
 		setMessage('');
 		setGuess('');
 	}
 
 	function handleGameSuccess() {
 		setGameStatus('success');
-		const [date, time] = format(new Date(), 'yyyy/MM/dd HH:mm:ss').split(' ');
-		setFinishedTime({ date, time });
 		if (handleReveal) {
 			handleReveal();
 		}
 	}
-
-	const handleGameFail = React.useCallback(
-		function () {
-			setGameStatus('fail');
-			setRemainingAnswers(getRemainingAnswers(answers, correctAnswers));
-			const [date, time] = format(new Date(), 'yyyy/MM/dd HH:mm:ss').split(' ');
-			setFinishedTime({ date, time });
-		},
-		[answers, correctAnswers],
-	);
 
 	function handleGuess(event) {
 		event.preventDefault();
@@ -121,7 +91,7 @@ function CombineGame({
 		if (!isCorrect) {
 			setMessage(message);
 			if (difficulty === 'hard') {
-				handleGameFail();
+				setGameStatus('fail');
 			}
 			return;
 		}
@@ -149,7 +119,7 @@ function CombineGame({
 		if (!isFinished) {
 			setMessage('還有組合沒被找到');
 			if (difficulty === 'hard') {
-				handleGameFail();
+				setGameStatus('fail');
 			}
 			return;
 		}
@@ -166,37 +136,27 @@ function CombineGame({
 		event.preventDefault();
 		moveToNextQuestion();
 		setQuestionIndex(0);
-		setStartGame(timeLimit === Infinity);
 		setCountdown(3);
-		setStartCountdown(false);
 		setTime(timeLimit);
-		setGameStatus('unknown');
-		setFinishedTime({ date: '', time: '' });
+		setGameStatus(timeLimit === Infinity ? 'running' : 'preparing');
 	}
 
 	React.useEffect(() => {
-		const newPuzzle = createPuzzle([
-			requiredAnswerLowerBound,
-			requiredAnswerHigherBound,
+		const { puzzle, correctAnswers } = createPuzzle([
+			answerLBound,
+			answerHBound,
 		]);
-		setPuzzle(newPuzzle);
-		// console.log(getCorrectAnswers(newPuzzle));
-		setCorrectAnswers(getCorrectAnswers(newPuzzle));
-	}, [requiredAnswerLowerBound, requiredAnswerHigherBound]);
+		setPuzzle(puzzle);
+		setCorrectAnswers(correctAnswers);
+	}, [answerLBound, answerHBound]);
 
 	React.useEffect(() => {
-		if (time === Infinity) {
-			return;
-		}
-		if (!startGame) {
-			return;
-		}
-		if (gameStatus === 'success' || gameStatus === 'fail') {
+		if (time === Infinity || gameStatus !== 'running') {
 			return;
 		}
 		if (time === 0) {
 			setMessage('時間到');
-			handleGameFail();
+			setGameStatus('fail');
 			return;
 		}
 		function handleTimeout() {
@@ -208,17 +168,17 @@ function CombineGame({
 		return () => {
 			window.clearTimeout(timeoutId);
 		};
-	}, [handleGameFail, startGame, gameStatus, time]);
+	}, [gameStatus, time]);
 
 	React.useEffect(() => {
-		if (startGame || !startCountdown) {
+		if (gameStatus !== 'countdown') {
 			return;
 		}
 		function handleTimeout() {
 			if (countdown !== 1) {
 				setCountdown(countdown - 1);
 			} else {
-				setStartGame(true);
+				setGameStatus('running');
 			}
 		}
 
@@ -227,13 +187,13 @@ function CombineGame({
 		return () => {
 			window.clearTimeout(timeoutId);
 		};
-	}, [startGame, startCountdown, countdown]);
+	}, [gameStatus, countdown]);
 
 	return (
 		<MaxWidthWrapper maxWidth={700} breathingRoom={24}>
 			<OuterWrapper>
 				<InnerWrapper onSubmit={event => event.preventDefault()}>
-					{startGame ? (
+					{['running', 'success', 'fail'].includes(gameStatus) ? (
 						<GameBoard>
 							{puzzle.map((id, index) => (
 								<Shape
@@ -257,8 +217,8 @@ function CombineGame({
 						</GameBoard>
 					) : (
 						<CountdownBoard>
-							{!startCountdown ? (
-								<StartButton onClick={() => setStartCountdown(true)}>
+							{gameStatus === 'preparing' ? (
+								<StartButton onClick={() => setGameStatus('countdown')}>
 									開始
 								</StartButton>
 							) : (
@@ -269,10 +229,9 @@ function CombineGame({
 
 					<AnswerList
 						answers={answers}
-						remainingAnswers={remainingAnswers}
+						correctAnswers={correctAnswers}
 						gameStatus={gameStatus}
 						hideAnswer={hideAnswer}
-						finishedTime={finishedTime}
 					/>
 					<ControlPanel>
 						<ErrorMessage>{message}</ErrorMessage>

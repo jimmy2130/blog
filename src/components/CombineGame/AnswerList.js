@@ -2,20 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { QUERIES } from '@/constants';
 import { TABLET_MAX_WIDTH } from './constants';
+import { getRemainingAnswers, getDateAndTime } from './CombineGame.helpers';
 
 const STATUS = {
 	success: '成功',
 	fail: '失敗',
 };
 
-function AnswerList({
-	answers,
-	remainingAnswers,
-	hideAnswer,
-	gameStatus,
-	finishedTime,
-}) {
-	const { date, time } = finishedTime;
+function AnswerList({ answers, correctAnswers, hideAnswer, gameStatus }) {
+	const { date, time } =
+		gameStatus === 'success' || gameStatus === 'fail' ? getDateAndTime() : {};
+	const remainingAnswers =
+		gameStatus === 'fail' ? getRemainingAnswers(answers, correctAnswers) : [];
 	const totalAnswers = [
 		...answers,
 		...remainingAnswers,
@@ -27,7 +25,7 @@ function AnswerList({
 			<List>
 				{totalAnswers.map((answer, index) => {
 					let displayedAnswer = answer;
-					if (answer !== '' && hideAnswer && gameStatus === 'unknown') {
+					if (answer !== '' && hideAnswer && gameStatus === 'running') {
 						displayedAnswer = '???';
 					}
 					return (
@@ -42,7 +40,7 @@ function AnswerList({
 					);
 				})}
 			</List>
-			{gameStatus !== 'unknown' && (
+			{(gameStatus === 'success' || gameStatus === 'fail') && (
 				<Stamp>
 					<StampInnerRing>
 						<Status>{STATUS[gameStatus]}</Status>

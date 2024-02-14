@@ -1,32 +1,85 @@
+import { format } from 'date-fns';
 import { MESSAGES } from './constants';
 import { range, sampleOne } from '@/utils';
+
+function encode(num) {
+	return num.toString(3).padStart(3, '0');
+}
+
+function decode(str) {
+	return parseInt(str, 3);
+}
+
+export function getAnsBoundary(answerNum) {
+	if (typeof answerNum === 'number') {
+		return { answerLBound: answerNum, answerHBound: answerNum };
+	}
+	if (Array.isArray(answerNum) && answerNum.length === 2) {
+		return { answerLBound: answerNum[0], answerHBound: answerNum[1] };
+	}
+	return { answerLBound: 0, answerHBound: 6 };
+}
 
 export function createPuzzle(input) {
 	const [low, high] = typeof input === 'number' ? [input, input] : input;
 	const targetAnswerNum = sampleOne(range(low, high + 1));
 
+	if (targetAnswerNum === 0) {
+		return createPuzzleForNoAnswer();
+	}
 	while (true) {
-		const set = new Set();
-		const arr = [];
-		while (arr.length < 9) {
-			const randomNum = Math.floor(Math.random() * 27);
-			if (!set.has(randomNum)) {
-				set.add(randomNum);
-				arr.push(randomNum);
-			}
+		const numbers = new Set(range(27));
+		const puzzle = [];
+		while (puzzle.length < 9) {
+			const randomNumber = sampleOne(Array.from(numbers));
+			numbers.delete(randomNumber);
+			puzzle.push(encode(randomNumber));
 		}
-		const puzzle = arr.map(num => num.toString(3).padStart(3, '0'));
 		const correctAnswers = getCorrectAnswers(puzzle);
 		if (correctAnswers.length === targetAnswerNum) {
-			return puzzle;
+			return { puzzle, correctAnswers };
 		}
 	}
 }
 
-function deleteNum(arr, num) {
-	let set = new Set(arr);
-	set.delete(num);
-	return Array.from(set);
+function createPuzzleForNoAnswer() {
+	while (true) {
+		const numbers = new Set(range(27));
+		const puzzle = [];
+		for (let i = 0; i < 9; i++) {
+			if (numbers.size === 0) {
+				break;
+			}
+			const randomNumber = sampleOne(Array.from(numbers));
+			numbers.delete(randomNumber);
+			for (let i = 0; i < puzzle.length; i++) {
+				const num1 = puzzle[i];
+				const num2 = randomNumber;
+				numbers.delete(findCorrectShape(num1, num2));
+			}
+			puzzle.push(randomNumber);
+		}
+		if (puzzle.length === 9) {
+			return { puzzle: puzzle.map(num => encode(num)), correctAnswers: [] };
+		}
+	}
+}
+
+function findCorrectShape(num1, num2) {
+	const code1 = encode(num1);
+	const code2 = encode(num2);
+	let code3 = '';
+	for (let i = 0; i < 3; i++) {
+		const variations = new Set(['0', '1', '2']);
+		if (code1[i] === code2[i]) {
+			code3 += code1[i];
+		} else {
+			variations.delete(code1[i]);
+			variations.delete(code2[i]);
+			code3 += Array.from(variations)[0];
+		}
+	}
+	return decode(code3);
 }
 
 export function checkSingleGuess(guess, puzzle, combo) {
@@ -136,6 +189,11 @@ export function getRemainingAnswers(answers, correctAnswers) {
 		}
 	}
 	return remainingAnswers;
+}
+
+export function getDateAndTime() {
+	const [date, time] = format(new Date(), 'yyyy/MM/dd HH:mm:ss').split(' ');
+	return { date, time };
 }
 
 function getEveryPossibleAnswer(input) {
