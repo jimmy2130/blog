@@ -9,7 +9,9 @@ import {
 } from './CombineGame.helpers';
 
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
-import Shape from './Shape';
+import Button from './Button';
+import IconButton from './IconButton';
+import ShapeButton from './ShapeButton';
 import AnswerList from './AnswerList';
 import UnstyledButton from '@/components/UnstyledButton';
 import Icon from '@/components/Icon';
@@ -211,7 +213,7 @@ function CombineGame({
 									gameStatus !== 'success' &&
 									gameStatus !== 'fail';
 								return (
-									<Shape
+									<ShapeButton
 										key={index}
 										id={id}
 										handleAddNum={handleAddNum}
@@ -236,7 +238,7 @@ function CombineGame({
 						<CountdownBoard>
 							{gameStatus === 'preparing' ? (
 								<StartButton onClick={() => setGameStatus('countdown')}>
-									開始
+									開始作答
 								</StartButton>
 							) : (
 								<CountdownNum>{countdown}</CountdownNum>
@@ -272,9 +274,9 @@ function CombineGame({
 							合
 						</CombineButton>
 					</ControlPanel>
-					<IconButton onClick={handleRestart}>
-						<Icon id="refresh-ccw" color="#52525b" />
-					</IconButton>
+					<RestartButton onClick={handleRestart}>
+						<Icon id="refresh-ccw" color="#34343d" />
+					</RestartButton>
 				</InnerWrapper>
 			</OuterWrapper>
 		</MaxWidthWrapper>
@@ -287,6 +289,9 @@ const OuterWrapper = styled.div`
 	padding: 4px;
 	margin-top: 40px;
 	margin-bottom: 80px;
+
+	font-size: calc(19 / 16 * 1rem);
+	color: var(--color-gray-900);
 `;
 
 const InnerWrapper = styled.form`
@@ -310,31 +315,6 @@ const InnerWrapper = styled.form`
 	}
 `;
 
-const StyledButton = styled(UnstyledButton)`
-	padding-top: 8px;
-	padding-bottom: 8px;
-
-	background: #e4e4e7;
-	border-radius: 4px;
-	font-size: calc(19 / 16 * 1rem);
-	user-select: none;
-
-	&:focus {
-		outline-offset: -4px;
-	}
-
-	&:hover {
-		background: #a1a1aa;
-	}
-
-	&:disabled {
-		cursor: not-allowed;
-	}
-	&:disabled&:hover {
-		background: #e4e4e7;
-	}
-`;
-
 const Board = styled.div`
 	grid-area: board;
 	aspect-ratio: 1 / 1;
@@ -353,8 +333,15 @@ const CountdownBoard = styled(Board)`
 	border-radius: 12px;
 `;
 
-const StartButton = styled(StyledButton)`
+const StartButton = styled(Button)`
 	padding: 8px 24px;
+
+	background: #34343d;
+	color: white;
+
+	&:hover {
+		background: #52525b;
+	}
 
 	&:focus {
 		outline-offset: -8px;
@@ -363,7 +350,7 @@ const StartButton = styled(StyledButton)`
 
 const CountdownNum = styled.span`
 	font-size: calc(64 / 16 * 1rem);
-	color: #52525b;
+	color: #34343d;
 `;
 
 const GameBoard = styled(Board)`
@@ -405,37 +392,31 @@ const ControlPanel = styled.div`
 		max-width: ${TABLET_MAX_WIDTH}px;
 		margin-left: auto;
 		margin-right: auto;
-		margin-bottom: 44px;
+		margin-bottom: 40px;
 	}
 `;
 
 const ErrorMessage = styled.p`
 	min-height: 32px;
-	font-size: calc(19 / 16 * 1rem);
 	grid-area: message;
 	text-align: center;
 `;
 
-const FinishButton = styled(StyledButton)`
+const FinishButton = styled(Button)`
 	grid-area: finish-button;
 `;
 
-const CombineButton = styled(StyledButton)`
+const CombineButton = styled(Button)`
 	grid-area: combine-button;
 `;
 
-const IconButton = styled(UnstyledButton)`
+const RestartButton = styled(IconButton)`
 	grid-area: restart;
 	justify-self: end;
 	align-self: end;
 
-	margin-right: 8px;
-	margin-bottom: 8px;
-
 	@media ${QUERIES.tabletAndDown} {
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: revert;
+		margin-inline: auto;
 	}
 `;
 

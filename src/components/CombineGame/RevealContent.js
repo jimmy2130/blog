@@ -26,18 +26,24 @@ const InfoCard = styled.div`
 	background: var(--color-gray-100);
 	border-radius: 16px;
 	font-size: calc(19 / 16 * 1rem);
+	color: var(--color-gray-900);
 
 	text-align: center;
 `;
 
 const SkipButton = styled(UnstyledButton)`
 	background: var(--color-gray-300);
+	color: var(--color-gray-900);
 	padding: 4px 16px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 16px;
 
 	border-radius: 8px;
+
+	&:hover {
+		background: var(--color-gray-400);
+	}
 `;
 
 export default RevealContent;
