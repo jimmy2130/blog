@@ -11,6 +11,7 @@ function ShapeButton({
 	gameStatus,
 	handleAddNum,
 	isHidden,
+	showIsMissing,
 }) {
 	const Pattern = SHAPES[id[0]];
 	const color = COLORS[id[1]];
@@ -51,6 +52,16 @@ function ShapeButton({
 			>
 				{!isHidden && <Pattern fill={color} />}
 			</svg>
+			{(showIsMissing || isHidden) && (
+				<Mark
+					style={{
+						'--color': color === '#fbbf24' || isHidden ? '#34343d' : 'white',
+						'--translateY': id[0] === '2' ? '5px' : '0px',
+					}}
+				>
+					?
+				</Mark>
+			)}
 		</Wrapper>
 	);
 }
@@ -97,6 +108,19 @@ const Label = styled.span`
 	font-size: calc(14 / 16 * 1rem);
 	font-weight: 700;
 	color: var(--color);
+
+	transform: translateY(var(--translateY));
+`;
+
+const Mark = styled.span`
+	position: absolute;
+	inset: 0;
+	margin: auto;
+	width: fit-content;
+	height: fit-content;
+
+	color: var(--color);
+	font-weight: 700;
 
 	transform: translateY(var(--translateY));
 `;

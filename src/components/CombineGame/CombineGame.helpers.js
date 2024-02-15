@@ -85,6 +85,28 @@ function createPuzzleForNoAnswer() {
 	}
 }
 
+export function createPuzzleForAdvancedDemo(questionNum) {
+	const questions = [];
+
+	for (let i = 0; i < questionNum; i++) {
+		const question = [];
+		const numbers = new Set(range(27));
+		for (let j = 0; j < 2; j++) {
+			const randomNum = sampleOne(Array.from(numbers));
+			numbers.delete(randomNum);
+			question.push(randomNum);
+		}
+		const correctAnswer = findCorrectShape(...question);
+
+		questions.push({
+			question: question.map(q => encode(q)),
+			correctAnswer: encode(correctAnswer),
+		});
+	}
+
+	return questions;
+}
+
 function findCorrectShape(num1, num2) {
 	const code1 = encode(num1);
 	const code2 = encode(num2);
@@ -102,7 +124,7 @@ function findCorrectShape(num1, num2) {
 	return decode(code3);
 }
 
-export function checkSingleGuess(guess, puzzle, combo) {
+export function validate(guess, puzzle, combo) {
 	const variations = getVariations(guess);
 
 	for (let i = 0; i < variations.length; i++) {
@@ -114,6 +136,10 @@ export function checkSingleGuess(guess, puzzle, combo) {
 		}
 	}
 	const selectedShapes = guess.split('').map(char => puzzle[Number(char) - 1]);
+	return checkSingleGuess(selectedShapes);
+}
+
+export function checkSingleGuess(selectedShapes) {
 	for (let i = 0; i < 3; i++) {
 		if (
 			!checkDigit(
@@ -169,7 +195,7 @@ function checkDigit(d1, d2, d3) {
 	return false;
 }
 
-function getErrorMessage(d1, d2, d3, i) {
+export function getErrorMessage(d1, d2, d3, i) {
 	let commonCode = '';
 	if (d1 === d2 || d1 === d3) {
 		commonCode = d1;
@@ -186,7 +212,7 @@ export function getCorrectAnswers(puzzle) {
 	const combos = getEveryPossibleAnswer(input);
 
 	for (let i = 0; i < combos.length; i++) {
-		if (checkSingleGuess(combos[i], puzzle, []).isCorrect) {
+		if (validate(combos[i], puzzle, []).isCorrect) {
 			correctAnswers.push(combos[i]);
 		}
 	}

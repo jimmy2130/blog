@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import {
 	getAnsBoundary,
 	createPuzzle,
-	checkSingleGuess,
+	validate,
 	getCorrectAnswers,
 } from './CombineGame.helpers';
 
@@ -103,7 +103,7 @@ function CombineGame({
 			return;
 		}
 
-		const { isCorrect, message } = checkSingleGuess(guess, puzzle, answers);
+		const { isCorrect, message } = validate(guess, puzzle, answers);
 
 		if (!isCorrect) {
 			setMessage(message);
@@ -212,6 +212,9 @@ function CombineGame({
 									index === missingPuzzleIndex &&
 									gameStatus !== 'success' &&
 									gameStatus !== 'fail';
+								const showIsMissing =
+									index === missingPuzzleIndex &&
+									(gameStatus === 'success' || gameStatus === 'fail');
 								return (
 									<ShapeButton
 										key={index}
@@ -224,6 +227,7 @@ function CombineGame({
 											.includes(index + 1)}
 										gameStatus={gameStatus}
 										isHidden={isHidden}
+										showIsMissing={showIsMissing}
 									/>
 								);
 							})}
@@ -290,8 +294,6 @@ const OuterWrapper = styled.div`
 	border: 4px solid #e4e4e7;
 	border-radius: 8px;
 	padding: 4px;
-	margin-top: 40px;
-	margin-bottom: 80px;
 
 	font-size: calc(19 / 16 * 1rem);
 	color: #34343d;

@@ -1,15 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import Spacer from '@/components/Spacer';
 import UnstyledButton from '@/components/UnstyledButton';
 
 function RevealContent({ handleReveal, isRevealed, children }) {
 	return (
 		<>
 			{!isRevealed ? (
-				<InfoCard>
-					接下來的文章需要通過遊戲才能解鎖，如果遊戲太難的話，你也可以選擇跳過，繼續觀看接下來的文章。
-					<SkipButton onClick={handleReveal}>跳過</SkipButton>
-				</InfoCard>
+				<>
+					<Spacer size={80} />
+					<InfoCard>
+						接下來的文章需要通過遊戲才能解鎖，如果遊戲太難的話，你也可以選擇跳過，繼續觀看接下來的文章。
+						<SkipButton onClick={handleReveal}>跳過</SkipButton>
+					</InfoCard>
+				</>
 			) : (
 				children
 			)}

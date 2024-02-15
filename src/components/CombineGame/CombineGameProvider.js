@@ -1,4 +1,5 @@
 import React from 'react';
+import Spacer from '@/components/Spacer';
 import FullBleed from '@/components/FullBleed';
 import CombineGame from './CombineGame';
 import RevealContent from './RevealContent';
@@ -12,6 +13,7 @@ function CombineGameProvider({ children, difficulty, timeLimit, questions }) {
 
 	return (
 		<>
+			<Spacer size={40} />
 			<FullBleed>
 				<CombineGame
 					handleReveal={handleReveal}
@@ -20,6 +22,7 @@ function CombineGameProvider({ children, difficulty, timeLimit, questions }) {
 					questions={questions}
 				/>
 			</FullBleed>
+			{isRevealed && <Spacer size={80} />}
 			<RevealContent handleReveal={handleReveal} isRevealed={isRevealed}>
 				{children}
 			</RevealContent>

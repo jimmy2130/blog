@@ -11,6 +11,7 @@ import CodeBlock from '@/components/CodeBlock';
 import BasicImage from '@/components/Image';
 import Sidenote from '@/components/Sidenote';
 import DescriptionList from '@/components/DescriptionList';
+import Spacer from '@/components/Spacer';
 
 import Demo from '@/components/Demo';
 import Demo2 from '@/components/Demo2';
@@ -36,6 +37,7 @@ import InfiniteLoopVideo from '@/components/InfiniteLoopVideo';
 import {
 	CombineGameProvider,
 	IntroductionDemo,
+	AdvancedDemo,
 } from '@/components/CombineGame';
 
 const COMPONENT_MAP = {
@@ -52,6 +54,7 @@ const COMPONENT_MAP = {
 	img: BasicImage,
 	Sidenote,
 	DescriptionList,
+	Spacer,
 
 	Demo,
 	Demo2,
@@ -70,6 +73,7 @@ const COMPONENT_MAP = {
 
 	CombineGameProvider,
 	IntroductionDemo,
+	AdvancedDemo,
 };
 
 export default COMPONENT_MAP;

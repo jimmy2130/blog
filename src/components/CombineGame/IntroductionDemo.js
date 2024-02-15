@@ -62,19 +62,23 @@ function IntroductionDemo({ questions, children }) {
 					{gameStatus === 'preparing' ? (
 						<CoverScreen
 							title="開場遊戲"
-							subtitle="讓我們玩個簡單的遊戲，來進一步理解規則"
+							subtitle="透過簡單的遊戲，進一步理解規則"
 							buttonText="開始"
 							handleClick={handleStartGame}
 						></CoverScreen>
 					) : gameStatus === 'end' ? (
 						<CoverScreen
 							title={`${score}%`}
-							subtitle={`在 5 題中，你答對了 ${correctAnswerNum} 題`}
+							subtitle={
+								questions.length === correctAnswerNum
+									? '恭喜你，全對！'
+									: `在 ${questions.length} 題中，你答對了 ${correctAnswerNum} 題`
+							}
 							buttonText="再玩一次"
 							handleClick={handleRestartGame}
 						></CoverScreen>
 					) : (
-						<>
+						<MaxWidthWrapper maxWidth={440} breathingRoom={16}>
 							<NavigationBar>
 								<Indicator>{`第 ${questionIndex + 1} 題，總共 ${
 									questions.length
@@ -170,7 +174,7 @@ function IntroductionDemo({ questions, children }) {
 									{questionIndex !== questions.length - 1 ? '下一題' : '結束'}
 								</NextButton>
 							)}
-						</>
+						</MaxWidthWrapper>
 					)}
 				</Wrapper>
 			</MaxWidthWrapper>
@@ -179,24 +183,21 @@ function IntroductionDemo({ questions, children }) {
 }
 
 const Wrapper = styled.form`
-	--max-width: 440px;
-
 	border: 4px solid #52525b;
 	border-radius: 8px;
-	padding: 40px;
+	padding-top: 40px;
+	padding-bottom: 40px;
 
 	font-size: calc(19 / 16 * 1rem);
-	color: var(--color-gray-900);
+	color: #34343d;
 
 	@media ${QUERIES.phoneAndDown} {
-		padding: 16px;
+		padding-top: 16px;
+		padding-bottom: 32px;
 	}
 `;
 
 const NavigationBar = styled.div`
-	max-width: var(--max-width);
-	margin-inline: auto;
-
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -208,11 +209,10 @@ const ShapeWrapper = styled.div`
 	display: flex;
 	gap: 8px;
 
-	max-width: var(--max-width);
-	margin: 32px auto;
+	margin-block: 32px;
 
 	@media ${QUERIES.phoneAndDown} {
-		margin: 24px auto;
+		margin-block: 24px;
 	}
 `;
 
@@ -228,8 +228,6 @@ const Question = styled.div`
 const ButtonWrapper = styled.div`
 	display: flex;
 	gap: 16px;
-	max-width: var(--max-width);
-	margin-inline: auto;
 	margin-bottom: 60px;
 
 	@media ${QUERIES.phoneAndDown} {
@@ -243,8 +241,6 @@ const AnswerButton = styled(Button)`
 `;
 
 export const Explanation = styled.div`
-	max-width: var(--max-width);
-	margin-inline: auto;
 	margin-bottom: 48px;
 `;
 

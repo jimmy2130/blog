@@ -23,6 +23,16 @@ function Shape({ id = '021', isHidden = false }) {
 			>
 				{!isHidden && <Pattern fill={color} />}
 			</svg>
+			{isHidden && (
+				<Mark
+					style={{
+						'--color': color === '#fbbf24' || isHidden ? '#34343d' : 'white',
+						'--translateY': id[0] === '2' ? '5px' : '0px',
+					}}
+				>
+					?
+				</Mark>
+			)}
 		</Wrapper>
 	);
 }
@@ -35,6 +45,21 @@ const Wrapper = styled.div`
 
 	display: grid;
 	place-content: center;
+
+	position: relative;
+`;
+
+const Mark = styled.span`
+	position: absolute;
+	inset: 0;
+	margin: auto;
+	width: fit-content;
+	height: fit-content;
+
+	color: var(--color);
+	font-weight: 700;
+
+	transform: translateY(var(--translateY));
 `;
 
 export default Shape;
