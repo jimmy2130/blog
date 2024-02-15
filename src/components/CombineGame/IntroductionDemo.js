@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import FullBleed from '@/components/FullBleed';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
+import CoverScreen from './CoverScreen';
 import Icon from '@/components/Icon';
 import UnstyledButton from '@/components/UnstyledButton';
 import Shape from './Shape';
@@ -9,23 +10,22 @@ import Button from './Button';
 import IconButton from './IconButton';
 import { QUERIES } from '@/constants';
 
-const QUESTIONS = [
-	{ question: ['021', '111', '202'], correctAnswer: false },
-	{ question: ['021', '111', '202'], correctAnswer: false },
-];
-
 // gameStatus: preparing, running, end
 
-const INITIAL_GUESSES = Array(QUESTIONS.length).fill(null);
-
-function IntroductionDemo() {
+function IntroductionDemo({ questions, children }) {
 	const [gameStatus, setGameStatus] = React.useState('preparing');
-	const [guesses, setGuesses] = React.useState(INITIAL_GUESSES);
+	const [guesses, setGuesses] = React.useState(
+		Array(questions.length).fill(null),
+	);
 	const [questionIndex, setQuestionIndex] = React.useState(0);
 
-	const { question, correctAnswer } = QUESTIONS[questionIndex];
+	const { question, correctAnswer } = questions[questionIndex];
 
 	const isPlayerCorrect = correctAnswer === guesses[questionIndex];
+	const correctAnswerNum = guesses.filter(
+		(guess, index) => guess === questions[index].correctAnswer,
+	).length;
+	const score = Math.round((correctAnswerNum / questions.length) * 100);
 
 	function handleRespond(guess) {
 		const nextGuesses = [...guesses];
@@ -51,7 +51,7 @@ function IntroductionDemo() {
 
 	function handleRestartGame() {
 		setGameStatus('running');
-		setGuesses(INITIAL_GUESSES);
+		setGuesses(Array(questions.length).fill(null));
 		setQuestionIndex(0);
 	}
 
@@ -60,15 +60,25 @@ function IntroductionDemo() {
 			<MaxWidthWrapper maxWidth={700} breathingRoom={24}>
 				<Wrapper onSubmit={event => event.preventDefault()}>
 					{gameStatus === 'preparing' ? (
-						<StartButton onClick={handleStartGame}>開始</StartButton>
+						<CoverScreen
+							title="開場遊戲"
+							subtitle="讓我們玩個簡單的遊戲，來進一步理解規則"
+							buttonText="開始"
+							handleClick={handleStartGame}
+						></CoverScreen>
 					) : gameStatus === 'end' ? (
-						<RestartButton onClick={handleRestartGame}>再玩一次</RestartButton>
+						<CoverScreen
+							title={`${score}%`}
+							subtitle={`在 5 題中，你答對了 ${correctAnswerNum} 題`}
+							buttonText="再玩一次"
+							handleClick={handleRestartGame}
+						></CoverScreen>
 					) : (
 						<>
 							<NavigationBar>
-								<Title>{`第 ${questionIndex + 1} 題，總共 ${
-									QUESTIONS.length
-								} 題`}</Title>
+								<Indicator>{`第 ${questionIndex + 1} 題，總共 ${
+									questions.length
+								} 題`}</Indicator>
 								<IconGroup>
 									<IconButton
 										disabled={questionIndex === 0}
@@ -81,7 +91,7 @@ function IntroductionDemo() {
 									</IconButton>
 									<IconButton
 										disabled={
-											questionIndex === QUESTIONS.length - 1 ||
+											questionIndex === questions.length - 1 ||
 											guesses[questionIndex] === null
 										}
 										onClick={handleMoveToNextQuestion}
@@ -89,7 +99,7 @@ function IntroductionDemo() {
 										<Icon
 											id="chevron-right"
 											color={
-												questionIndex === QUESTIONS.length - 1 ||
+												questionIndex === questions.length - 1 ||
 												guesses[questionIndex] === null
 													? '#a1a1aa'
 													: '#34343d'
@@ -98,68 +108,66 @@ function IntroductionDemo() {
 									</IconButton>
 								</IconGroup>
 							</NavigationBar>
-							<ContentWrapper>
-								<ShapeWrapper>
-									{question.map(id => (
-										<Shape key={id} id={id} />
-									))}
-								</ShapeWrapper>
-								<Question>請問這三張圖滿足遊戲規則嗎？</Question>
-								<ButtonWrapper>
-									<AnswerButton
-										disabled={guesses[questionIndex] !== null}
-										onClick={() => handleRespond(true)}
-										style={{
-											'--border-color':
-												guesses[questionIndex] === null
-													? '#e4e4e7'
-													: correctAnswer === true
-													? '#1ac23b'
-													: '#dc2626',
-										}}
-									>
-										是
-									</AnswerButton>
-									<AnswerButton
-										disabled={guesses[questionIndex] !== null}
-										onClick={() => handleRespond(false)}
-										style={{
-											'--border-color':
-												guesses[questionIndex] === null
-													? '#e4e4e7'
-													: correctAnswer === false
-													? '#1ac23b'
-													: '#dc2626',
-										}}
-									>
-										否
-									</AnswerButton>
-								</ButtonWrapper>
-								<Explanation>
-									{guesses[questionIndex] !== null && (
-										<>
-											<p>
-												{isPlayerCorrect
-													? '恭喜你，答對了。'
-													: '抱歉，你答錯了。'}
-											</p>
-											<p>
-												這三張圖的圖案形狀都不相同、圖案顏色都是藍色、背景色都不相同，因此滿足規則。
-											</p>
-										</>
-									)}
-								</Explanation>
-							</ContentWrapper>
+
+							<ShapeWrapper>
+								{question.map(id => (
+									<Shape key={id} id={id} />
+								))}
+							</ShapeWrapper>
+							<Question>請問這三張圖滿足遊戲規則嗎？</Question>
+							<ButtonWrapper>
+								<AnswerButton
+									disabled={guesses[questionIndex] !== null}
+									onClick={() => handleRespond(true)}
+									style={{
+										'--border-color':
+											guesses[questionIndex] === null
+												? '#e4e4e7'
+												: correctAnswer === true
+												? '#1ac23b'
+												: '#dc2626',
+									}}
+								>
+									是
+								</AnswerButton>
+								<AnswerButton
+									disabled={guesses[questionIndex] !== null}
+									onClick={() => handleRespond(false)}
+									style={{
+										'--border-color':
+											guesses[questionIndex] === null
+												? '#e4e4e7'
+												: correctAnswer === false
+												? '#1ac23b'
+												: '#dc2626',
+									}}
+								>
+									否
+								</AnswerButton>
+							</ButtonWrapper>
+							<Explanation>
+								{guesses[questionIndex] !== null && (
+									<>
+										<ExplanationText>
+											{isPlayerCorrect
+												? '恭喜你，答對了。'
+												: '抱歉，你答錯了。'}
+										</ExplanationText>
+										{children[questionIndex]}
+									</>
+								)}
+							</Explanation>
 
 							{guesses[questionIndex] !== null && (
 								<NextButton
+									variant="primary"
 									onClick={
-										questionIndex !== QUESTIONS.length - 1
+										questionIndex !== questions.length - 1
 											? handleMoveToNextQuestion
 											: handleEndGame
 									}
 								>
-									{questionIndex !== QUESTIONS.length - 1 ? '下一題' : '結束'}
+									{questionIndex !== questions.length - 1 ? '下一題' : '結束'}
 								</NextButton>
 							)}
 						</>
@@ -185,36 +193,6 @@ const Wrapper = styled.form`
 	}
 `;
 
-const PrimaryButton = styled(Button)`
-	padding: 4px 16px;
-	background: #34343d;
-	color: white;
-
-	&:hover {
-		background: #52525b;
-	}
-
-	&:focus {
-		outline-offset: 4px;
-	}
-
-	&:disabled {
-		background: #52525b;
-	}
-
-	&:disabled&:hover {
-		background: #52525b;
-	}
-`;
-
-const StartButton = styled(PrimaryButton)`
-	margin-inline: auto;
-`;
-
-const RestartButton = styled(PrimaryButton)`
-	margin-inline: auto;
-`;
-
 const NavigationBar = styled.div`
 	max-width: var(--max-width);
 	margin-inline: auto;
@@ -224,11 +202,7 @@ const NavigationBar = styled.div`
 	align-items: center;
 `;
 
-const Title = styled.div``;
-
-const ContentWrapper = styled.div`
-	min-height: 510px;
-`;
+const Indicator = styled.div``;
 
 const ShapeWrapper = styled.div`
 	display: flex;
@@ -266,29 +240,23 @@ const ButtonWrapper = styled.div`
 const AnswerButton = styled(Button)`
 	flex: 1;
 	border: 2px solid var(--border-color);
-
-	&:focus {
-		outline-offset: 4px;
-	}
 `;
 
-const Explanation = styled.div`
+export const Explanation = styled.div`
 	max-width: var(--max-width);
 	margin-inline: auto;
 	margin-bottom: 48px;
+`;
 
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
+const ExplanationText = styled.p`
+	margin-bottom: 16px;
 `;
 
 const IconGroup = styled.div`
 	display: flex;
 `;
 
-const NextButton = styled(PrimaryButton)`
-	width: 100%;
-	max-width: 240px;
+const NextButton = styled(Button)`
 	margin-inline: auto;
 `;
 

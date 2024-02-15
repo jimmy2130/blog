@@ -31,7 +31,7 @@ const QUESTIONS = [
 function CombineGame({
 	handleReveal,
 	difficulty = 'hard',
-	timeLimit = Infinity,
+	timeLimit = 5,
 	questions = QUESTIONS,
 }) {
 	const [puzzle, setPuzzle] = React.useState([]);
@@ -237,7 +237,10 @@ function CombineGame({
 					) : (
 						<CountdownBoard>
 							{gameStatus === 'preparing' ? (
-								<StartButton onClick={() => setGameStatus('countdown')}>
+								<StartButton
+									variant="primary"
+									onClick={() => setGameStatus('countdown')}
+								>
 									開始作答
 								</StartButton>
 							) : (
@@ -291,7 +294,7 @@ const OuterWrapper = styled.div`
 	margin-bottom: 80px;
 
 	font-size: calc(19 / 16 * 1rem);
-	color: var(--color-gray-900);
+	color: #34343d;
 `;
 
 const InnerWrapper = styled.form`
@@ -319,44 +322,35 @@ const Board = styled.div`
 	grid-area: board;
 	aspect-ratio: 1 / 1;
 
-	display: grid;
-
 	@media ${QUERIES.tabletAndDown} {
 		max-width: ${TABLET_MAX_WIDTH}px;
 		margin: 0px auto 16px auto;
 	}
 `;
 
+const GameBoard = styled(Board)`
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 8px;
+`;
+
 const CountdownBoard = styled(Board)`
-	place-content: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 	border: 4px solid #e4e4e7;
 	border-radius: 12px;
 `;
 
 const StartButton = styled(Button)`
-	padding: 8px 24px;
-
-	background: #34343d;
-	color: white;
-
-	&:hover {
-		background: #52525b;
-	}
-
-	&:focus {
-		outline-offset: -8px;
-	}
+	max-width: 120px;
 `;
 
 const CountdownNum = styled.span`
 	font-size: calc(64 / 16 * 1rem);
 	color: #34343d;
-`;
-
-const GameBoard = styled(Board)`
-	position: relative;
-	grid-template-columns: 1fr 1fr 1fr;
-	gap: 8px;
 `;
 
 const Eyebrow = styled.span`
