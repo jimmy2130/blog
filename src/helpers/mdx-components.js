@@ -35,6 +35,7 @@ import ImageComparison from '@/components/ImageComparison';
 import InfiniteLoopVideo from '@/components/InfiniteLoopVideo';
 
 import {
+	Shape,
 	CombineGameProvider,
 	IntroductionDemo,
 	AdvancedDemo,
@@ -71,6 +72,7 @@ const COMPONENT_MAP = {
 	ImageComparison,
 	InfiniteLoopVideo,
 
+	Shape,
 	CombineGameProvider,
 	IntroductionDemo,
 	AdvancedDemo,

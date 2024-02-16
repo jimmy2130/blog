@@ -19,7 +19,7 @@ export const Wrapper = styled.h3`
 	font-size: calc(19 / 16 * 1rem);
 	color: var(--color-gray-900);
 
-	margin-top: 40px;
+	margin-top: 20px;
 	margin-bottom: 16px;
 `;
 

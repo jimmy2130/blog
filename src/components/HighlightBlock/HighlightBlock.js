@@ -10,7 +10,8 @@ export const Wrapper = styled.aside`
 	--max-width: ${CONTENT_MAX_WIDTH}px;
 	--aside-padding: clamp(24px, 100vw - var(--max-width), 36px);
 	padding: var(--aside-padding);
-	margin: 40px calc(var(--aside-padding) * -1);
+	margin-inline: calc(var(--aside-padding) * -1);
+	margin-bottom: 40px;
 
 	background: var(--color-gray-100);
 	border-radius: 8px;

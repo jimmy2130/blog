@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { MESSAGES } from './constants';
 import { range, sampleOne } from '@/utils';
 
-function encode(num) {
+export function encode(num) {
 	return num.toString(3).padStart(3, '0');
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { SHAPES, COLORS, BACKGROUND_COLORS } from './constants';
 
-function Shape({ id = '021', isHidden = false }) {
+function Shape({ id = '021', isHidden = false, style }) {
 	const Pattern = SHAPES[id[0]];
 	const color = COLORS[id[1]];
 	const backgroundColor = isHidden ? 'white' : BACKGROUND_COLORS[id[2]];
@@ -13,6 +13,7 @@ function Shape({ id = '021', isHidden = false }) {
 			style={{
 				'--background-color': backgroundColor,
 				'--border-color': borderColor,
+				...style,
 			}}
 		>
 			<svg

@@ -11,9 +11,11 @@ import Button from './Button';
 import IconButton from './IconButton';
 import { QUERIES } from '@/constants';
 import {
+	encode,
 	createPuzzleForAdvancedDemo,
 	checkSingleGuess,
 } from './CombineGame.helpers';
+import { range, sampleOne } from '@/utils';
 
 // gameStatus: preparing, running, end
 
@@ -49,6 +51,7 @@ function AdvancedDemo({ questionNum = 5 }) {
 	React.useEffect(() => {
 		const newQuestions = createPuzzleForAdvancedDemo(questionNum);
 		setQuestions(newQuestions);
+		setShapeId(encode(sampleOne(range(27))));
 	}, [questionNum]);
 
 	function handleToggle() {

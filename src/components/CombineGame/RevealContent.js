@@ -30,6 +30,7 @@ const InfoCard = styled.div`
 	background: var(--color-gray-100);
 	border-radius: 16px;
 	font-size: calc(19 / 16 * 1rem);
+	line-height: 200%;
 	color: var(--color-gray-900);
 
 	text-align: center;

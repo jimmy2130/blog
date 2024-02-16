@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from './Button';
+import { QUERIES } from '@/constants';
 
 function CoverScreen({ title, subtitle, buttonText, handleClick }) {
 	return (
@@ -21,6 +22,10 @@ const Title = styled.div`
 	color: #34343d;
 
 	margin-bottom: -8px;
+
+	@media ${QUERIES.phoneAndDown} {
+		font-size: calc(48 / 16 * 1rem);
+	}
 `;
 
 const Subtitle = styled.div`
@@ -29,11 +34,19 @@ const Subtitle = styled.div`
 	color: #74747d;
 
 	margin-bottom: 48px;
+
+	@media ${QUERIES.phoneAndDown} {
+		margin-bottom: 24px;
+	}
 `;
 
 const ActionButton = styled(Button)`
 	margin-inline: auto;
 	margin-bottom: 20px;
+
+	@media ${QUERIES.phoneAndDown} {
+		margin-bottom: 0;
+	}
 `;
 
 export default CoverScreen;
