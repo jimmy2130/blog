@@ -19,7 +19,7 @@ import { range, sampleOne } from '@/utils';
 
 // gameStatus: preparing, running, end
 
-const LABELS = ['圖案形狀', '圖案顏色', '圖案背景色'];
+const LABELS = ['圖案形狀', '圖案顏色', '圖畫背景色'];
 const SELECTORS = [
 	['圓形', '正方形', '三角形'],
 	['紅色', '黃色', '藍色'],
@@ -168,7 +168,7 @@ function AdvancedDemo({ questionNum = 5 }) {
 									return <Shape key={index} id={id} isHidden={index === 2} />;
 								})}
 							</ShapeWrapper>
-							<Question>請問加入什麼圖案可以滿足遊戲規則？</Question>
+							<Question>請問加入什麼圖畫可以滿足「合！」的規則？</Question>
 							<AnswerBlock>
 								<ShapeViewer>
 									<Shape id={shapeId} />

@@ -14,6 +14,7 @@ import IconButton from './IconButton';
 import ShapeButton from './ShapeButton';
 import AnswerList from './AnswerList';
 import UnstyledButton from '@/components/UnstyledButton';
+import VisuallyHidden from '@/components/VisuallyHidden';
 import Icon from '@/components/Icon';
 import { QUERIES } from '@/constants';
 import { TABLET_MAX_WIDTH } from './constants';
@@ -127,7 +128,7 @@ function CombineGame({
 		event.preventDefault();
 
 		if (guess.length !== 0) {
-			setMessage('喊結束時不可選擇圖案');
+			setMessage('喊結！時不可選擇圖案');
 			return;
 		}
 
@@ -271,18 +272,19 @@ function CombineGame({
 							>
 								{difficulty === 'easy'
 									? `剩餘 ${correctAnswers.length - answers.length} 組`
-									: '結'}
+									: '結！'}
 							</FinishButton>
 						}
 						<CombineButton
 							onClick={handleGuess}
 							disabled={gameStatus !== 'running'}
 						>
-							合
+							合！
 						</CombineButton>
 					</ControlPanel>
 					<RestartButton onClick={handleRestart}>
 						<Icon id="refresh-ccw" color="#34343d" />
+						<VisuallyHidden>重新遊戲</VisuallyHidden>
 					</RestartButton>
 				</InnerWrapper>
 			</OuterWrapper>

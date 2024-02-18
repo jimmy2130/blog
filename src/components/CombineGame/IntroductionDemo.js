@@ -118,7 +118,7 @@ function IntroductionDemo({ questions, children }) {
 									<Shape key={id} id={id} />
 								))}
 							</ShapeWrapper>
-							<Question>請問這三張圖滿足遊戲規則嗎？</Question>
+							<Question>請問這三張圖滿足「合！」的規則嗎？</Question>
 							<ButtonWrapper>
 								<AnswerButton
 									disabled={guesses[questionIndex] !== null}

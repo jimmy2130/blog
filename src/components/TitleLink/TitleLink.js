@@ -4,10 +4,18 @@ import NextLink from 'next/link';
 import { Link } from 'react-feather';
 import { TitleWrapper as SidenoteTitle } from '@/components/Sidenote';
 import VisuallyHidden from '@/components/VisuallyHidden';
+import { useRouter } from 'next/router';
 
 function TitleLink({ name, size = 24, style }) {
+	const router = useRouter();
+
 	return (
-		<Wrapper name={name} id={name} href={`#${name}`} style={style}>
+		<Wrapper
+			name={name}
+			id={name}
+			href={`${router.asPath.split('#')[0]}#${name}`}
+			style={style}
+		>
 			<Link size={size} />
 			<VisuallyHidden>{name}</VisuallyHidden>
 		</Wrapper>

@@ -13,7 +13,6 @@ function CombineGameProvider({ children, difficulty, timeLimit, questions }) {
 
 	return (
 		<>
-			<Spacer size={40} />
 			<FullBleed>
 				<CombineGame
 					handleReveal={handleReveal}
@@ -22,7 +21,7 @@ function CombineGameProvider({ children, difficulty, timeLimit, questions }) {
 					questions={questions}
 				/>
 			</FullBleed>
-			{isRevealed && <Spacer size={80} />}
+			{isRevealed && <Spacer size={40} />}
 			<RevealContent handleReveal={handleReveal} isRevealed={isRevealed}>
 				{children}
 			</RevealContent>

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import NavigationBar from '@/components/NavigationBar';
-import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import ShiftBy from '@/components/ShiftBy';
 import Wave from './Wave';
 import {
@@ -11,9 +10,8 @@ import {
 } from '@/constants';
 
 function HeroSection({ index = false, title, subtitle }) {
-	const maxWidth = index ? 1152 : CONTENT_MAX_WIDTH;
-	const breathingRoom = CONTENT_BREATHING_ROOM;
 	const NavigationBarHeight = 158;
+	const MWW = index ? IndexMaxWidthWrapper : NormalMaxWidthWrapper;
 	return (
 		<Wrapper
 			style={{
@@ -21,7 +19,7 @@ function HeroSection({ index = false, title, subtitle }) {
 				'--padding-bottom': index ? undefined : '60px',
 			}}
 		>
-			<MaxWidthWrapper maxWidth={maxWidth} breathingRoom={breathingRoom}>
+			<MWW>
 				<NavigationBar index={index} />
 				<TitleWrapper
 					style={{
@@ -41,7 +39,7 @@ function HeroSection({ index = false, title, subtitle }) {
 						</SubTitle>
 					</ShiftBy>
 				</TitleWrapper>
-			</MaxWidthWrapper>
+			</MWW>
 			{index && (
 				<WaveWrapper>
 					<Wave />
@@ -56,6 +54,32 @@ const Wrapper = styled.div`
 	background: var(--color-primary-50);
 	min-height: var(--minHeight);
 	padding-bottom: var(--padding-bottom);
+`;
+
+const MaxWidthWrapper = styled.div`
+	max-width: calc(var(--max-width) + 2 * var(--breathing-room));
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--breathing-room);
+	padding-right: var(--breathing-room);
+`;
+
+const IndexMaxWidthWrapper = styled(MaxWidthWrapper)`
+	--max-width: 1152px;
+	--breathing-room: 60px;
+
+	@media ${QUERIES.tabletAndDown} {
+		--breathing-room: clamp(36px, 36px + 0.5 * (100vw - 648px), 60px);
+	}
+
+	@media ${QUERIES.phoneAndDown} {
+		--breathing-room: clamp(24px, 24px + 0.5 * (100vw - 456px), 36px);
+	}
+`;
+
+const NormalMaxWidthWrapper = styled(MaxWidthWrapper)`
+	--max-width: ${CONTENT_MAX_WIDTH}px;
+	--breathing-room: ${CONTENT_BREATHING_ROOM}px;
 `;
 
 const TitleWrapper = styled.header`
@@ -81,7 +105,7 @@ const Title = styled.div`
 
 const SubTitle = styled.div`
 	font-size: var(--font-size);
-	line-height: 150%;
+	line-height: 200%;
 
 	@media ${QUERIES.phoneAndDown} {
 		font-size: calc(19 / 16 * 1rem);
