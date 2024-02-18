@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import { getSortedPostsMetadata } from '../../src/helpers/post.helpers';
-import BlogIndexPage from '../../src/components/BlogIndexPage';
+import { getSortedPostsMetadata } from '@/helpers/post.helpers';
+import BlogIndexPage from '@/components/BlogIndexPage';
 
 export async function getStaticProps() {
 	const allPostsMetadata = getSortedPostsMetadata();

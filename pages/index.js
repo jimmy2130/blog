@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import IndexPage from '../src/components/IndexPage';
+import IndexPage from '@/components/IndexPage';
 
 function Home() {
 	return (

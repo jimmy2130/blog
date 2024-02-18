@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import SecondDemoBoard from './SecondDemoBoard';
 import Piece2 from './Piece2';
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
-import { QUERIES } from '../../constants';
+import UnstyledButton from '@/components/UnstyledButton';
+import Icon from '@/components/Icon';
+import { QUERIES } from '@/constants';
 
 const INITIAL_GAME = [
 	{ state: 'cover', id: 'abc' },

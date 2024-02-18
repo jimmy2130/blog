@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import OrderedList from '../OrderedList';
-import UnorderedList from '../UnorderedList';
-import { QUERIES } from '../../constants';
+import OrderedList from '@/components/OrderedList';
+import UnorderedList from '@/components/UnorderedList';
+import { QUERIES } from '@/constants';
 
 const ListItem = styled.li`
 	position: relative;

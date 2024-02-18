@@ -1,28 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import { QUERIES } from '../../constants';
 
-function MaxWidthWrapper({ children, style, className }) {
+function MaxWidthWrapper({ maxWidth, breathingRoom, ...delegated }) {
 	return (
-		<Wrapper className={className} style={style}>
-			{children}
-		</Wrapper>
+		<Wrapper
+			style={{
+				'--max-width': `${maxWidth}px`,
+				'--breathing-room': `${breathingRoom}px`,
+			}}
+			{...delegated}
+		/>
 	);
 }
 
 const Wrapper = styled.div`
-	--max-width: 1152px;
-	--padding: 60px;
-
-	max-width: calc(var(--max-width) + 2 * var(--padding));
+	max-width: calc(var(--max-width) + 2 * var(--breathing-room));
 	margin-left: auto;
 	margin-right: auto;
-	padding-left: var(--padding);
-	padding-right: var(--padding);
-
-	@media ${QUERIES.phoneAndDown} {
-		--padding: 24px;
-	}
+	padding-left: var(--breathing-room);
+	padding-right: var(--breathing-room);
 `;
 
 export default MaxWidthWrapper;

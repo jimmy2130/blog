@@ -2,8 +2,8 @@ import React from 'react';
 import NextLink from 'next/link';
 import styled, { keyframes } from 'styled-components';
 import Spacer from '../Spacer';
-import UnstyledButton from '../UnstyledButton';
-import VisuallyHidden from '../VisuallyHidden';
+import UnstyledButton from '@/components/UnstyledButton';
+import VisuallyHidden from '@/components/VisuallyHidden';
 import { Dialog } from '@headlessui/react';
 import { X } from 'react-feather';
 

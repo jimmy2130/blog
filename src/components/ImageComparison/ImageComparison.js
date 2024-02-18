@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Icon from '../Icon';
-import { QUERIES } from '../../constants';
+import Icon from '@/components/Icon';
+import { QUERIES } from '@/constants';
 
 function ImageComparison({ failImage, successImage, ...delegated }) {
 	return (

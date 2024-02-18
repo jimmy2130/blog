@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from '../Icon';
-import UnstyledButton from '../UnstyledButton';
-import { QUERIES } from '../../constants';
-import { range } from '../../utils';
+import UnstyledButton from '@/components/UnstyledButton';
+import { QUERIES } from '@/constants';
+import { range } from '@/utils';
 import { getEdge } from './Demo.helpers';
 
 const MODE = {

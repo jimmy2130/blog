@@ -1,2 +1,5 @@
-export * from './InfiniteLoopVideo';
-export { default } from './InfiniteLoopVideo';
+import dynamic from 'next/dynamic';
+
+const InfiniteLoopVideo = dynamic(() => import('./InfiniteLoopVideo'));
+
+export default InfiniteLoopVideo;

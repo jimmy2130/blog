@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Icon from '../Icon';
+import Icon from '@/components/Icon';
 
 function InfiniteLoopVideo({ src, width, type = 'video/mp4' }) {
 	const videoRef = React.useRef();

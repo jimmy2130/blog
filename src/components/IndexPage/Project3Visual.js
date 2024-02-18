@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import UnstyledButton from '../UnstyledButton';
+import UnstyledButton from '@/components/UnstyledButton';
 import PlayButton from './PlayButton';
 import PauseButton from './PauseButton';
-import VisuallyHidden from '../VisuallyHidden';
+import VisuallyHidden from '@/components/VisuallyHidden';
 import Staff from './Staff';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 
 const TAB_CHANGE_PERIOD = 700;
 

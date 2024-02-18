@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import HighlightBlock from '../HighlightBlock';
-import TitleLink from '../TitleLink';
+import HighlightBlock from '@/components/HighlightBlock';
+import TitleLink from '@/components/TitleLink';
 
 function Sidenote({ children, title }) {
 	return (

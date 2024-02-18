@@ -13,6 +13,7 @@ const GlobalStyles = createGlobalStyle`
 }
 html, body, #root, #__next {
   height: 100%;
+  scroll-behavior: smooth;
 }
 body {
   line-height: 1.6;

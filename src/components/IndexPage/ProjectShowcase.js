@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import NextLink from 'next/link';
-import MWW from '../MaxWidthWrapper';
-import ShiftBy from '../ShiftBy';
-import { QUERIES } from '../../constants';
+import ShiftBy from '@/components/ShiftBy';
+import { QUERIES } from '@/constants';
 
 function ProjectShowcase({
 	title,
@@ -49,7 +48,16 @@ const ContainerWrapper = styled.div`
 	container: fullscreen / inline-size;
 `;
 
-const MaxWidthWrapper = styled(MWW)`
+const MaxWidthWrapper = styled.div`
+	--max-width: 1152px;
+	--padding: 60px;
+
+	max-width: calc(var(--max-width) + 2 * var(--padding));
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--padding);
+	padding-right: var(--padding);
+
 	@media (max-width: calc(1205 / 16 * 1rem)) {
 		margin: 0;
 		padding: 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import RestApiDemo from './RestApiDemo';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 
 function ThirdDemo() {
 	const [width, setWidth] = React.useState(700);

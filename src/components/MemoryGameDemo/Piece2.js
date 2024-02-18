@@ -1,12 +1,12 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import UnstyledButton from '../UnstyledButton';
+import UnstyledButton from '@/components/UnstyledButton';
 import Eight from './Eight';
 import Two from './Two';
 import Triangle from './Triangle';
 import Circle from './Circle';
 import { BACKGROUND_STYLE } from './constants';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 
 const PIECE_TEXT = {
 	8: Eight,

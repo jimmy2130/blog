@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import HighlightBlock from '../HighlightBlock';
+import HighlightBlock from '@/components/HighlightBlock';
 
 function CodeBlock({ ...delegated }) {
 	// console.log(props.children.props.className.split('-')[1])  //language

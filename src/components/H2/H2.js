@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import TitleLink from '../TitleLink';
+import TitleLink from '@/components/TitleLink';
 
 function H2({ children }) {
 	return (
@@ -19,7 +19,7 @@ export const Wrapper = styled.h2`
 	font-size: calc(25 / 16 * 1rem);
 	color: var(--color-gray-900);
 
-	margin-top: 60px;
+	margin-top: 40px;
 	margin-bottom: 28px;
 
 	&:first-child {

@@ -1,12 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
-import { getPostData, getAllPostIds } from '../../src/helpers/post.helpers';
+import { getPostData, getAllPostIds } from '@/helpers/post.helpers';
 import { MDXRemote } from 'next-mdx-remote';
-import {
-	defaultComponents,
-	getSpecialComponents,
-} from '../../src/import-components';
-import BlogPostPage from '../../src/components/BlogPostPage';
+import COMPONENT_MAP from '@/helpers/mdx-components';
+import BlogPostPage from '@/components/BlogPostPage';
 
 export async function getStaticProps({ params }) {
 	const { mdxSource, componentNames } = await getPostData(params.id);
@@ -22,10 +19,6 @@ export async function getStaticPaths() {
 }
 
 function Post({ mdxSource, componentNames }) {
-	const components = {
-		...defaultComponents,
-		...getSpecialComponents(componentNames),
-	};
 	const { title, description } = mdxSource.frontmatter;
 	return (
 		<>
@@ -33,7 +26,7 @@ function Post({ mdxSource, componentNames }) {
 				<title>{title}</title>
 			</Head>
 			<BlogPostPage title={title} subtitle={description}>
-				<MDXRemote {...mdxSource} components={components} />
+				<MDXRemote {...mdxSource} components={COMPONENT_MAP} />
 			</BlogPostPage>
 		</>
 	);

@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import RestApiDemo from './RestApiDemo';
-import OrderedList from '../OrderedList';
-import ListItem from '../ListItem';
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
+import OrderedList from '@/components/OrderedList';
+import ListItem from '@/components/ListItem';
+import UnstyledButton from '@/components/UnstyledButton';
+import Icon from '@/components/Icon';
 import { BrowserBackIcon, BrowserForwardIcon } from './BrowserButtonIcons';
 import { useMouseHover } from './SecondDemo.helpers';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 
 const startingHistoryStack = [
 	{ name: '/', id: 'abc' },

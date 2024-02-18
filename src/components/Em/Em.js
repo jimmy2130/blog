@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 
 const Em = styled.em`
 	color: var(--color-primary);

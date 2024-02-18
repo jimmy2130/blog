@@ -1,9 +1,9 @@
 import NextLink from 'next/link';
 import styled from 'styled-components';
-import MWW from '../MaxWidthWrapper';
-import Spacer from '../Spacer';
+import MaxWidthWrapper from '@/components/MaxWidthWrapper';
+import Spacer from '@/components/Spacer';
 import Wave from './Wave';
-import { QUERIES } from '../../constants';
+import { QUERIES } from '@/constants';
 
 const Footer = () => {
 	return (
@@ -12,7 +12,7 @@ const Footer = () => {
 				<WaveWrapper>
 					<Wave />
 				</WaveWrapper>
-				<MaxWidthWrapper>
+				<MaxWidthWrapper maxWidth={1152} breathingRoom={32}>
 					<Logo>
 						<Link href="/">JimmyJim</Link>
 					</Logo>
@@ -44,12 +44,6 @@ const Background = styled.div`
 	padding-top: 100px;
 	padding-bottom: 100px;
 	color: var(--color-gray-100);
-`;
-
-const MaxWidthWrapper = styled(MWW)`
-	@media ${QUERIES.phoneAndDown} {
-		--padding: 32px;
-	}
 `;
 
 const WaveWrapper = styled.div`
