@@ -24,7 +24,7 @@ const NativeSelect = styled.select`
 	border: none;
 	background-color: transparent;
 	appearance: none;
-	opacity: 0
+	opacity: 0;
 
 	&:focus {
 		outline-offset: 4px;
