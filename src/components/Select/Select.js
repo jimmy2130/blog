@@ -49,7 +49,7 @@ const NativeSelect = styled.select`
 	border: none;
 	background-color: transparent;
 	appearance: none;
-	font-size: 0;
+	opacity: 0;
 
 	&:focus {
 		outline-offset: 8px;
