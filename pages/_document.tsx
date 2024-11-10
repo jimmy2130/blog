@@ -1,7 +1,14 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, {
+	Html,
+	Head,
+	Main,
+	NextScript,
+	DocumentContext,
+} from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 import { COLORS } from '@/constants';
 
+// TODO: redo dark mode toggle
 function setColorsByTheme() {
 	const colors = '🌈';
 
@@ -21,18 +28,21 @@ function setColorsByTheme() {
 
 	let root = document.documentElement;
 	root.style.setProperty('--initial-color-mode', colorMode);
-
+	// @ts-ignore
 	const colorKeys = Object.keys(colors[colorMode]['color']);
+	// @ts-ignore
 	const syntaxKeys = Object.keys(colors[colorMode]['syntax']);
 	for (let i = 0; i < colorKeys.length; i++) {
 		root.style.setProperty(
 			`--color-${colorKeys[i]}`,
+			// @ts-ignore
 			colors[colorMode]['color'][colorKeys[i]],
 		);
 	}
 	for (let i = 0; i < syntaxKeys.length; i++) {
 		root.style.setProperty(
 			`--syntax-${syntaxKeys[i]}`,
+			// @ts-ignore
 			colors[colorMode]['syntax'][syntaxKeys[i]],
 		);
 	}
@@ -53,7 +63,7 @@ const MagicScriptTag = () => {
 };
 
 export default class MyDocument extends Document {
-	static async getInitialProps(ctx) {
+	static async getInitialProps(ctx: DocumentContext) {
 		const sheet = new ServerStyleSheet();
 		const originalRenderPage = ctx.renderPage;
 

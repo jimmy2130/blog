@@ -34,11 +34,11 @@ export function getAllPostIds() {
 	});
 }
 
-export async function getPostData(fileName) {
+export async function getPostData(fileName: string) {
 	const fullPath = path.join(postsDirectory, `${fileName}/${fileName}.mdx`);
 	const source = fs.readFileSync(fullPath, 'utf8').toString();
 	const mdxSource = await serialize(source, { parseFrontmatter: true });
-	let componentNames = null;
+	let componentNames: string[] = [];
 	const metadata = getMetadata(fileName).data;
 	if (metadata.components) {
 		componentNames = metadata.components.split(', ');
@@ -48,7 +48,7 @@ export async function getPostData(fileName) {
 
 export function getSortedPostsMetadata() {
 	const fileNames = getPublishedPosts();
-	const posts = fileNames.map(fileName => {
+	const posts: { [key: string]: string }[] = fileNames.map(fileName => {
 		return {
 			id: fileName,
 			...getMetadata(fileName).data,
@@ -58,23 +58,23 @@ export function getSortedPostsMetadata() {
 	return posts.sort((a, b) => descend(a.date, b.date));
 }
 
-function getMetadata(fileName) {
+function getMetadata(fileName: string) {
 	const fullPath = path.join(postsDirectory, `${fileName}/${fileName}.mdx`);
 	const fileContents = fs.readFileSync(fullPath, 'utf8');
 	return matter(fileContents);
 }
 
-function descend(str1, str2) {
+function descend(str1: string, str2: string) {
 	const [year1, month1, day1] = str1.split('/');
 	const [year2, month2, day2] = str2.split('/');
 	if (year1 !== year2) {
-		return -(year1 - year2);
+		return -(Number(year1) - Number(year2));
 	}
 	if (month1 !== month2) {
-		return -(month1 - month2);
+		return -(Number(month1) - Number(month2));
 	}
 	if (day1 !== day2) {
-		return -(day1 - day2);
+		return -(Number(day1) - Number(day2));
 	}
 	return 1;
 }

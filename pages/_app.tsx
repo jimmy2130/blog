@@ -1,12 +1,11 @@
 import GlobalStyles from '@/components/GlobalStyles';
 import ThemeProvider from '@/components/ThemeProvider';
-import Head from 'next/head';
 import React from 'react';
+import type { AppProps } from 'next/app';
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<React.StrictMode>
-			<Head />
 			<GlobalStyles />
 			<ThemeProvider>
 				<Component {...pageProps} />
