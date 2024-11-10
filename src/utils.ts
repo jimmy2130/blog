@@ -1,4 +1,4 @@
-export function range(start, end, step = 1) {
+export function range(start: number, end: number, step = 1) {
 	let output = [];
 
 	if (typeof end === 'undefined') {
@@ -13,6 +13,6 @@ export function range(start, end, step = 1) {
 	return output;
 }
 
-export function sampleOne(arr) {
+export function sampleOne(arr: unknown[]) {
 	return arr[Math.floor(Math.random() * arr.length)];
 }
