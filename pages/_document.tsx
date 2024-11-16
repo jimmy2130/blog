@@ -8,43 +8,44 @@ import Document, {
 import { ServerStyleSheet } from 'styled-components';
 import { COLORS } from '@/constants';
 
-// TODO: redo dark mode toggle
 function setColorsByTheme() {
-	const colors = '🌈';
+	let colors: string | typeof COLORS = '🌈';
 
 	const mql = window.matchMedia('(prefers-color-scheme: dark)');
 	const prefersDarkFromMQ = mql.matches;
 	const persistedPreference = localStorage.getItem('color-mode');
 
-	let colorMode = 'light';
+	let colorMode: 'light' | 'dark' = 'light';
 
 	const hasUsedToggle = typeof persistedPreference === 'string';
 
 	if (hasUsedToggle) {
-		colorMode = persistedPreference;
+		if (persistedPreference === 'light' || persistedPreference === 'dark') {
+			colorMode = persistedPreference;
+		}
 	} else {
 		colorMode = prefersDarkFromMQ ? 'dark' : 'light';
 	}
 
+	if (typeof colors === 'string') {
+		return;
+	}
+
 	let root = document.documentElement;
 	root.style.setProperty('--initial-color-mode', colorMode);
-	// @ts-ignore
-	const colorKeys = Object.keys(colors[colorMode]['color']);
-	// @ts-ignore
-	const syntaxKeys = Object.keys(colors[colorMode]['syntax']);
-	for (let i = 0; i < colorKeys.length; i++) {
-		root.style.setProperty(
-			`--color-${colorKeys[i]}`,
-			// @ts-ignore
-			colors[colorMode]['color'][colorKeys[i]],
-		);
+	const colorEntries = Object.entries(colors[colorMode]['color']);
+	const syntaxEntries = Object.entries(colors[colorMode]['syntax']);
+	for (let i = 0; i < colorEntries.length; i++) {
+		const [key, value] = colorEntries[i];
+		if (typeof value === 'string') {
+			root.style.setProperty(`--color-${key}`, value);
+		}
 	}
-	for (let i = 0; i < syntaxKeys.length; i++) {
-		root.style.setProperty(
-			`--syntax-${syntaxKeys[i]}`,
-			// @ts-ignore
-			colors[colorMode]['syntax'][syntaxKeys[i]],
-		);
+	for (let i = 0; i < syntaxEntries.length; i++) {
+		const [key, value] = syntaxEntries[i];
+		if (typeof value === 'string') {
+			root.style.setProperty(`--syntax-${key}`, value);
+		}
 	}
 }
 
