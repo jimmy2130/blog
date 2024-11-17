@@ -1,0 +1,10 @@
+import React from 'react';
+import HighlightBlock from '@/components/HighlightBlock';
+
+function CodeBlock({ ...delegated }) {
+	// console.log(props.children.props.className.split('-')[1])  //language
+	// console.log(props.children.props.children)  //code
+	return <HighlightBlock {...delegated} as="pre" />;
+}
+
+export default CodeBlock;
