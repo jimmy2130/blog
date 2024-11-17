@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TitleLink from '@/components/TitleLink';
 
-function H3({ children }: { children: React.ReactNode }) {
+function H3({ children }: { children: string }) {
 	return (
 		<Wrapper>
 			<Title>{children}</Title>
