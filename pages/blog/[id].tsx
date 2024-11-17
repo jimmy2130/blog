@@ -4,8 +4,12 @@ import { getPostData, getAllPostIds } from '@/helpers/post.helpers';
 import { MDXRemote } from 'next-mdx-remote';
 import COMPONENT_MAP from '@/helpers/mdx-components';
 import BlogPostPage from '@/components/BlogPostPage';
+import { GetStaticPropsContext } from 'next';
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: GetStaticPropsContext) {
+	if (typeof params?.id !== 'string') {
+		return;
+	}
 	const { mdxSource, componentNames } = await getPostData(params.id);
 	return { props: { mdxSource, componentNames } };
 }
@@ -18,7 +22,18 @@ export async function getStaticPaths() {
 	};
 }
 
-function Post({ mdxSource, componentNames }) {
+type Frontmatter = {
+	title: string;
+	description: string;
+};
+
+type MdxSource = {
+	frontmatter: Frontmatter;
+	compiledSource: string;
+	scope: string;
+};
+
+function Post({ mdxSource }: { mdxSource: MdxSource }) {
 	const { title, description } = mdxSource.frontmatter;
 	return (
 		<>

@@ -55,7 +55,7 @@ function DetailPageText({ width }: { width: number }) {
 	} else {
 		leftSideX = width - 248;
 	}
-	let rightSideX = width - (700 - 576);
+	const rightSideX = width - (700 - 576);
 	return (
 		<>
 			{/* left side */}

@@ -11,7 +11,11 @@ export async function getStaticProps() {
 	};
 }
 
-function BlogIndex({ allPostsMetadata }) {
+function BlogIndex({
+	allPostsMetadata,
+}: {
+	allPostsMetadata: { id: string; title: string; description: string }[];
+}) {
 	return (
 		<>
 			<Head>

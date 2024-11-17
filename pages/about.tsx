@@ -24,7 +24,6 @@ function About({
 				<title>關於我</title>
 			</Head>
 			<AboutPage>
-				{/* @ts-ignore */}
 				<MDXRemote {...mdxSource} components={COMPONENT_MAP} />
 			</AboutPage>
 		</>

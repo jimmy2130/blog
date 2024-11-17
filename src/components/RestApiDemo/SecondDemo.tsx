@@ -48,11 +48,11 @@ function SecondDemo() {
 		event.preventDefault();
 		setInteraction('titleClick');
 		if (urls[index]['name'] === '/') {
-			let copiedUrls = [...urls];
+			const copiedUrls = [...urls];
 			copiedUrls[index]['id'] = crypto.randomUUID();
 			setUrls(copiedUrls);
 		} else {
-			let nextUrls = [
+			const nextUrls = [
 				...urls.slice(0, index + 1),
 				{ name: '/', id: crypto.randomUUID() },
 			];

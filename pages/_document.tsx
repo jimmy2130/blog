@@ -9,7 +9,7 @@ import { ServerStyleSheet } from 'styled-components';
 import { COLORS } from '@/constants';
 
 function setColorsByTheme() {
-	let colors: string | typeof COLORS = '🌈';
+	const colors: string | typeof COLORS = '🌈';
 
 	const mql = window.matchMedia('(prefers-color-scheme: dark)');
 	const prefersDarkFromMQ = mql.matches;
@@ -31,7 +31,7 @@ function setColorsByTheme() {
 		return;
 	}
 
-	let root = document.documentElement;
+	const root = document.documentElement;
 	root.style.setProperty('--initial-color-mode', colorMode);
 	const colorEntries = Object.entries(colors[colorMode]['color']);
 	const syntaxEntries = Object.entries(colors[colorMode]['syntax']);
@@ -58,7 +58,7 @@ const MagicScriptTag = () => {
 		JSON.stringify(COLORS),
 	);
 	// Wrap it in an IIFE
-	let codeToRunOnClient = `(${functionString})()`;
+	const codeToRunOnClient = `(${functionString})()`;
 	// eslint-disable-next-line react/no-danger
 	return <script dangerouslySetInnerHTML={{ __html: codeToRunOnClient }} />;
 };

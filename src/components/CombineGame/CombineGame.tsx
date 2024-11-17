@@ -179,7 +179,7 @@ function CombineGame({
 			setTime(time - 1);
 		}
 
-		let timeoutId = window.setTimeout(handleTimeout, 1000);
+		const timeoutId = window.setTimeout(handleTimeout, 1000);
 
 		return () => {
 			window.clearTimeout(timeoutId);
@@ -198,7 +198,7 @@ function CombineGame({
 			}
 		}
 
-		let timeoutId = window.setTimeout(handleTimeout, 1000);
+		const timeoutId = window.setTimeout(handleTimeout, 1000);
 
 		return () => {
 			window.clearTimeout(timeoutId);

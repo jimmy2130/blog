@@ -1,6 +1,17 @@
 import React from 'react';
 import { COLORS } from '@/constants';
-export const ThemeContext = React.createContext({});
+
+type ColorMode = 'light' | 'dark';
+
+type ContextProps = {
+	colorMode: string;
+	setColorMode: (colorMode: ColorMode) => void;
+};
+
+export const ThemeContext = React.createContext<ContextProps>({
+	colorMode: '',
+	setColorMode: () => {},
+});
 
 function ThemeProvider({ children }: { children: React.ReactNode }) {
 	const [colorMode, rawSetColorMode] = React.useState('');
@@ -13,7 +24,7 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
 		rawSetColorMode(initialColorValue);
 	}, []);
 
-	function setColorMode(newValue: 'dark' | 'light') {
+	function setColorMode(newValue: ColorMode) {
 		const root = window.document.documentElement;
 		// 1. Update React color-mode state
 		rawSetColorMode(newValue);

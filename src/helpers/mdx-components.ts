@@ -41,7 +41,11 @@ import {
 	AdvancedDemo,
 } from '@/components/CombineGame';
 
-const COMPONENT_MAP = {
+type ComponentsType = {
+	[key: string]: React.ComponentType<any>;
+};
+
+const COMPONENT_MAP: ComponentsType = {
 	h2: H2,
 	h3: H3,
 	em: Em,

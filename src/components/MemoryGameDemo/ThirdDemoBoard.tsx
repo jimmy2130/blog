@@ -54,7 +54,7 @@ function ThirdDemoBoard({ mode, isExpanded, time }: Props) {
 				<Title>正常模式</Title>
 				<NormalTimer>
 					{convertedTime.map(({ id, digit }) => {
-						let Digit = DIGITS[digit];
+						const Digit = DIGITS[digit];
 						return <Digit key={id} />;
 					})}
 				</NormalTimer>
@@ -68,7 +68,7 @@ function ThirdDemoBoard({ mode, isExpanded, time }: Props) {
 				<Title>Absolute模式</Title>
 				<AbsoluteTimer>
 					{convertedTime.map(({ id, digit }) => {
-						let Digit = DIGITS[digit];
+						const Digit = DIGITS[digit];
 						return (
 							<DigitWrapper
 								key={id}

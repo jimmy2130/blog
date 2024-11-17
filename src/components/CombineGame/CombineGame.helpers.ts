@@ -252,7 +252,7 @@ export function getDateAndTime() {
 }
 
 function getEveryPossibleAnswer(input: number[]) {
-	let ans: string[] = [];
+	const ans: string[] = [];
 	dfs2(input, 0, [], ans, new Set());
 	return ans;
 }

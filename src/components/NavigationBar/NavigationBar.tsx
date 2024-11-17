@@ -3,7 +3,6 @@ import NextLink from 'next/link';
 import styled from 'styled-components';
 import VisuallyHidden from '@/components/VisuallyHidden';
 import UnstyledButton from '@/components/UnstyledButton';
-import ShiftBy from '@/components/ShiftBy';
 import MobileMenu from '@/components/MobileMenu';
 import { Menu } from 'react-feather';
 import { QUERIES } from '@/constants';

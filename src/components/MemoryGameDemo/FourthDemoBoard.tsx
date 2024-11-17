@@ -63,22 +63,22 @@ function FourthDemoBoard(
 		const map = getMap();
 		if (event.key === 'ArrowRight') {
 			if (!rightEdge.includes(id)) {
-				let node = map.get(id + 1);
+				const node = map.get(id + 1);
 				node.focus();
 			}
 		} else if (event.key === 'ArrowLeft') {
 			if (!leftEdge.includes(id)) {
-				let node = map.get(id - 1);
+				const node = map.get(id - 1);
 				node.focus();
 			}
 		} else if (event.key === 'ArrowDown') {
 			if (!bottomEdge.includes(id)) {
-				let node = map.get(id + SIZE);
+				const node = map.get(id + SIZE);
 				node.focus();
 			}
 		} else if (event.key === 'ArrowUp') {
 			if (!topEdge.includes(id)) {
-				let node = map.get(id - SIZE);
+				const node = map.get(id - SIZE);
 				node.focus();
 			}
 		}

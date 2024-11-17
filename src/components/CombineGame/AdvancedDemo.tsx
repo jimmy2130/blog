@@ -33,7 +33,6 @@ function AdvancedDemo({ questionNum = 5 }) {
 	const [guesses, setGuesses] = React.useState(Array(questionNum).fill(''));
 	const [shapeId, setShapeId] = React.useState('000');
 	const [questionIndex, setQuestionIndex] = React.useState(0);
-	const [revealCorrectAnswer, setRevealCorrectAnswer] = React.useState(false);
 
 	const { question, correctAnswer } = questions[questionIndex];
 
