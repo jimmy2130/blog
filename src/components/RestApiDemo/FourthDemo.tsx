@@ -19,7 +19,7 @@ const cssDarkVariables = [
 ];
 
 function FourthDemo() {
-	const [colorMode, setColorMode] = React.useState('light');
+	const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('light');
 	const variables =
 		colorMode === 'light' ? cssLightVariables : cssDarkVariables;
 	function handleClick(event: React.PointerEvent<HTMLButtonElement>) {
